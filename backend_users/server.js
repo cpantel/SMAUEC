@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 
-if (false) {
+if (true) {
   db.sequelize.sync();
 } else {
 // force: true will drop the table if it already exists
@@ -32,7 +32,7 @@ if (false) {
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to smauec application." });
+  res.json({ message: "Welcome to smauec user and authentication application." });
 });
 
 // routes
