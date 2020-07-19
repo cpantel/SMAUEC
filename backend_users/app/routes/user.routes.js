@@ -24,4 +24,3 @@ module.exports = function(app) {
     controller.adminBoard
   );
 };
-

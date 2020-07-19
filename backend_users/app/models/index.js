@@ -9,6 +9,7 @@ const sequelize = new Sequelize(
     host: config.HOST,
     dialect: config.dialect,
     operatorsAliases: false
+
   }
 );
 
@@ -34,4 +35,3 @@ db.user.belongsToMany(db.role, {
 db.ROLES = ["user", "admin"];
 
 module.exports = db;
-

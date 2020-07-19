@@ -1,9 +1,8 @@
-// TODO: add salt and pepper
-
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
 const Role = db.role;
+
 const Op = db.Sequelize.Op;
 
 var jwt = require("jsonwebtoken");
@@ -11,11 +10,9 @@ var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
   // Save User to Database
-  console.log("signup username : " + req.body.username);
-  return;
-
   User.create({
     username: req.body.username,
+    email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
   })
     .then(user => {
@@ -28,13 +25,13 @@ exports.signup = (req, res) => {
           }
         }).then(roles => {
           user.setRoles(roles).then(() => {
-            res.send({ message: "User was registered successfully!" });
+            res.send({ message: "User registered successfully!" });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
-          res.send({ message: "User was registered successfully!" });
+          res.send({ message: "User registered successfully!" });
         });
       }
     })
@@ -46,7 +43,7 @@ exports.signup = (req, res) => {
 exports.signin = (req, res) => {
   User.findOne({
     where: {
-        username: req.body.username
+      username: req.body.username
     }
   })
     .then(user => {
@@ -88,4 +85,3 @@ exports.signin = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
-

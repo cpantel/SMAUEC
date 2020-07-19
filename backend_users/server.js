@@ -1,14 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-//const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 
-//var corsOptions = {
-//  origin: "http://localhost:8081"
-//};
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
 
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -20,12 +20,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 
-db.sequelize.sync();
+if (false) {
+  db.sequelize.sync();
+} else {
 // force: true will drop the table if it already exists
-// db.sequelize.sync({force: true}).then(() => {
-//   console.log('Drop and Resync Database with { force: true }');
-//   initial();
-// });
+ db.sequelize.sync({force: true}).then(() => {
+   console.log('Drop and Resync Database with { force: true }');
+   initial();
+ });
+}
 
 // simple route
 app.get("/", (req, res) => {
@@ -47,7 +50,6 @@ function initial() {
     id: 1,
     name: "user"
   });
- 
 
   Role.create({
     id: 2,

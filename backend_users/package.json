@@ -1,7 +1,7 @@
 {
-  "name": "",
+  "name": "smauec_ua_backend",
   "version": "0.0.1",
-  "description": "nodejs image demo",
+  "description": "smauec user and authentication backend",
   "author": "Carlos Pantelides <carlos.pantelides@gmail.com>",
   "license": "MIT",
   "main": "server.js",
@@ -17,10 +17,11 @@
   "dependencies": {
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
+    "cors": "2.8.5",
     "express": "4.17.1",
     "jsonwebtoken": "8.5.1",
     "pg": "8.3.0",
     "pg-hstore": "2.3.3",
-    "sequelize": "6.3.3"
+    "sequelize": "5.21.3"
   }
 }
