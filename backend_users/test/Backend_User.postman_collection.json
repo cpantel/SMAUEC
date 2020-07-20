@@ -1,0 +1,577 @@
+{
+	"info": {
+		"_postman_id": "dde76bbe-ca01-4a7b-bf34-d61bc18cdd3b",
+		"name": "Backend User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Access User content with no Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e304ce4-2905-45b5-8a78-ddc0d3b914d7",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/test/user",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Access Public content",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d832435e-7eba-467a-8998-c38ec52675a6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "18c15352-a023-46ce-8fd3-499a5ceddd29",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/test/all",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"all"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Access Public content test",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{backend_user_base_url}}/api/test/all",
+							"host": [
+								"{{backend_user_base_url}}"
+							],
+							"path": [
+								"api",
+								"test",
+								"all"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:8081"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "x-access-token, Origin, Content-Type, Accept"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "33"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"21-O+xmB/8TQK4s5azxhuwm5XHw8hc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 19 Jul 2020 22:18:58 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "smauec_ua_backend Public Content."
+				}
+			]
+		},
+		{
+			"name": "Access User content with failed Auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "47a8b171-f565-4e61-947e-2b5e8a1e57e6",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6cc2668c-c990-469c-9ad3-baf7d2e50a41",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "no"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/test/user",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup as User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bade1126-ef84-4984-a3d0-1f84a74f9a6b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c205a986-36d2-442d-8ace-fec6838d1df0",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/auth/signup",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Signin as User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f3bc03e5-eaf5-4bf3-83d7-a20ad370b104",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "89d6cb52-3218-4c88-abe1-fb1c96a45b8b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/auth/signin",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Access User content with role user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "571c8db5-9551-4e4c-836d-4c5d1154e69a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/test/user",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Access Admin content with role user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "365d31da-1d90-49e9-b6e8-b80deadaea66",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/test/admin",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup as Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7511c251-5393-4945-a395-3d0ac0d71ccf",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "55a0dd67-22ec-4bcf-b536-60c67f397459",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"email\":\"admin@example.org\",\n    \"roles\":[\"user\",\"admin\"]\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/auth/signup",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Signin as Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab980d-a7c5-4219-8c6f-717fa10a223c",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9f63f4d-ce63-4d49-9ef3-727cee461b8d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/auth/signin",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Access Admin with role admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "821d5ad8-3f9f-45bd-9e27-1351af9f161a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/test/user",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"test",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "152b3d1a-63c5-4bdd-b49f-642345fb7002",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8ed7f079-93b6-4350-9bc8-de007e0ca4ef",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "721d9060-e946-41b6-b041-e30560e980da",
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
