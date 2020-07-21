@@ -336,8 +336,6 @@
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
-							"",
-							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
 							""
 						],
 						"type": "text/javascript"
@@ -379,6 +377,26 @@
 					"script": {
 						"id": "b821a1d4-cd81-4eac-aaeb-5558d4b13ea4",
 						"exec": [
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							");",
+							"",
+							"",
 							""
 						],
 						"type": "text/javascript"
@@ -391,7 +409,24 @@
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
-							"});"
+							"});",
+							"/*",
+							"var user = 1;",
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/user/\" + user,",
+							"    method: 'DELETE',",
+							"    header: { \"Content-Type\":\"application/json\"},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							"});",
+							"*/",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -451,7 +486,8 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
+							"pm.environment.set(\"access_token\",undefined);",
+							"",
 							""
 						],
 						"type": "text/javascript"
@@ -493,7 +529,23 @@
 					"script": {
 						"id": "52c8ccc8-a727-43ad-b519-15516b3a39a6",
 						"exec": [
-							""
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"user\",",
+							"            password:\"user\"",
+							"        })",
+							"    }},",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							");"
 						],
 						"type": "text/javascript"
 					}
@@ -505,7 +557,9 @@
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
-							"});"
+							"});",
+							"",
+							"pm.environment.set(\"access_token\",undefined);"
 						],
 						"type": "text/javascript"
 					}
@@ -553,7 +607,34 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});"
+							"});",
+							"pm.environment.set(\"access_token\",undefined);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f4c3112e-841c-49af-ad49-b017d6aac74f",
+						"exec": [
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"user\",",
+							"            password:\"user\"",
+							"        })",
+							"    }},",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							");"
 						],
 						"type": "text/javascript"
 					}
@@ -592,7 +673,34 @@
 						"exec": [
 							"pm.test(\"Status code is 403\", function () {",
 							"    pm.response.to.have.status(403);",
-							"});"
+							"});",
+							"pm.environment.set(\"access_token\",undefined);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "373b97d4-5b30-446f-8fe4-2736cf03b541",
+						"exec": [
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"user\",",
+							"            password:\"user\"",
+							"        })",
+							"    }},",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							");"
 						],
 						"type": "text/javascript"
 					}
@@ -646,7 +754,7 @@
 	],
 	"variable": [
 		{
-			"id": "83474820-c743-4305-8424-87245e4ae1bf",
+			"id": "4d5918d5-f1fb-4b1e-a32f-5d83d0054a0f",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
