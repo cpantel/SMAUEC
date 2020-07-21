@@ -59,7 +59,7 @@ function initial() {
     name: "user"
   });
 
-
+  // TODO: take from configuration or generate password and publish it in log
   User.create({
     id: 0,
     username: "admin",
