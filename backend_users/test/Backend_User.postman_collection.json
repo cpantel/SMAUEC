@@ -207,7 +207,7 @@
 			"response": []
 		},
 		{
-			"name": "Signup as User",
+			"name": "Create User as nobody",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -224,9 +224,122 @@
 					"script": {
 						"id": "c205a986-36d2-442d-8ace-fec6838d1df0",
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
 							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/user/create",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"create"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Signin as inexistent User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "61baa46d-abb5-4efb-ad5a-9751ddc1c369",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2054feca-2c50-4449-971c-71bab4f24fb5",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/auth/signin",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin as Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4bab980d-a7c5-4219-8c6f-717fa10a223c",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9f63f4d-ce63-4d49-9ef3-727cee461b8d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -243,17 +356,75 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
+					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signup",
+					"raw": "{{backend_user_base_url}}/api/auth/signin",
 					"host": [
 						"{{backend_user_base_url}}"
 					],
 					"path": [
 						"api",
 						"auth",
-						"signup"
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User as Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b821a1d4-cd81-4eac-aaeb-5558d4b13ea4",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "be92db8e-d1be-43e1-bd16-314995b19b95",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/user/create",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"create"
 					]
 				},
 				"description": "signup "
@@ -313,6 +484,65 @@
 						"signin"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User as User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "52c8ccc8-a727-43ad-b519-15516b3a39a6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e97c20dc-3882-4388-b3cc-7d48ed2d55c0",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "x-access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
+				},
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/auth/signup",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				},
+				"description": "signup "
 			},
 			"response": []
 		},
@@ -393,101 +623,6 @@
 				}
 			},
 			"response": []
-		},
-		{
-			"name": "Signin as Admin",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "4bab980d-a7c5-4219-8c6f-717fa10a223c",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "c9f63f4d-ce63-4d49-9ef3-727cee461b8d",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n}"
-				},
-				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signin",
-					"host": [
-						"{{backend_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"auth",
-						"signin"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Access Admin with role admin",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "821d5ad8-3f9f-45bd-9e27-1351af9f161a",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"type": "text",
-						"value": "{{access_token}}"
-					}
-				],
-				"url": {
-					"raw": "{{backend_user_base_url}}/api/test/user",
-					"host": [
-						"{{backend_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"test",
-						"user"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"event": [
@@ -514,7 +649,7 @@
 	],
 	"variable": [
 		{
-			"id": "e9fe06d8-4213-4f3f-8f85-26bc182e2779",
+			"id": "7023b256-57e2-43ea-a0a4-9b5fba0b796d",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
