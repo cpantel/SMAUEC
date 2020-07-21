@@ -12,7 +12,7 @@ module.exports = function(app) {
 
 
   app.post(
-    "/api/user/create",
+    "/api/user",
     [
       authJwt.verifyToken,
       authJwt.isAdmin,

@@ -246,14 +246,13 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user/create",
+					"raw": "{{backend_user_base_url}}/api/user",
 					"host": [
 						"{{backend_user_base_url}}"
 					],
 					"path": [
 						"api",
-						"user",
-						"create"
+						"user"
 					]
 				},
 				"description": "signup "
@@ -417,14 +416,13 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user/create",
+					"raw": "{{backend_user_base_url}}/api/user",
 					"host": [
 						"{{backend_user_base_url}}"
 					],
 					"path": [
 						"api",
-						"user",
-						"create"
+						"user"
 					]
 				},
 				"description": "signup "
@@ -532,14 +530,13 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user/create",
+					"raw": "{{backend_user_base_url}}/api/user",
 					"host": [
 						"{{backend_user_base_url}}"
 					],
 					"path": [
 						"api",
-						"user",
-						"create"
+						"user"
 					]
 				},
 				"description": "signup "
@@ -649,7 +646,7 @@
 	],
 	"variable": [
 		{
-			"id": "7b6840b6-820b-4d48-a4fb-b4911454a5db",
+			"id": "83474820-c743-4305-8424-87245e4ae1bf",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
