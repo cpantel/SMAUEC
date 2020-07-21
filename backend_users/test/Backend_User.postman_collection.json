@@ -532,14 +532,14 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signup",
+					"raw": "{{backend_user_base_url}}/api/user/create",
 					"host": [
 						"{{backend_user_base_url}}"
 					],
 					"path": [
 						"api",
-						"auth",
-						"signup"
+						"user",
+						"create"
 					]
 				},
 				"description": "signup "
@@ -649,7 +649,7 @@
 	],
 	"variable": [
 		{
-			"id": "7023b256-57e2-43ea-a0a4-9b5fba0b796d",
+			"id": "7b6840b6-820b-4d48-a4fb-b4911454a5db",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}

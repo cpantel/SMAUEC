@@ -10,17 +10,5 @@ module.exports = function(app) {
     next();
   });
 
-  app.post(
-    "/api/auth/signup",
-    [
-      authJwt.verifyToken,
-      authJwt.isAdmin,
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted,
-
-    ],
-    controller.signup
-  );
-
   app.post("/api/auth/signin", controller.signin);
 };

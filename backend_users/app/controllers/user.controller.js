@@ -18,22 +18,17 @@ exports.adminBoard = (req, res) => {
 const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
-
-// Create and Save a new User
-
-//const User = db.user;
 const Role = db.role;
-
-
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+// Create and Save a new User
 exports.create = (req, res) => {
   // Save User to Database
   User.create({
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)   // TODO: add salt and pepper
+    password: bcrypt.hashSync(req.body.password, 8)   // TODO: move to middleware
   })
     .then(user => {
       if (req.body.roles) {
