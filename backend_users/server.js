@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 const Role = db.role;
+const User = db.user;
+
+var bcrypt = require("bcryptjs");
 
 if (false) {
   db.sequelize.sync();
@@ -47,12 +50,22 @@ app.listen(PORT, () => {
 
 function initial() {
   Role.create({
+    id: 0,
+    name: "admin"
+  });
+
+  Role.create({
     id: 1,
     name: "user"
   });
 
-  Role.create({
-    id: 2,
-    name: "admin"
+
+  User.create({
+    id: 0,
+    username: "admin",
+    email: "admin@samauec.org",
+    password: bcrypt.hashSync("admin", 8)
+  }).then(user => {
+          user.setRoles([0, 1])
   });
 }

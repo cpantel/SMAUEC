@@ -395,60 +395,6 @@
 			"response": []
 		},
 		{
-			"name": "Signup as Admin",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "7511c251-5393-4945-a395-3d0ac0d71ccf",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "55a0dd67-22ec-4bcf-b536-60c67f397459",
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"})"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\",\n    \"email\":\"admin@example.org\",\n    \"roles\":[\"user\",\"admin\"]\n}"
-				},
-				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signup",
-					"host": [
-						"{{backend_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"auth",
-						"signup"
-					]
-				},
-				"description": "signup "
-			},
-			"response": []
-		},
-		{
 			"name": "Signin as Admin",
 			"event": [
 				{
@@ -568,7 +514,7 @@
 	],
 	"variable": [
 		{
-			"id": "721d9060-e946-41b6-b041-e30560e980da",
+			"id": "e9fe06d8-4213-4f3f-8f85-26bc182e2779",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
