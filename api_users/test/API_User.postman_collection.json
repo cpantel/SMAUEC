@@ -296,6 +296,252 @@
 			"response": []
 		},
 		{
+			"name": "Get User Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "24d7be94-37f5-491d-b980-79fda251d1c2",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
+							"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
+							"    }",
+							");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e10fe10-13c5-460b-9da6-572722c4cd38",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expected = {",
+							"    \"id\": 1,",
+							"    \"username\": \"admin\",",
+							"    \"email\": \"admin@samauec.org\",",
+							"    \"roles\": [",
+							"            \"admin\",",
+							"            \"user\"",
+							"        ]",
+							"}",
+							"",
+							"pm.test(\"Content is an user and its roles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql(expected);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"/*",
+							"var url = pm.environment.get(\"api_user_base_url\") + \"/api/users/\" + pm.environment.get(\"user_id\");",
+							"",
+							"var header =  {",
+							"    \"Content-Type\":\"application/json\",",
+							"    \"x-access-token\":pm.environment.get(\"access_token\")",
+							"}",
+							"pm.sendRequest({",
+							"    url: url ,",
+							"    method: 'DELETE',",
+							"    header: header,",
+							"}, function (err, response) {",
+							"    ",
+							"});  ",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{api_user_base_url}}/api/users/{{user_id}}",
+					"host": [
+						"{{api_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Get an User ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3d069b7b-ee15-4135-baf5-93155dad872d",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] ); ",
+							"    ",
+							"        var header =  {",
+							"            \"Content-Type\":\"application/json\",",
+							"            \"x-access-token\":pm.environment.get(\"access_token\")",
+							"            }",
+							"        pm.sendRequest({",
+							"            url: url + \"/api/users/\",",
+							"            method: 'POST',",
+							"            header: header,",
+							"            body:{",
+							"                mode: \"raw\",",
+							"                raw: JSON.stringify({",
+							"                    username:\"user\",",
+							"                    password:\"user\",",
+							"                    email:\"user@example.org\"",
+							"                })",
+							"            }},",
+							"",
+							"            function (err, response) {",
+							"                pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"            }",
+							"        );",
+							"    }",
+							");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "815c4c65-e672-4b10-9adc-e842de4b1abe",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expected = {",
+							"    \"id\": pm.environment.get(\"user_id\"),",
+							"    \"username\": \"user\",",
+							"    \"email\": \"user@example.org\",",
+							"    \"roles\": [",
+							"        \"user\"",
+							"    ]",
+							"    ",
+							"}",
+							"",
+							"pm.test(\"Content is an user and its roles\", function () {",
+							"    pm.expect(pm.response.json()).to.eql(expected);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"var url = pm.environment.get(\"api_user_base_url\") + \"/api/users/\" + pm.environment.get(\"user_id\");",
+							"",
+							"var header =  {",
+							"    \"Content-Type\":\"application/json\",",
+							"    \"x-access-token\":pm.environment.get(\"access_token\")",
+							"}",
+							"pm.sendRequest({",
+							"    url: url ,",
+							"    method: 'DELETE',",
+							"    header: header,",
+							"}, function (err, response) {",
+							"    ",
+							"});  ",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{api_user_base_url}}/api/users/{{user_id}}",
+					"host": [
+						"{{api_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
 			"name": "Create User as Admin",
 			"event": [
 				{
@@ -973,7 +1219,7 @@
 	],
 	"variable": [
 		{
-			"id": "0cd6d166-e57c-447c-8c96-676277eb7dc7",
+			"id": "3d11c092-ea31-4be4-a138-82c04d22b026",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}

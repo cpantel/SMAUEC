@@ -23,9 +23,26 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.get = (req, res) => {
-  return res.status(200).send("showing " + req.params.userId);
-//   User.findById(req.params.userId
-}
+  User.findByPk(req.params.userId  ).then(user => {
+
+    user.getRoles().then(roles => {
+
+      var roleNames = roles.map( role => { return role.name });
+
+      res.status(200).send(
+         {
+            "id": user.id,
+            "username": user.username,
+            "email" : user.email,
+            "roles": roleNames
+         }
+      );
+    });
+  }).catch(err => {
+    return res.status(403).send("User not found");
+  }
+)};
+
 
 
 exports.delete = (req, res) => {

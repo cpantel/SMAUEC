@@ -23,10 +23,11 @@ module.exports = function(app) {
     "/api/users/:userId",
     [
       authJwt.verifyToken,
-      authJwt.isAdmin,
     ],
     controller.get
   );
+
+
 
 
   app.post(
