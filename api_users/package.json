@@ -1,13 +1,13 @@
 {
-  "name": "smauec_ua_backend",
+  "name": "smauec_ua_api",
   "version": "0.0.1",
-  "description": "smauec user and authentication backend",
+  "description": "SMAUEC User and Authentication API",
   "author": "Carlos Pantelides <carlos.pantelides@gmail.com>",
   "license": "MIT",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "newman run test/Backend_User.postman_collection.json -e test/backend.postman_environment.json"
+    "test": "newman run test/API_User.postman_collection.json -e test/api.postman_environment.json"
   },
   "keywords": [
     "nodejs",

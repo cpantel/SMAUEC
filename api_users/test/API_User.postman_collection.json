@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "dde76bbe-ca01-4a7b-bf34-d61bc18cdd3b",
-		"name": "Backend User",
+		"name": "API User",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -26,9 +26,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/test/user",
+					"raw": "{{api_user_base_url}}/api/test/user",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -68,17 +68,11 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{access_token}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/test/all",
+					"raw": "{{api_user_base_url}}/api/test/all",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -193,9 +187,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/test/user",
+					"raw": "{{api_user_base_url}}/api/test/user",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -246,9 +240,9 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user",
+					"raw": "{{api_user_base_url}}/api/user",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -302,9 +296,9 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signin",
+					"raw": "{{api_user_base_url}}/api/auth/signin",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -356,9 +350,9 @@
 					"raw": "{\n    \"username\":\"admin\",\n    \"password\":\"admin\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signin",
+					"raw": "{{api_user_base_url}}/api/auth/signin",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -377,7 +371,7 @@
 					"script": {
 						"id": "b821a1d4-cd81-4eac-aaeb-5558d4b13ea4",
 						"exec": [
-							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"var url = pm.environment.get(\"api_user_base_url\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -410,20 +404,20 @@
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
 							"});",
-							"/*",
-							"var user = 1; //get from just created user",
-							"var url = pm.environment.get(\"backend_user_base_url\");",
 							"",
+							"   ",
+							"var header =  {",
+							"    \"Content-Type\":\"application/json\",",
+							"    \"x-access-token\":pm.environment.get(\"access_token\")",
+							"}",
 							"pm.sendRequest({",
-							"    url: url + \"/api/user/\" + user,",
+							"    url: url + \"/api/user/2\",",
 							"    method: 'DELETE',",
-							"    header: { \"Content-Type\":\"application/json\"},",
-							"     ",
-							"    function (err, response) {",
-							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
-							"    }",
-							"});",
-							"*/",
+							"    header: header,",
+							"}, function (err, response) {",
+							"    pm.environment.set(\"user_id\",response.json()[\"id\"]);  //not working",
+							"});            ",
+							"",
 							"",
 							"pm.environment.set(\"access_token\",undefined);",
 							""
@@ -451,9 +445,9 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user",
+					"raw": "{{api_user_base_url}}/api/user",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -472,7 +466,7 @@
 					"script": {
 						"id": "01d41b6e-a06a-4090-a9d5-ea8e8b442f26",
 						"exec": [
-							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"var url = pm.environment.get(\"api_user_base_url\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -565,9 +559,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user/{{user_id}}",
+					"raw": "{{api_user_base_url}}/api/user/{{user_id}}",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -587,7 +581,7 @@
 					"script": {
 						"id": "88a10623-f4b3-4a5d-992c-833f513fb38a",
 						"exec": [
-							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"var url = pm.environment.get(\"api_user_base_url\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -659,9 +653,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user/{{user_id}}",
+					"raw": "{{api_user_base_url}}/api/user/{{user_id}}",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -716,9 +710,9 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/auth/signin",
+					"raw": "{{api_user_base_url}}/api/auth/signin",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -737,7 +731,7 @@
 					"script": {
 						"id": "52c8ccc8-a727-43ad-b519-15516b3a39a6",
 						"exec": [
-							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"var url = pm.environment.get(\"api_user_base_url\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -792,9 +786,9 @@
 					"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
 				},
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/user",
+					"raw": "{{api_user_base_url}}/api/user",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -826,7 +820,7 @@
 					"script": {
 						"id": "f4c3112e-841c-49af-ad49-b017d6aac74f",
 						"exec": [
-							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"var url = pm.environment.get(\"api_user_base_url\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -858,9 +852,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/test/user",
+					"raw": "{{api_user_base_url}}/api/test/user",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -892,7 +886,7 @@
 					"script": {
 						"id": "373b97d4-5b30-446f-8fe4-2736cf03b541",
 						"exec": [
-							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"var url = pm.environment.get(\"api_user_base_url\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -924,9 +918,9 @@
 					}
 				],
 				"url": {
-					"raw": "{{backend_user_base_url}}/api/test/admin",
+					"raw": "{{api_user_base_url}}/api/test/admin",
 					"host": [
-						"{{backend_user_base_url}}"
+						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
@@ -962,7 +956,7 @@
 	],
 	"variable": [
 		{
-			"id": "087ddb0c-1785-4dd3-8a6e-e7b2602f3c70",
+			"id": "c79390a7-ed4f-49b6-a1e3-e6fb59795805",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
