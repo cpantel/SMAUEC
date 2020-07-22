@@ -411,7 +411,7 @@
 							"    pm.response.to.have.status(201);",
 							"});",
 							"/*",
-							"var user = 1;",
+							"var user = 1; //get from just created user",
 							"var url = pm.environment.get(\"backend_user_base_url\");",
 							"",
 							"pm.sendRequest({",
@@ -461,6 +461,214 @@
 					]
 				},
 				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User as Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "01d41b6e-a06a-4090-a9d5-ea8e8b442f26",
+						"exec": [
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] ); ",
+							"    ",
+							"        var header =  {",
+							"            \"Content-Type\":\"application/json\",",
+							"            \"x-access-token\":pm.environment.get(\"access_token\")",
+							"            }",
+							"        pm.sendRequest({",
+							"            url: url + \"/api/user/\",",
+							"            method: 'POST',",
+							"            header: header,",
+							"            body:{",
+							"                mode: \"raw\",",
+							"                raw: JSON.stringify({",
+							"                    username:\"user\",",
+							"                    password:\"user\",",
+							"                    email:\"user@example.org\"",
+							"                })",
+							"            }},",
+							"",
+							"            function (err, response) {",
+							"                pm.environment.set(\"user_id\",response.json()[\"id\"]);  //not working",
+							"            }",
+							"        );",
+							"    }",
+							");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3be686c-29a7-4460-b930-6e72e7853db9",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"/*",
+							"var user = 1;",
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/user/\" + user,",
+							"    method: 'DELETE',",
+							"    header: { \"Content-Type\":\"application/json\"},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							"});",
+							"*/",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/user/{{user_id}}",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{user_id}}"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User as User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "88a10623-f4b3-4a5d-992c-833f513fb38a",
+						"exec": [
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"user\",",
+							"            password:\"user\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] ); ",
+							"    ",
+							"    }",
+							");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "45eb6715-a2d3-4b9b-904b-3a51a3b7472e",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							"/*",
+							"var user = 1;",
+							"var url = pm.environment.get(\"backend_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/user/\" + user,",
+							"    method: 'DELETE',",
+							"    header: { \"Content-Type\":\"application/json\"},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
+							"    }",
+							"});",
+							"*/",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{backend_user_base_url}}/api/user/{{user_id}}",
+					"host": [
+						"{{backend_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{user_id}}"
+					]
+				}
 			},
 			"response": []
 		},
@@ -754,7 +962,7 @@
 	],
 	"variable": [
 		{
-			"id": "4d5918d5-f1fb-4b1e-a32f-5d83d0054a0f",
+			"id": "087ddb0c-1785-4dd3-8a6e-e7b2602f3c70",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}

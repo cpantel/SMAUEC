@@ -22,6 +22,25 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+exports.get = (req, res) => {
+  return res.status(200).send("showing " + req.params.userId);
+//   User.findById(req.params.userId
+}
+
+
+exports.delete = (req, res) => {
+  console.log ("DELETE called");
+  User.destroy(
+    {where: {id: req.params.userId}}
+  ).then( num=> {
+     if (1 == num) {
+        res.status(201).send({message:"User deleted"})
+     } else { 
+      res.status(401).send({message:"User not found"})
+     }}
+  );
+}
+
 // Create and Save a new User
 exports.create = (req, res) => {
   // Save User to Database
@@ -40,13 +59,13 @@ exports.create = (req, res) => {
           }
         }).then(roles => {
           user.setRoles(roles).then(() => {
-            res.status(201).send({ message: "User registered successfully!" });
+            res.status(201).send({ message: "User registered successfully!", id:user.id });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
-          res.status(201).send({ message: "User registered successfully!" });
+          res.status(201).send({ message: "User registered successfully!", id:user.id });
         });
       }
     })
@@ -68,11 +87,6 @@ exports.findOne = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-  
-};
-
-// Delete a User with the specified id in the request
-exports.delete = (req, res) => {
   
 };
 

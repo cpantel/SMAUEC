@@ -10,6 +10,24 @@ module.exports = function(app) {
     next();
   });
 
+  app.delete(
+    "/api/user/:userId",
+    [
+      authJwt.verifyToken,
+      authJwt.isAdmin,
+    ],
+    controller.delete
+  );
+
+  app.get(
+    "/api/user/:userId",
+    [
+      authJwt.verifyToken,
+      authJwt.isAdmin,
+    ],
+    controller.get
+  );
+
 
   app.post(
     "/api/user",
