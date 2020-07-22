@@ -11,7 +11,7 @@ module.exports = function(app) {
   });
 
   app.delete(
-    "/api/user/:userId",
+    "/api/users/:userId",
     [
       authJwt.verifyToken,
       authJwt.isAdmin,
@@ -20,7 +20,7 @@ module.exports = function(app) {
   );
 
   app.get(
-    "/api/user/:userId",
+    "/api/users/:userId",
     [
       authJwt.verifyToken,
       authJwt.isAdmin,
@@ -30,7 +30,7 @@ module.exports = function(app) {
 
 
   app.post(
-    "/api/user",
+    "/api/users",
     [
       authJwt.verifyToken,
       authJwt.isAdmin,
