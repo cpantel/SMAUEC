@@ -6,133 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "Access User content with no Auth",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "0e304ce4-2905-45b5-8a78-ddc0d3b914d7",
-						"exec": [
-							"pm.test(\"Status code is 403\", function () {",
-							"    pm.response.to.have.status(403);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{api_user_base_url}}/api/test/user",
-					"host": [
-						"{{api_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"test",
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Access Public content",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "d832435e-7eba-467a-8998-c38ec52675a6",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "18c15352-a023-46ce-8fd3-499a5ceddd29",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{api_user_base_url}}/api/test/all",
-					"host": [
-						"{{api_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"test",
-						"all"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Access User content with failed Auth",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "47a8b171-f565-4e61-947e-2b5e8a1e57e6",
-						"exec": [
-							"pm.test(\"Status code is 401\", function () {",
-							"    pm.response.to.have.status(401);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "6cc2668c-c990-469c-9ad3-baf7d2e50a41",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"type": "text",
-						"value": "no"
-					}
-				],
-				"url": {
-					"raw": "{{api_user_base_url}}/api/test/user",
-					"host": [
-						"{{api_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"test",
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Create User as nobody",
 			"event": [
 				{
@@ -711,27 +584,6 @@
 							"    function (err, response) {",
 							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] ); ",
 							"    ",
-							"        var header =  {",
-							"            \"Content-Type\":\"application/json\",",
-							"            \"x-access-token\":pm.environment.get(\"access_token\")",
-							"            }",
-							"        pm.sendRequest({",
-							"            url: url + \"/api/users/\",",
-							"            method: 'POST',",
-							"            header: header,",
-							"            body:{",
-							"                mode: \"raw\",",
-							"                raw: JSON.stringify({",
-							"                    username:\"user\",",
-							"                    password:\"user\",",
-							"                    email:\"user@example.org\"",
-							"                })",
-							"            }},",
-							"",
-							"            function (err, response) {",
-							"                pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-							"            }",
-							"        );",
 							"    }",
 							");",
 							"",
@@ -746,8 +598,8 @@
 					"script": {
 						"id": "de57072e-dc9c-45cd-bcaf-16e705a993f4",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
 							"});",
 							"",
 							"var expected = {",
@@ -759,28 +611,6 @@
 							"    ]",
 							"    ",
 							"}",
-							"",
-							"pm.test(\"Content is an user and its roles\", function () {",
-							"    pm.expect(pm.response.json()).to.eql(expected);",
-							"});",
-							"",
-							"",
-							"",
-							"",
-							"",
-							"var url = pm.environment.get(\"api_user_base_url\") + \"/api/users/\" + pm.environment.get(\"user_id\");",
-							"",
-							"var header =  {",
-							"    \"Content-Type\":\"application/json\",",
-							"    \"x-access-token\":pm.environment.get(\"access_token\")",
-							"}",
-							"pm.sendRequest({",
-							"    url: url ,",
-							"    method: 'DELETE',",
-							"    header: header,",
-							"}, function (err, response) {",
-							"    ",
-							"});  ",
 							"",
 							"pm.environment.set(\"access_token\",undefined);",
 							""
@@ -805,14 +635,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{api_user_base_url}}/api/users/{{user_id}}",
+					"raw": "{{api_user_base_url}}/api/users/2",
 					"host": [
 						"{{api_user_base_url}}"
 					],
 					"path": [
 						"api",
 						"users",
-						"{{user_id}}"
+						"2"
 					]
 				},
 				"description": "signup "
@@ -1339,138 +1169,6 @@
 				"description": "signup "
 			},
 			"response": []
-		},
-		{
-			"name": "Access User content with role user",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "571c8db5-9551-4e4c-836d-4c5d1154e69a",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"pm.environment.set(\"access_token\",undefined);"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "f4c3112e-841c-49af-ad49-b017d6aac74f",
-						"exec": [
-							"var url = pm.environment.get(\"api_user_base_url\");",
-							"",
-							"pm.sendRequest({",
-							"    url: url + \"/api/auth/signin\" ,",
-							"    method: 'POST',",
-							"    header: { \"Content-Type\":\"application/json\"} ,",
-							"    body:{",
-							"        mode: \"raw\",",
-							"        raw: JSON.stringify({",
-							"            username:\"user\",",
-							"            password:\"user\"",
-							"        })",
-							"    }},",
-							"    function (err, response) {",
-							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
-							"    }",
-							");"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"value": "{{access_token}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{api_user_base_url}}/api/test/user",
-					"host": [
-						"{{api_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"test",
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Access Admin content with role user",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "365d31da-1d90-49e9-b6e8-b80deadaea66",
-						"exec": [
-							"pm.test(\"Status code is 403\", function () {",
-							"    pm.response.to.have.status(403);",
-							"});",
-							"pm.environment.set(\"access_token\",undefined);"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "373b97d4-5b30-446f-8fe4-2736cf03b541",
-						"exec": [
-							"var url = pm.environment.get(\"api_user_base_url\");",
-							"",
-							"pm.sendRequest({",
-							"    url: url + \"/api/auth/signin\" ,",
-							"    method: 'POST',",
-							"    header: { \"Content-Type\":\"application/json\"} ,",
-							"    body:{",
-							"        mode: \"raw\",",
-							"        raw: JSON.stringify({",
-							"            username:\"user\",",
-							"            password:\"user\"",
-							"        })",
-							"    }},",
-							"    function (err, response) {",
-							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );        ",
-							"    }",
-							");"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-access-token",
-						"type": "text",
-						"value": "{{access_token}}"
-					}
-				],
-				"url": {
-					"raw": "{{api_user_base_url}}/api/test/admin",
-					"host": [
-						"{{api_user_base_url}}"
-					],
-					"path": [
-						"api",
-						"test",
-						"admin"
-					]
-				}
-			},
-			"response": []
 		}
 	],
 	"event": [
@@ -1497,7 +1195,7 @@
 	],
 	"variable": [
 		{
-			"id": "421d831f-ee6a-457e-88d1-81573b483e97",
+			"id": "a54af40b-3153-45d3-a6a9-1e695ed467a3",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}

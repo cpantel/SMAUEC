@@ -1,20 +1,3 @@
-exports.allAccess = (req, res) => {
-  console.log("user controller all access");
-  res.status(200).send(process.env.npm_package_name + " Public Content.");
-};
-
-exports.userBoard = (req, res) => {
-  console.log("user controller user access");
-  res.status(200).send(process.env.npm_package_name + " User Content.");
-};
-
-exports.adminBoard = (req, res) => {
-  console.log("user controller admin access");
-  res.status(200).send(process.env.npm_package_name + " Admin Content.");
-};
-
-
-
 const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
