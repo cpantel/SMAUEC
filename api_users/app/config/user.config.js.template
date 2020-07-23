@@ -1,0 +1,4 @@
+module.exports = {
+  ADMIN_username: "some username",
+  ADMIN_PASSWORD: "some password"
+};

@@ -6,7 +6,8 @@
   "license": "MIT",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start:test": "NODE_ENV=test nodemon server.js",
+    "start:prod": "NODE_ENV=prod node server.js",
     "test": "newman run test/API_User.postman_collection.json -e test/api.postman_environment.json"
   },
   "keywords": [

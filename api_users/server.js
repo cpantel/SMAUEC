@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const config = require("./app/config/user.config." + process.env.NODE_ENV + ".js");
 const app = express();
 
 var corsOptions = {
@@ -23,14 +23,14 @@ const User = db.user;
 
 var bcrypt = require("bcryptjs");
 
-if (false) {
-  db.sequelize.sync();
+if ("test" == process.env.NODE_ENV) {
+  // force: true will drop the table if it already exists
+  db.sequelize.sync({force: true}).then(() => {
+    console.log('Drop and Resync Database with { force: true }');
+    initial();
+  });
 } else {
-// force: true will drop the table if it already exists
- db.sequelize.sync({force: true}).then(() => {
-   console.log('Drop and Resync Database with { force: true }');
-   initial();
- });
+  db.sequelize.sync();
 }
 
 // simple route
@@ -62,9 +62,9 @@ function initial() {
   // TODO: take from configuration or generate password and publish it in log
   User.create({
     id: 0,
-    username: "admin",
+    username: config.ADMIN_USERNAME,
     email: "admin@samauec.org",
-    password: bcrypt.hashSync("admin", 8)
+    password: bcrypt.hashSync(config.ADMIN_PASSWORD, 8)
   }).then(user => {
           user.setRoles([0, 1])
   });
