@@ -22,7 +22,8 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.get = (req, res) => {
+
+exports.findOne = (req, res) => {
   User.findByPk(req.params.userId  ).then(user => {
 
     user.getRoles().then(roles => {
@@ -43,7 +44,22 @@ exports.get = (req, res) => {
   }
 )};
 
+exports.findAll = (req, res) => {
 
+  User.findAll({
+    attributes: ['id', 'username','email'],
+    include: [{
+      model: Role,
+      attributes: ['id','name'],
+      through: {
+        attributes: []
+      }
+    }]
+  }
+
+  ).then(users => {
+    res.status(200).send(users);
+  })}
 
 exports.delete = (req, res) => {
   console.log ("DELETE called");
@@ -91,16 +107,6 @@ exports.create = (req, res) => {
     });
 };
 
-
-// Retrieve all Users from the database.
-exports.findAll = (req, res) => {
-  
-};
-
-// Find a single User with an id
-exports.findOne = (req, res) => {
-  
-};
 
 // Update a User by the id in the request
 exports.update = (req, res) => {

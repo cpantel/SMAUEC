@@ -24,10 +24,16 @@ module.exports = function(app) {
     [
       authJwt.verifyToken,
     ],
-    controller.get
+    controller.findOne
   );
 
-
+  app.get(
+    "/api/users",
+    [
+      authJwt.verifyToken,
+    ],
+    controller.findAll
+  );
 
 
   app.post(

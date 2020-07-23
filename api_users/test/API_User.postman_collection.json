@@ -542,6 +542,284 @@
 			"response": []
 		},
 		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ed198c8f-1f41-4916-8d34-ed7029acfb77",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] ); ",
+							"    ",
+							"        var header =  {",
+							"            \"Content-Type\":\"application/json\",",
+							"            \"x-access-token\":pm.environment.get(\"access_token\")",
+							"            }",
+							"        pm.sendRequest({",
+							"            url: url + \"/api/users/\",",
+							"            method: 'POST',",
+							"            header: header,",
+							"            body:{",
+							"                mode: \"raw\",",
+							"                raw: JSON.stringify({",
+							"                    username:\"user\",",
+							"                    password:\"user\",",
+							"                    email:\"user@example.org\"",
+							"                })",
+							"            }},",
+							"",
+							"            function (err, response) {",
+							"                pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"            }",
+							"        );",
+							"    }",
+							");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "51070613-f0dd-402f-921d-8d8d6182b49c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expected = [",
+							"    {",
+							"        \"id\": 1,",
+							"        \"username\": \"admin\",",
+							"        \"email\": \"admin@samauec.org\",",
+							"        \"roles\": [",
+							"            {\"id\":0, \"name\":\"admin\"},",
+							"            {\"id\":1, \"name\":\"user\"}",
+							"        ]",
+							"    },",
+							"    {",
+							"        \"id\": pm.environment.get(\"user_id\"),",
+							"        \"username\": \"user\",",
+							"        \"email\": \"user@example.org\",",
+							"        \"roles\": [",
+							"            {\"id\":1, \"name\":\"user\"}",
+							"        ]",
+							"    }",
+							"]",
+							"",
+							"",
+							"",
+							"pm.test(\"Content is an user and its roles\", function () {",
+							"    pm.expect(pm.response.json()).to.eql(expected);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"var url = pm.environment.get(\"api_user_base_url\") + \"/api/users/\" + pm.environment.get(\"user_id\");",
+							"",
+							"var header =  {",
+							"    \"Content-Type\":\"application/json\",",
+							"    \"x-access-token\":pm.environment.get(\"access_token\")",
+							"}",
+							"pm.sendRequest({",
+							"    url: url ,",
+							"    method: 'DELETE',",
+							"    header: header,",
+							"}, function (err, response) {",
+							"    ",
+							"});  ",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{api_user_base_url}}/api/users/",
+					"host": [
+						"{{api_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
+			"name": "Get non existent User",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "bd8d808e-eaf0-48fe-9640-b1e64a64d302",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] ); ",
+							"    ",
+							"        var header =  {",
+							"            \"Content-Type\":\"application/json\",",
+							"            \"x-access-token\":pm.environment.get(\"access_token\")",
+							"            }",
+							"        pm.sendRequest({",
+							"            url: url + \"/api/users/\",",
+							"            method: 'POST',",
+							"            header: header,",
+							"            body:{",
+							"                mode: \"raw\",",
+							"                raw: JSON.stringify({",
+							"                    username:\"user\",",
+							"                    password:\"user\",",
+							"                    email:\"user@example.org\"",
+							"                })",
+							"            }},",
+							"",
+							"            function (err, response) {",
+							"                pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"            }",
+							"        );",
+							"    }",
+							");",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "de57072e-dc9c-45cd-bcaf-16e705a993f4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expected = {",
+							"    \"id\": pm.environment.get(\"user_id\"),",
+							"    \"username\": \"user\",",
+							"    \"email\": \"user@example.org\",",
+							"    \"roles\": [",
+							"        \"user\"",
+							"    ]",
+							"    ",
+							"}",
+							"",
+							"pm.test(\"Content is an user and its roles\", function () {",
+							"    pm.expect(pm.response.json()).to.eql(expected);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"var url = pm.environment.get(\"api_user_base_url\") + \"/api/users/\" + pm.environment.get(\"user_id\");",
+							"",
+							"var header =  {",
+							"    \"Content-Type\":\"application/json\",",
+							"    \"x-access-token\":pm.environment.get(\"access_token\")",
+							"}",
+							"pm.sendRequest({",
+							"    url: url ,",
+							"    method: 'DELETE',",
+							"    header: header,",
+							"}, function (err, response) {",
+							"    ",
+							"});  ",
+							"",
+							"pm.environment.set(\"access_token\",undefined);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{api_user_base_url}}/api/users/{{user_id}}",
+					"host": [
+						"{{api_user_base_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"{{user_id}}"
+					]
+				},
+				"description": "signup "
+			},
+			"response": []
+		},
+		{
 			"name": "Create User as Admin",
 			"event": [
 				{
@@ -1219,7 +1497,7 @@
 	],
 	"variable": [
 		{
-			"id": "3d11c092-ea31-4be4-a138-82c04d22b026",
+			"id": "421d831f-ee6a-457e-88d1-81573b483e97",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
