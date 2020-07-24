@@ -2,7 +2,6 @@ const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
 const Role = db.role;
-var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 
@@ -93,16 +92,6 @@ exports.create = (req, res) => {
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
-  
-};
-
-// Delete all Users from the database.
-exports.deleteAll = (req, res) => {
-  
-};
-
-// Find all published Users
-exports.findAllPublished = (req, res) => {
   
 };
 
