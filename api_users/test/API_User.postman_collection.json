@@ -1047,7 +1047,7 @@
 						"id": "52c8ccc8-a727-43ad-b519-15516b3a39a6",
 						"exec": [
 							"var url = pm.environment.get(\"api_user_base_url\");",
-							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
@@ -1125,13 +1125,30 @@
 							"    \"x-access-token\":pm.environment.get(\"access_token\")",
 							"}",
 							"pm.sendRequest({",
-							"    url: url ,",
-							"    method: 'DELETE',",
-							"    header: header,",
-							"}, function (err, response) {",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.sendRequest({",
+							"            url: url ,",
+							"            method: 'DELETE',",
+							"            header: header,",
+							"        }, function (err, response) {",
+							"            pm.test(\"Status code is 403\", function () {",
+							"            pm.response.to.have.status(403);",
+							"            });",
+							"        });  ",
+							"    }",
+							");  ",
 							"    ",
-							"});  ",
-							"",
 							"pm.environment.set(\"access_token\",undefined);"
 						],
 						"type": "text/javascript"
@@ -1148,13 +1165,13 @@
 					},
 					{
 						"key": "x-access-token",
-						"value": "{{access_token}}",
-						"type": "text"
+						"type": "text",
+						"value": "{{access_token}}"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\":\"user2\",\n    \"password\":\"user\",\n    \"email\":\"user2rs@example.org\"\n}"
+					"raw": "{\n   \"username\":\"user2\",\n   \"password\":\"user2\",\n   \"email\":\"user2rc@example.org\"\n}"
 				},
 				"url": {
 					"raw": "{{api_user_base_url}}/api/users",
@@ -1195,7 +1212,7 @@
 	],
 	"variable": [
 		{
-			"id": "a54af40b-3153-45d3-a6a9-1e695ed467a3",
+			"id": "3db58bc6-c77f-4e36-b375-3e41d2a7c2af",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
