@@ -89,29 +89,5 @@ exports.update = (req, res) => {
   }).catch(err => {
     return res.status(500).send("Server error");
   })
-
-/*
-  Action.findByPk(req.body.id,
-    { attributes: {
-        exclude: ['createdAt', 'updatedAt']
-      }
-    } 
-  ).then(action => {
-    if (null == action) {
-      res.status(403).send("Action not found"); 
-    } else {
-      action.update(req.params).then( modified => {
-          res.status(201).send(modified);
-      })
-    }
-  }).catch(err => {
-    return res.status(500).send("Server error");
-  })
-*/
-};
-
-// Delete all Actions from the database.
-exports.deleteAll = (req, res) => {
-  
 };
 

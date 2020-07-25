@@ -1,4 +1,4 @@
-const { verifySignUp, authJwt } = require("../middleware");
+const { authJwt } = require("../middleware");
 const controller = require("../controllers/rule.controller");
 
 module.exports = function(app) {
@@ -39,9 +39,18 @@ module.exports = function(app) {
     "/api/rules",
     [
       authJwt.verifyToken
-
     ],
     controller.create
   );
+
+  app.patch(
+    "/api/rules/",
+    [
+      authJwt.verifyToken
+
+    ],
+    controller.update
+  );
+
 
 };

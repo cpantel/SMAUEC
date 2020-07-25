@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Unauthenticated access",
+			"name": "Action unauthenticated access",
 			"event": [
 				{
 					"listen": "test",
@@ -50,7 +50,7 @@
 			"response": []
 		},
 		{
-			"name": "List actions",
+			"name": "List Actions",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -146,7 +146,7 @@
 			"response": []
 		},
 		{
-			"name": "Get one action",
+			"name": "Get one Action",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -328,7 +328,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Action",
+			"name": "Delete an Action",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -410,7 +410,7 @@
 			"response": []
 		},
 		{
-			"name": "Get inexistent action",
+			"name": "Get Inexistent Action",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -477,7 +477,7 @@
 			"response": []
 		},
 		{
-			"name": "Create an action",
+			"name": "Create an Action",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -575,11 +575,318 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Rule unauthenticated access",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f89d5e58-2429-46ed-a84f-45f1aee381ef",
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_rule_base_url}}/api/rules",
+					"host": [
+						"{{api_rule_base_url}}"
+					],
+					"path": [
+						"api",
+						"rules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Rules",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "affdc744-511e-4c4d-919b-c6a4eff2471a",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
+							"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "04d17f28-a793-4a77-8193-1b47eef2e6f4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expected = [",
+							"    {",
+							"        \"id\": 0,",
+							"        \"name\": \"Rule number one\",",
+							"        \"description\": \"Rule number one\",",
+							"        \"topic\": \"/sensor\",",
+							"        \"duration\": 30,",
+							"        \"is_active\": true,",
+							"        \"action\": {",
+							"            \"id\":1,",
+							"            \"name\":\"Test action number one\"",
+							"        }",
+							"",
+							"    }",
+							"]",
+							"",
+							"",
+							"",
+							"pm.test(\"Content is two actions\", function () {",
+							"    pm.expect(pm.response.json().slice(0,2)).to.eql(expected);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{api_rule_base_url}}/api/rules",
+					"host": [
+						"{{api_rule_base_url}}"
+					],
+					"path": [
+						"api",
+						"rules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one Action Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7a1359b7-503a-4789-b58a-86c66d2bdfe3",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
+							"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "76564ace-d423-4515-8b38-5f456fea0ee5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var expected = ",
+							"{",
+							"        \"id\": 0,",
+							"        \"name\": \"Rule number one\",",
+							"        \"description\": \"Rule number one\",",
+							"        \"topic\": \"/sensor\",",
+							"        \"duration\": 30,",
+							"        \"is_active\": true,",
+							"        \"action\": {",
+							"            \"id\":1,",
+							"            \"name\":\"Test action number one\"",
+							"        }",
+							"",
+							"    }",
+							"",
+							"",
+							"",
+							"",
+							"pm.test(\"Content is an action\", function () {",
+							"    pm.expect(pm.response.json()).to.eql(expected);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{api_rule_base_url}}/api/rules/0",
+					"host": [
+						"{{api_rule_base_url}}"
+					],
+					"path": [
+						"api",
+						"rules",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify a Rule",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "01e35840-df6d-4f3d-aa83-5c349e3cff3e",
+						"exec": [
+							"var url = pm.environment.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
+							"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"    }",
+							");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9487737-2183-420f-b29a-63b4f424848f",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"var expected = {",
+							"        \"id\": 2,",
+							"        \"name\": \"Modified\",",
+							"        \"description\": \"Modified\",",
+							"        \"topic\": \"/modified\",",
+							"        \"duration\": 5,",
+							"        \"is_active\": true,",
+							"        \"action\": {",
+							"            \"id\":1,",
+							"            \"name\":\"Test action number one\"",
+							"        }",
+							"",
+							"    }",
+							"",
+							"pm.test(\"Content is an action\", function () {",
+							"    pm.expect(pm.response.json()).to.eql(expected);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-access-token",
+						"type": "text",
+						"value": "{{access_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":2,\n    \"name\": \"Modified\",\n    \"description\": \"Modified\",\n    \"topic\": \"/modified\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_rule_base_url}}/api/rules/",
+					"host": [
+						"{{api_rule_base_url}}"
+					],
+					"path": [
+						"api",
+						"rules",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
-			"id": "b5a9eee1-d2bc-4cb3-b35f-0002a5d7461b",
+			"id": "91b7c1b1-7cd4-48ea-9e43-c52610177d1e",
 			"key": "base_url",
 			"value": "http://localhost/8082"
 		}
