@@ -24,10 +24,12 @@ const User = db.user;
 var bcrypt = require("bcryptjs");
 
 if ("test" == process.env.NODE_ENV) {
-  // force: true will drop the table if it already exists
+  const fixture = require("./test/fixtures/initial.js");
+  
+
   db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and Resync Database with { force: true }');
-    initial();
+    fixture.initial(User,Role,config,bcrypt);
   });
 } else {
   db.sequelize.sync();
@@ -48,24 +50,3 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-function initial() {
-  Role.create({
-    id: 0,
-    name: "admin"
-  });
-
-  Role.create({
-    id: 1,
-    name: "user"
-  });
-
-  // TODO: take from configuration or generate password and publish it in log
-  User.create({
-    id: 0,
-    username: config.ADMIN_USERNAME,
-    email: "admin@samauec.org",
-    password: bcrypt.hashSync(config.ADMIN_PASSWORD, 8)
-  }).then(user => {
-          user.setRoles([0, 1])
-  });
-}
