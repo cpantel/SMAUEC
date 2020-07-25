@@ -2,31 +2,28 @@ const db = require("../models");
 const Action = db.action;
 const Op = db.Sequelize.Op;
 
-exports.findOne = (req, res) => {/*
-  Action.findByPk(req.params.actionId  ).then(action => {
-
-    action.getRoles().then(rules => {
-
-      var ruleNames = rules.map( rule => { return rule.name });
-
-      res.status(200).send(
-         {
-            "id": action.id,
-            "actionname": action.actionname,
-            "email" : action.email,
-            "rules": ruleNames
-         }
-      );
-    });
+exports.findOne = (req, res) => {
+  console.log ("find one action: " + req.params.actionId);
+  Action.findByPk(req.params.actionId,
+    { attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    } 
+  ).then(action => {
+    if (null == action) {
+      res.status(403).send("Action not found"); 
+    } else {
+      res.status(200).send(action);
+    }
   }).catch(err => {
-    return res.status(403).send("Action not found");
+    return res.status(500).send("Server error");
   }
-)*/};
+)};
 
 exports.findAll = (req, res) => {
 
   Action.findAll({
-    attributes: ['id', 'name','description','topic','min_activation_time','activation_value','cancellation_value']
+    attributes: {exclude: ['createdAt', 'updatedAt']}
   }
 
   ).then(actions => {
@@ -46,9 +43,7 @@ exports.delete = (req, res) => {
   );
 }
 
-// Create and Save a new Action
 exports.create = (req, res) => {
-  // Save Action to Database
   Action.create({
     name: req.body.name,
     description: req.body.description,
@@ -58,17 +53,61 @@ exports.create = (req, res) => {
     cancellation_value: req.body.cancellation_value
   })
     .then(action => {
-      res.status(201).send({ message: "Action registered successfully!", id:action.id });
+      res.status(201).send(action);
     })
     .catch(err => {
       res.status(500).send({ message: err.message });
     });
 };
 
-
-// Update a Action by the id in the request
 exports.update = (req, res) => {
-  
+  console.log("UPDATE 01 " + req.body.id);
+  console.log("UPDATE 02 " + req.body);
+
+  Action.update(
+   req.body, 
+   { where: { id: req.body.id } }
+  ).then(action => {
+    if (null == action) {
+      res.status(403).send("Action not found"); 
+    } else {
+      Action.findByPk(req.body.id,
+        { attributes: {
+            exclude: ['createdAt', 'updatedAt']
+          }
+        } 
+      ).then(action => {
+        if (null == action) {
+          res.status(403).send("Action not found"); 
+        } else {
+          res.status(201).send(action);
+        }
+      }).catch(err => {
+        return res.status(500).send("Server error");
+      })
+    }
+  }).catch(err => {
+    return res.status(500).send("Server error");
+  })
+
+/*
+  Action.findByPk(req.body.id,
+    { attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    } 
+  ).then(action => {
+    if (null == action) {
+      res.status(403).send("Action not found"); 
+    } else {
+      action.update(req.params).then( modified => {
+          res.status(201).send(modified);
+      })
+    }
+  }).catch(err => {
+    return res.status(500).send("Server error");
+  })
+*/
 };
 
 // Delete all Actions from the database.

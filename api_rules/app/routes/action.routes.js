@@ -39,9 +39,18 @@ module.exports = function(app) {
     "/api/actions",
     [
       authJwt.verifyToken
-
     ],
     controller.create
   );
+
+  app.patch(
+    "/api/actions/",
+    [
+      authJwt.verifyToken
+
+    ],
+    controller.update
+  );
+
 
 };

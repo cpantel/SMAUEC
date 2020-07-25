@@ -18,7 +18,6 @@ exports.initial = (action) => {
   });
 
   action.create({
-    id: 3,
     name: "Test action number three",
     description: "Erasable test action",
     topic: "/led",
