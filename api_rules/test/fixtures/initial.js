@@ -53,7 +53,18 @@ exports.initial = (action, rule) => {
 
   rule.create( {
     id: 2,
-    name: "Rule number three",
+    name: "Modifiable Rule",
+    description: "Modifiable rule",
+    topic: "/switch",
+    duration: 5,
+    is_active: true,
+  }).then(rule => {
+          rule.setAction(1)
+  });
+
+  rule.create( {
+    id: 3,
+    name: "Erasable rule",
     description: "Erasable rule",
     topic: "/switch",
     duration: 5,

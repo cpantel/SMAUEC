@@ -14,7 +14,11 @@ exports.findOne = (req, res) => {
     }]
   }
   ).then(rule => {
-    res.status(200).send(rule);
+    if (null == rule) {
+      res.status(403).send("Rule not found"); 
+    } else {
+      res.status(200).send(rule);
+    }
   }).catch(err => {
     return res.status(403).send("Rule not found");
   }
@@ -48,10 +52,52 @@ exports.delete = (req, res) => {
   );
 }
 
-// Create and Save a new Rule
 exports.create = (req, res) => {
+console.log("CREATE 01");
+  Rule.create(
+    req.body
+  ).then(rule => {
+    console.log("CREATE 02");
+  });
+};
+
+
+exports.crxxeate = (req, res) => {
+console.log("CREATE 01");
+  Rule.create( {
+    name: req.body.name,
+    description: req.body.description,
+    topic: req.body.topic,
+    is_active: req.body.is_active,
+    duration: req.body.duration,
+    actionId: req.body.actionId
+  }/*,
+{ attributes: {
+            exclude: ['createdAt', 'updatedAt','actionId','id']
+          }}*/
+
+
+  ).then(rule => {
+    console.log("CREATE 02");
+    rule.setRole(req.body.actionId).then(
+    res.status(201).send(rule))
+
+    })/*.catch(err => {
+      res.status(500).send({ message: err.message });
+  });*/
+};
+
+// Create and Save a new Rule
+exports.excreate = (req, res) => {
   // Save Rule to Database
-  Rule.create({
+  Rule.create(req.body).then(rule => {
+      res.status(201).send(rule);
+
+  }).catch(err => {
+      res.status(500).send({ message: err.message });
+  });
+/*
+  );
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)   // TODO: move to middleware
@@ -79,6 +125,7 @@ exports.create = (req, res) => {
     .catch(err => {
       res.status(500).send({ message: err.message });
     });
+*/
 };
 
 
