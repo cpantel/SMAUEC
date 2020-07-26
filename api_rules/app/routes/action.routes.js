@@ -9,6 +9,12 @@ module.exports = function(app) {
     );
     next();
   });
+  app.use(function(req, res, next) {
+
+    req.body = JSON.parse(JSON.stringify(req.body).replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+
+    next();
+  });
 
   app.delete(
     "/api/actions/:actionId",
