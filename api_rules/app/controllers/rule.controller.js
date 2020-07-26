@@ -3,7 +3,32 @@ const Op = db.Sequelize.Op;
 const Rule = db.rule;
 const Action = db.action;
 
+findTheOne = (id,res,status) => {
+  Rule.findByPk(id,{
+    attributes: {
+        exclude: ['createdAt', 'updatedAt', 'actionId']
+      },
+    include: [{
+      model: Action,
+      attributes: ['id','name'],
+    }]
+  }
+  ).then(rule => {
+    if (null == rule) {
+      res.status(403).send("Rule not found"); 
+    } else {
+      res.status(status).send(rule);
+    }
+  }).catch(err => {
+    return res.status(403).send("Rule not found");
+  }
+ )
+}
+
+
+
 exports.findOne = (req, res) => {
+  return findTheOne(req.params.ruleId,res,200);
   Rule.findByPk(req.params.ruleId,{
     attributes: {
         exclude: ['createdAt', 'updatedAt', 'actionId']
@@ -52,87 +77,19 @@ exports.delete = (req, res) => {
   );
 }
 
+
 exports.create = (req, res) => {
-console.log("CREATE 01");
-  Rule.create(
-    req.body
-  ).then(rule => {
-    console.log("CREATE 02");
-  });
-};
 
-
-exports.crxxeate = (req, res) => {
-console.log("CREATE 01");
-  Rule.create( {
-    name: req.body.name,
-    description: req.body.description,
-    topic: req.body.topic,
-    is_active: req.body.is_active,
-    duration: req.body.duration,
-    actionId: req.body.actionId
-  }/*,
-{ attributes: {
-            exclude: ['createdAt', 'updatedAt','actionId','id']
-          }}*/
-
-
-  ).then(rule => {
-    console.log("CREATE 02");
-    rule.setRole(req.body.actionId).then(
-    res.status(201).send(rule))
-
-    })/*.catch(err => {
-      res.status(500).send({ message: err.message });
-  });*/
-};
-
-// Create and Save a new Rule
-exports.excreate = (req, res) => {
-  // Save Rule to Database
   Rule.create(req.body).then(rule => {
-      res.status(201).send(rule);
-
+    return findTheOne(rule.id,res,201);
   }).catch(err => {
       res.status(500).send({ message: err.message });
   });
-/*
-  );
-    username: req.body.username,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8)   // TODO: move to middleware
-  })
-    .then(user => {
-      if (req.body.roles) {
-        Role.findAll({
-          where: {
-            name: {
-              [Op.or]: req.body.roles
-            }
-          }
-        }).then(roles => {
-          user.setRoles(roles).then(() => {
-            res.status(201).send({ message: "Rule registered successfully!", id:user.id });
-          });
-        });
-      } else {
-        // user role = 1
-        user.setRoles([1]).then(() => {
-          res.status(201).send({ message: "Rule registered successfully!", id:user.id });
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: err.message });
-    });
-*/
 };
 
 
 // Update a Rule by the id in the request
 exports.update = (req, res) => {
-  console.log("UPDATE 01 " + req.body.id);
-  console.log("UPDATE 02 " + req.body);
   Rule.update(
    req.body, 
    { where: { id: req.body.id },
@@ -157,19 +114,12 @@ exports.update = (req, res) => {
     }]
         } 
       ).then(modified => {
-          res.status(201).send(modified);/*
-        if (null == modified) {
-          res.status(403).send("Rule not found"); 
-        } else {
-          console.log("UPDATE 03 " + modified.name);
           res.status(201).send(modified);
-        }*/
-      })/*.catch(err => {
+      }).catch(err => {
         return res.status(500).send("Server error 01");
-      })*/
+      })
     }
   }).catch(err => {
     return res.status(500).send("Server error 02");
   })  
 };
-

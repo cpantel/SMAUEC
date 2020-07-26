@@ -1,9 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
   const Rule = sequelize.define("rules", {
-    id: {
-      type: Sequelize.INTEGER,
-      primaryKey: true
-    },
     name: {
       type: Sequelize.STRING
     },

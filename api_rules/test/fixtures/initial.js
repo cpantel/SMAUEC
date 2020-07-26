@@ -31,7 +31,6 @@ exports.initial = (action, rule) => {
         RULES
   */
   rule.create( {
-    id: 0,
     name: "Rule number one",
     description: "Rule number one",
     topic: "/sensor",
@@ -41,7 +40,6 @@ exports.initial = (action, rule) => {
           rule.setAction(1)
   });
   rule.create( {
-    id: 1,
     name: "Rule number two",
     description: "Rule number two",
     topic: "/switch",
@@ -52,7 +50,6 @@ exports.initial = (action, rule) => {
   });
 
   rule.create( {
-    id: 2,
     name: "Modifiable Rule",
     description: "Modifiable rule",
     topic: "/switch",
@@ -63,7 +60,6 @@ exports.initial = (action, rule) => {
   });
 
   rule.create( {
-    id: 3,
     name: "Erasable rule",
     description: "Erasable rule",
     topic: "/switch",
