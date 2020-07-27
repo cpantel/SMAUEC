@@ -8,7 +8,7 @@
   "scripts": {
     "start:test": "NODE_ENV=test nodemon server.js",
     "start:prod": "NODE_ENV=prod node server.js",
-    "test": "newman run test/API_User.postman_collection.json -e test/api.postman_environment.json"
+    "test": "newman run test/collection.json -e test/environment.json -g test/globals.json"
   },
   "keywords": [
     "nodejs",

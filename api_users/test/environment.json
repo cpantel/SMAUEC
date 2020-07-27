@@ -5,12 +5,12 @@
 		{
 			"key": "api_user_base_url",
 			"value": "http://localhost:8081",
-			"enabled": true
+			"enabled": false
 		},
 		{
-			"key": "api_rule_base_url",
+			"key": "",
 			"value": "http://localhost:8082",
-			"enabled": true
+			"enabled": false
 		},
 		{
 			"key": "access_token",
@@ -21,9 +21,19 @@
 			"key": "user_id",
 			"value": "",
 			"enabled": true
+		},
+		{
+			"key": "variable_key",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "api_engine_base_url",
+			"value": "http://localhost:8083",
+			"enabled": false
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2020-07-22T15:08:47.502Z",
-	"_postman_exported_using": "Postman/7.28.0"
+	"_postman_exported_at": "2020-07-27T22:34:38.874Z",
+	"_postman_exported_using": "Postman/7.29.0"
 }
