@@ -2,8 +2,25 @@ const db = require("../models");
 const Action = db.action;
 const Op = db.Sequelize.Op;
 
+var findTheOne = (id,res,status) => {
+  Action.findByPk(id,{
+    attributes: {
+        exclude: ['updatedAt', 'createdAt','actionId']
+      }
+  }
+  ).then(action => {
+    if (null == action) {
+      res.status(403).send("Action not found"); 
+    } else {
+      res.status(status).send(action);
+    }
+  }).catch(err => {
+    return res.status(403).send("Action not found");
+  }
+ )
+}
 exports.findOne = (req, res) => {
-  console.log ("find one action: " + req.params.actionId);
+  return findTheOne(req.params.actionId, res, 200);
   Action.findByPk(req.params.actionId,
     { attributes: {
         exclude: ['createdAt', 'updatedAt']
@@ -21,7 +38,6 @@ exports.findOne = (req, res) => {
 )};
 
 exports.findAll = (req, res) => {
-
   Action.findAll({
     attributes: {exclude: ['createdAt', 'updatedAt']}
   }
@@ -31,7 +47,6 @@ exports.findAll = (req, res) => {
   })}
 
 exports.delete = (req, res) => {
-  console.log ("DELETE called");
   Action.destroy(
     {where: {id: req.params.actionId}}
   ).then( num=> {
@@ -44,14 +59,7 @@ exports.delete = (req, res) => {
 }
 
 exports.create = (req, res) => {
-  Action.create({
-    name: req.body.name,
-    description: req.body.description,
-    topic: req.body.topic,
-    min_activation_time: req.body.min_activation_time,
-    activation_value: req.body.activation_value,
-    cancellation_value: req.body.cancellation_value
-  })
+  Action.create(req.body)
     .then(action => {
       res.status(201).send(action);
     })
@@ -61,9 +69,6 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  console.log("UPDATE 01 " + req.body.id);
-  console.log("UPDATE 02 " + req.body);
-
   Action.update(
    req.body, 
    { where: { id: req.body.id } }
@@ -71,20 +76,7 @@ exports.update = (req, res) => {
     if (null == action) {
       res.status(403).send("Action not found"); 
     } else {
-      Action.findByPk(req.body.id,
-        { attributes: {
-            exclude: ['createdAt', 'updatedAt']
-          }
-        } 
-      ).then(action => {
-        if (null == action) {
-          res.status(403).send("Action not found"); 
-        } else {
-          res.status(201).send(action);
-        }
-      }).catch(err => {
-        return res.status(500).send("Server error");
-      })
+      return findTheOne(req.body.id,res,201);
     }
   }).catch(err => {
     return res.status(500).send("Server error");

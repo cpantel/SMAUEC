@@ -25,29 +25,9 @@ var findTheOne = (id,res,status) => {
  )
 }
 
-
-
 exports.findOne = (req, res) => {
   return findTheOne(req.params.ruleId,res,200);
-  Rule.findByPk(req.params.ruleId,{
-    attributes: {
-        exclude: ['createdAt', 'updatedAt', 'actionId']
-      },
-    include: [{
-      model: Action,
-      attributes: ['id','name'],
-    }]
-  }
-  ).then(rule => {
-    if (null == rule) {
-      res.status(403).send("Rule not found"); 
-    } else {
-      res.status(200).send(rule);
-    }
-  }).catch(err => {
-    return res.status(403).send("Rule not found");
-  }
-)};
+};
 
 exports.findAll = (req, res) => {
   Rule.findAll({
@@ -58,9 +38,7 @@ exports.findAll = (req, res) => {
       model: Action,
       attributes: ['id','name'],
     }]
-  }
-
-  ).then(rules => {
+  }).then(rules => {
     res.status(200).send(rules);
   })}
 
@@ -87,37 +65,19 @@ exports.create = (req, res) => {
   });
 };
 
-
-// Update a Rule by the id in the request
 exports.update = (req, res) => {
   Rule.update(
    req.body, 
    { where: { id: req.body.id },
-
     include: [{
       model: Action
-
     }]
    }
   ).then(rule => {
     if (null == rule) {
       res.status(403).send("Rule not found"); 
     } else {
-      Rule.findByPk(req.body.id,
-        { attributes: {
-            exclude: ['createdAt', 'updatedAt','actionId']
-          },
-
-    include: [{
-      model: Action,
-      attributes: ['id','name'],
-    }]
-        } 
-      ).then(modified => {
-          res.status(201).send(modified);
-      }).catch(err => {
-        return res.status(500).send("Server error 01");
-      })
+     return findTheOne(req.body.id,res,201);
     }
   }).catch(err => {
     return res.status(500).send("Server error 02");
