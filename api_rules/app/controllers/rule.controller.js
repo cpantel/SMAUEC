@@ -3,7 +3,7 @@ const Op = db.Sequelize.Op;
 const Rule = db.rule;
 const Action = db.action;
 
-findTheOne = (id,res,status) => {
+var findTheOne = (id,res,status) => {
   Rule.findByPk(id,{
     attributes: {
         exclude: ['createdAt', 'updatedAt', 'actionId']

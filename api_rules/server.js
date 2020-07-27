@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Rule = db.rule;
 const Action = db.action;
+const Activity = db.activity;
 
 if ("prod" == process.env.NODE_ENV) {
   db.sequelize.sync();
@@ -29,7 +30,7 @@ if ("prod" == process.env.NODE_ENV) {
    db.sequelize.sync({force: true}).then(() => {
    console.log('Drop and Resync Database with { force: true }');
    const fixture = require("./test/fixtures/initial.js");
-   fixture.initial(Action, Rule);
+   fixture.initial(Action, Rule, Activity);
  });
 }
 
@@ -41,6 +42,7 @@ app.get("/", (req, res) => {
 // routes
 require('./app/routes/rule.routes')(app);
 require('./app/routes/action.routes')(app);
+require('./app/routes/activity.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8082;

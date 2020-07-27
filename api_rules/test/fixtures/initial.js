@@ -1,4 +1,8 @@
-exports.initial = (action, rule) => {
+exports.initial = (action, rule, activity) => {
+
+  /*
+        ACTIONS
+  */
   action.create({
     name: "Test action number one",
     description: "Test action number one",
@@ -68,6 +72,25 @@ exports.initial = (action, rule) => {
   }).then(rule => {
           rule.setAction(1)
   });
+
+  /*
+        ACTIVITIES
+  */
+
+  activity.create().then( activity => {
+     activity.setAction(1);
+     activity.setRule(1);
+  })
+
+  activity.create().then( activity => {
+     activity.setAction(2);
+     activity.setRule(2);
+  })
+
+  activity.create().then( activity => {
+     activity.setAction(3);
+     activity.setRule(1);
+  })
 
 
 }
