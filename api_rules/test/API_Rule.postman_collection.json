@@ -19,25 +19,7 @@
 									"script": {
 										"id": "029be40c-95c8-4906-8714-f935b59bb3da",
 										"exec": [
-											"var url = pm.environment.get(\"api_user_base_url\");",
-											"",
-											"pm.sendRequest({",
-											"    url: url + \"/api/auth/signin\" ,",
-											"    method: 'POST',",
-											"    header: { \"Content-Type\":\"application/json\"} ,",
-											"    body:{",
-											"        mode: \"raw\",",
-											"        raw: JSON.stringify({",
-											"            username:\"admin\",",
-											"            password:\"admin\"",
-											"        })",
-											"    }},",
-											"     ",
-											"    function (err, response) {",
-											"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-											"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-											"    }",
-											");"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -118,30 +100,6 @@
 									"script": {
 										"id": "80507b94-b703-4373-b858-4e9adaaf8ffb",
 										"exec": [
-											"var url = pm.environment.get(\"api_user_base_url\");",
-											"",
-											"pm.sendRequest({",
-											"    url: url + \"/api/auth/signin\" ,",
-											"    method: 'POST',",
-											"    header: { \"Content-Type\":\"application/json\"} ,",
-											"    body:{",
-											"        mode: \"raw\",",
-											"        raw: JSON.stringify({",
-											"            username:\"admin\",",
-											"            password:\"admin\"",
-											"        })",
-											"    }},",
-											"     ",
-											"    function (err, response) {",
-											"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-											"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-											"    }",
-											");",
-											"",
-											"",
-											"",
-											"",
-											"",
 											""
 										],
 										"type": "text/javascript"
@@ -224,25 +182,7 @@
 							"script": {
 								"id": "c3127cfd-675f-40dc-b83e-5ffd54cd9640",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -320,25 +260,7 @@
 							"script": {
 								"id": "affdc744-511e-4c4d-919b-c6a4eff2471a",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -421,25 +343,7 @@
 							"script": {
 								"id": "42fe7861-6d10-460f-9db3-fcaca29748a5",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -521,25 +425,7 @@
 							"script": {
 								"id": "73fdae41-a586-4dee-a498-12b70b47b15b",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -608,25 +494,7 @@
 							"script": {
 								"id": "7a1359b7-503a-4789-b58a-86c66d2bdfe3",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -697,25 +565,7 @@
 							"script": {
 								"id": "c266365f-f56c-43a7-a1e0-c564986ffb53",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -782,25 +632,6 @@
 							"script": {
 								"id": "6c5dc464-00d1-4954-b0ba-c0fe5814d516",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");",
 									""
 								],
 								"type": "text/javascript"
@@ -877,25 +708,6 @@
 							"script": {
 								"id": "01e35840-df6d-4f3d-aa83-5c349e3cff3e",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");",
 									""
 								],
 								"type": "text/javascript"
@@ -973,25 +785,7 @@
 							"script": {
 								"id": "224d8c79-766b-4a85-a0f2-b53966a869cd",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1055,25 +849,7 @@
 							"script": {
 								"id": "dea5e90b-2aac-4425-ae2a-d077dc5cf943",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1137,25 +913,7 @@
 							"script": {
 								"id": "dac3e34d-f605-49af-9bc7-09257ebe2b17",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1204,25 +962,7 @@
 							"script": {
 								"id": "967212b9-e1cd-45d3-b99f-e8c2f1a08283",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1271,25 +1011,7 @@
 							"script": {
 								"id": "dea158ba-04e6-448f-a560-5802c56e3ff9",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]); ",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1338,25 +1060,7 @@
 							"script": {
 								"id": "b309b07e-27a1-44ab-bb93-5f3cf45a69cb",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1437,30 +1141,6 @@
 							"script": {
 								"id": "09334d54-dab9-4564-b049-4b121a49a220",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");",
-									"",
-									"",
-									"",
-									"",
-									"",
 									""
 								],
 								"type": "text/javascript"
@@ -1541,30 +1221,6 @@
 							"script": {
 								"id": "7b7830c0-f3b2-4825-a301-d267103225ed",
 								"exec": [
-									"var url = pm.environment.get(\"api_user_base_url\");",
-									"",
-									"pm.sendRequest({",
-									"    url: url + \"/api/auth/signin\" ,",
-									"    method: 'POST',",
-									"    header: { \"Content-Type\":\"application/json\"} ,",
-									"    body:{",
-									"        mode: \"raw\",",
-									"        raw: JSON.stringify({",
-									"            username:\"admin\",",
-									"            password:\"admin\"",
-									"        })",
-									"    }},",
-									"     ",
-									"    function (err, response) {",
-									"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
-									"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
-									"    }",
-									");",
-									"",
-									"",
-									"",
-									"",
-									"",
 									""
 								],
 								"type": "text/javascript"
@@ -1641,7 +1297,25 @@
 						"id": "f88fed3e-0467-4733-9886-86bec378e48f",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"var url = pm.globals.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
+							"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"    }",
+							");"
 						]
 					}
 				},
@@ -1787,7 +1461,7 @@
 	],
 	"variable": [
 		{
-			"id": "81e51b21-7d80-495b-9b73-dbb4418a4ecc",
+			"id": "b5bc6bab-c0b4-4dec-8812-dc851addac99",
 			"key": "base_url",
 			"value": "http://localhost/8082"
 		}
