@@ -4,30 +4,39 @@ const Op = db.Sequelize.Op;
 const Role = db.role;
 var bcrypt = require("bcryptjs");
 
-
-exports.findOne = (req, res) => {
-  User.findByPk(req.params.userId  ).then(user => {
-
-    user.getRoles().then(roles => {
-
-      var roleNames = roles.map( role => { return role.name });
-
-      res.status(200).send(
-         {
-            "id": user.id,
-            "username": user.username,
-            "email" : user.email,
-            "roles": roleNames
-         }
-      );
-    });
+var findTheOne = (id, res, status) => {
+  User.findByPk(
+    id, 
+    { attributes: {
+        exclude: ['createdAt', 'updatedAt', 'password']
+      },
+      include: [
+        {
+          model: Role,
+          attributes: ['id','name'],
+          through: {
+            attributes: []
+          }
+        }
+      ]
+    }
+  ).then(user => {
+    if (null == user) {
+      return res.status(403).send("User not found");
+    } else {
+      return res.status(status).send(user)
+    }
   }).catch(err => {
-    return res.status(403).send("User not found");
+    return res.status(500).send("User not found");
   }
 )};
 
-exports.findAll = (req, res) => {
+exports.findOne = (req, res) => {
+  return findTheOne(req.params.userId, res, 200);
+};
 
+
+exports.findAll = (req, res) => {
   User.findAll({
     attributes: ['id', 'username','email'],
     include: [{
@@ -37,9 +46,7 @@ exports.findAll = (req, res) => {
         attributes: []
       }
     }]
-  }
-
-  ).then(users => {
+  }).then(users => {
     res.status(200).send(users);
   })}
 
@@ -56,7 +63,6 @@ exports.delete = (req, res) => {
   );
 }
 
-// Create and Save a new User
 exports.create = (req, res) => {
   // Save User to Database
   User.create({
@@ -74,12 +80,14 @@ exports.create = (req, res) => {
           }
         }).then(roles => {
           user.setRoles(roles).then(() => {
+            return findTheOne(user.id,res,201);
             res.status(201).send({ message: "User registered successfully!", id:user.id });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
+          return findTheOne(user.id,res,201);
           res.status(201).send({ message: "User registered successfully!", id:user.id });
         });
       }

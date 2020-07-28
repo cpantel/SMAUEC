@@ -407,8 +407,6 @@
 							"script": {
 								"id": "24d7be94-37f5-491d-b980-79fda251d1c2",
 								"exec": [
-									"",
-									"",
 									""
 								],
 								"type": "text/javascript"
@@ -429,8 +427,14 @@
 									"    \"username\": \"admin\",",
 									"    \"email\": \"admin@samauec.org\",",
 									"    \"roles\": [",
-									"            \"admin\",",
-									"            \"user\"",
+									"{",
+									"            \"id\": 0,",
+									"            \"name\": \"admin\"",
+									"        },",
+									"        {",
+									"            \"id\": 1,",
+									"            \"name\": \"user\"",
+									"        }",
 									"        ]",
 									"}",
 									"",
@@ -461,14 +465,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_user_base_url}}/api/users/{{user_id}}",
+							"raw": "{{api_user_base_url}}/api/users/1",
 							"host": [
 								"{{api_user_base_url}}"
 							],
 							"path": [
 								"api",
 								"users",
-								"{{user_id}}"
+								"1"
 							]
 						},
 						"description": "signup "
@@ -499,6 +503,28 @@
 									"    pm.response.to.have.status(201);",
 									"    pm.environment.set(\"user_id\",pm.response.json()[\"id\"]);",
 									"    ",
+									"});",
+									"",
+									"",
+									"var expected = {",
+									"    \"id\": \"\",",
+									"    \"username\": \"user\",",
+									"    \"email\": \"user@example.org\",",
+									"    \"roles\": [",
+									"        {",
+									"            \"id\": 1,",
+									"            \"name\": \"user\"",
+									"        }",
+									"    ]",
+									"}",
+									"",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is an action\", function () {",
+									"    var got = pm.response.json();",
+									"    got.id = \"\";",
+									"    pm.expect(got).to.eql(expected);",
 									"});",
 									"",
 									"pm.environment.set(\"access_token\",undefined);",
@@ -669,7 +695,7 @@
 					"response": []
 				},
 				{
-					"name": "Get All Users TODO: fixit",
+					"name": "List Users",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -691,21 +717,30 @@
 									"});",
 									"",
 									"var expected = [",
-									"    {",
+									"{",
 									"        \"id\": 1,",
 									"        \"username\": \"admin\",",
 									"        \"email\": \"admin@samauec.org\",",
 									"        \"roles\": [",
-									"            {\"id\":0, \"name\":\"admin\"},",
-									"            {\"id\":1, \"name\":\"user\"}",
+									"            {",
+									"                \"id\": 0,",
+									"                \"name\": \"admin\"",
+									"            },",
+									"            {",
+									"                \"id\": 1,",
+									"                \"name\": \"user\"",
+									"            }",
 									"        ]",
 									"    },",
 									"    {",
-									"        \"id\": pm.environment.get(\"user_id\"),",
-									"        \"username\": \"user\",",
-									"        \"email\": \"user@example.org\",",
+									"        \"id\": 2,",
+									"        \"username\": \"user1\",",
+									"        \"email\": \"user1@example.org\",",
 									"        \"roles\": [",
-									"            {\"id\":1, \"name\":\"user\"}",
+									"            {",
+									"                \"id\": 1,",
+									"                \"name\": \"user\"",
+									"            }",
 									"        ]",
 									"    }",
 									"]",
@@ -713,7 +748,7 @@
 									"",
 									"",
 									"pm.test(\"Content is an user and its roles\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"    pm.expect(pm.response.json().slice(0,2)).to.eql(expected);",
 									"});",
 									"",
 									"",
@@ -758,7 +793,7 @@
 					"response": []
 				},
 				{
-					"name": "Get an User TODO:fixit",
+					"name": "Get an User",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -780,13 +815,19 @@
 									"});",
 									"",
 									"var expected = {",
-									"    \"id\": pm.environment.get(\"user_id\"),",
-									"    \"username\": \"user\",",
-									"    \"email\": \"user@example.org\",",
+									"    \"id\": 1,",
+									"    \"username\": \"admin\",",
+									"    \"email\": \"admin@samauec.org\",",
 									"    \"roles\": [",
-									"        \"user\"",
+									"        {",
+									"            \"id\": 0,",
+									"            \"name\": \"admin\"",
+									"        },",
+									"        {",
+									"            \"id\": 1,",
+									"            \"name\": \"user\"",
+									"        }",
 									"    ]",
-									"    ",
 									"}",
 									"",
 									"pm.test(\"Content is an user and its roles\", function () {",
@@ -897,7 +938,7 @@
 	],
 	"variable": [
 		{
-			"id": "f021ab72-4075-4e71-a0cc-19bd40569ed0",
+			"id": "6468939d-ee8f-44bc-9aa3-ea72e28fc0ad",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
