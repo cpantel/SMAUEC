@@ -21,21 +21,7 @@ var findTheOne = (id,res,status) => {
 }
 exports.findOne = (req, res) => {
   return findTheOne(req.params.actionId, res, 200);
-  Action.findByPk(req.params.actionId,
-    { attributes: {
-        exclude: ['createdAt', 'updatedAt']
-      }
-    } 
-  ).then(action => {
-    if (null == action) {
-      res.status(403).send("Action not found"); 
-    } else {
-      res.status(200).send(action);
-    }
-  }).catch(err => {
-    return res.status(500).send("Server error");
-  }
-)};
+};
 
 exports.findAll = (req, res) => {
   Action.findAll({
