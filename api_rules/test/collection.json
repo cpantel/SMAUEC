@@ -12,7 +12,7 @@
 					"name": "Security",
 					"item": [
 						{
-							"name": "Test actions for XSS",
+							"name": "XSS filtering create Action",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -33,26 +33,10 @@
 											"    pm.response.to.have.status(201);",
 											"});",
 											"",
-											"var expected = ",
-											"    {",
-											"        \"id\" : \"\",",
-											"        \"name\": \"Test action created\",",
-											"        \"description\": \"&lt;script&gt;alert('xss');&lt;/script&gt;\",",
-											"        \"topic\": \"/lock\",",
-											"        \"min_activation_time\": 60,",
-											"        \"activation_value\": \"open\",",
-											"        \"cancellation_value\": \"close\",",
-											"        \"updatedAt\": \"\",",
-											"        \"createdAt\": \"\"",
-											"    }",
-											"",
-											"",
-											"pm.test(\"Content is an action\", function () {",
-											"    var got = pm.response.json();",
-											"    got.id = \"\";",
-											"    got.updatedAt = \"\";",
-											"    got.createdAt = \"\";",
-											"    pm.expect(got).to.eql(expected);",
+											"pm.test(\"sanitezed XSS\", function() {",
+											"    pm.expect( pm.response.json().description == ",
+											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
+											"    );",
 											"});",
 											""
 										],
@@ -93,7 +77,74 @@
 							"response": []
 						},
 						{
-							"name": "Test rules for XSS",
+							"name": "XSS filtering modify Action",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "e9ed849b-a527-4325-94d5-20ca1827b280",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "0375022a-a691-4563-be4b-c8283eb8ed06",
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"sanitezed XSS\", function() {",
+											"    pm.expect( pm.response.json().description == ",
+											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
+											"    );",
+											"});",
+											"",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "x-access-token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":2,\n    \"description\": \"<script>alert('xss');</script>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_rule_base_url}}/api/actions/2",
+									"host": [
+										"{{api_rule_base_url}}"
+									],
+									"path": [
+										"api",
+										"actions",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "XSS filtering create Rule",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -114,24 +165,10 @@
 											"    pm.response.to.have.status(201);",
 											"});",
 											"",
-											"var expected = ",
-											"    {",
-											"        \"id\" : pm.response.json().id,",
-											"        \"name\": \"New Rule\",",
-											"        \"topic\": \"/lock\",        ",
-											"        \"description\": \"&lt;script&gt;alert('xss');&lt;/script&gt;\",",
-											"        \"is_active\": true,",
-											"        \"duration\": 30,",
-											"        \"action\": {",
-											"            \"id\":1,",
-											"            \"name\":\"Test action number one\"",
-											"        }",
-											"        ",
-											"    }",
-											"",
-											"",
-											"pm.test(\"Content is an action\", function () {",
-											"    pm.expect(pm.response.json()).to.eql(expected);",
+											"pm.test(\"sanitezed XSS\", function() {",
+											"    pm.expect( pm.response.json().description == ",
+											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
+											"    );",
 											"});",
 											""
 										],
@@ -169,6 +206,189 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "XSS filtering modify Rule Copy",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "76afcfcf-f0eb-4bd1-8616-1ccc0521fe17",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "67bd353a-27ce-4df3-bb35-445b0fc33ef9",
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"sanitezed XSS\", function() {",
+											"    pm.expect( pm.response.json().description == ",
+											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
+											"    );",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "x-access-token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":2,\n    \"description\": \"<script>alert('xss');</script>\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_rule_base_url}}/api/rules/2",
+									"host": [
+										"{{api_rule_base_url}}"
+									],
+									"path": [
+										"api",
+										"rules",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check id consistency modify Rule",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "309439d1-a175-4e06-845d-1946e8e97dee",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "e51d8fad-2747-4861-9828-6ff8407653f3",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "x-access-token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":17,\n    \"description\": \"nueva descripción\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_rule_base_url}}/api/rules/2",
+									"host": [
+										"{{api_rule_base_url}}"
+									],
+									"path": [
+										"api",
+										"rules",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check id consistency modify Action",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "c5b2ecca-8385-4d77-a811-37d58a971a71",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "45ac9b01-6177-4b26-aa93-2340eac5e76c",
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "x-access-token",
+										"type": "text",
+										"value": "{{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\":17,\n    \"description\": \"nueva descripción\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_rule_base_url}}/api/actions/2",
+									"host": [
+										"{{api_rule_base_url}}"
+									],
+									"path": [
+										"api",
+										"actions",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
@@ -196,27 +416,27 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = [",
 									"    {",
-									"        \"id\": 1,",
-									"        \"name\": \"Test action number one\",",
-									"        \"description\": \"Test action number one\",",
-									"        \"topic\": \"/alarm\",",
-									"        \"min_activation_time\": 10,",
-									"        \"activation_value\": \"on\",",
-									"        \"cancellation_value\": \"off\"",
-									"",
+									"        \"id\": response[0].id,",
+									"        \"name\": response[0].name,",
+									"        \"description\": response[0].description,",
+									"        \"topic\": response[0].topic,",
+									"        \"min_activation_time\": response[0].min_activation_time,",
+									"        \"activation_value\": response[0].activation_value,",
+									"        \"cancellation_value\": response[0].cancellation_value",
 									"    },",
 									"    {",
-									"        \"id\": 2,",
-									"        \"name\": \"Test action number two\",",
-									"        \"description\": \"Test action number two\",",
-									"        \"topic\": \"/led\",",
-									"        \"min_activation_time\": 20,",
-									"        \"activation_value\": \"on\",",
-									"        \"cancellation_value\": \"off\"",
-									"",
-									"    },",
+									"        \"id\": response[1].id,",
+									"        \"name\": response[1].name,",
+									"        \"description\": response[1].description,",
+									"        \"topic\": response[1].topic,",
+									"        \"min_activation_time\": response[1].min_activation_time,",
+									"        \"activation_value\": response[1].activation_value,",
+									"        \"cancellation_value\": response[1].cancellation_value",
+									"    }",
 									"]",
 									"",
 									"",
@@ -274,30 +494,34 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = [",
 									"    {",
-									"        \"id\": pm.response.json()[0].id,",
-									"        \"name\": \"Rule number one\",",
-									"        \"topic\": \"/sensor\",",
-									"        \"description\": \"Rule number one\",",
-									"        \"is_active\": true,",
-									"        \"duration\": 30,",
+									"        \"id\": response[0].id,",
+									"        \"name\": response[0].name,",
+									"        \"topic\": response[0].topic,",
+									"        \"description\": response[0].description,",
+									"        \"is_enabled\": response[0].is_enabled,",
+									"        \"activation_value\": response[0].activation_value,",
+									"        \"duration\": response[0].duration,",
 									"        \"action\": {",
-									"            \"id\":1,",
-									"            \"name\":\"Test action number one\"",
+									"            \"id\":response[0].action.id,",
+									"            \"name\":response[0].action.name",
 									"        }",
 									"",
 									"    },",
 									"    {",
-									"        \"id\": pm.response.json()[1].id,",
-									"        \"name\": \"Rule number two\",",
-									"        \"topic\": \"/switch\",",
-									"        \"description\": \"Rule number two\",",
-									"        \"is_active\": true,",
-									"        \"duration\": 5,",
+									"        \"id\": response[1].id,",
+									"        \"name\": response[1].name,",
+									"        \"topic\": response[1].topic,",
+									"        \"description\": response[1].description,",
+									"        \"is_enabled\": response[1].is_enabled,",
+									"        \"activation_value\": response[1].activation_value,",
+									"        \"duration\": response[1].duration,",
 									"        \"action\": {",
-									"            \"id\": 2,",
-									"            \"name\": \"Test action number two\"",
+									"            \"id\":response[1].action.id,",
+									"            \"name\":response[1].action.name",
 									"        }",
 									"    },",
 									"]",
@@ -357,29 +581,31 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = [",
 									"    {",
-									"        \"id\": 1,",
-									"        \"createdAt\": pm.response.json()[0].createdAt,",
+									"        \"id\": response[0].id,",
+									"        \"createdAt\": response[0].createdAt,",
 									"        \"action\": {",
-									"            \"id\": 1,",
-									"            \"name\": \"Test action number one\"",
+									"            \"id\": response[0].action.id,",
+									"            \"name\": response[0].action.name",
 									"        },",
 									"        \"rule\": {",
-									"            \"id\": 1,",
-									"            \"name\": \"Rule number one\"",
+									"            \"id\": response[0].rule.id,",
+									"            \"name\": response[0].rule.name",
 									"        }",
 									"    },",
 									"    {",
-									"        \"id\": 2,",
-									"        \"createdAt\": pm.response.json()[1].createdAt,",
+									"        \"id\": response[1].id,",
+									"        \"createdAt\": response[1].createdAt,",
 									"        \"action\": {",
-									"            \"id\": 2,",
-									"            \"name\": \"Test action number two\"",
+									"            \"id\": response[1].action.id,",
+									"            \"name\": response[1].action.name",
 									"        },",
 									"        \"rule\": {",
-									"            \"id\": 2,",
-									"            \"name\": \"Rule number two\"",
+									"            \"id\": response[1].rule.id,",
+									"            \"name\": response[1].rule.name",
 									"        }",
 									"    }",
 									"]",
@@ -438,6 +664,8 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
+									"",
+									"var response = pm.response.json();",
 									"",
 									"var expected = ",
 									"    {",
@@ -507,6 +735,7 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
+									"var response = pm.response.json();",
 									"",
 									"var expected = {",
 									"        \"id\": 1,",
@@ -514,7 +743,8 @@
 									"        \"description\": \"Rule number one\",",
 									"        \"topic\": \"/sensor\",",
 									"        \"duration\": 30,",
-									"        \"is_active\": true,",
+									"        \"is_enabled\": true,",
+									"        \"activation_value\": \"xx\",",
 									"        \"action\": {",
 									"            \"id\":1,",
 									"            \"name\":\"Test action number one\"",
@@ -579,9 +809,12 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
+									"// TODO",
 									"var expected = {",
 									"        \"id\": 1,",
-									"        \"createdAt\": pm.response.json().createdAt,",
+									"        \"createdAt\": response.createdAt,",
 									"        \"action\": {",
 									"            \"id\": 1,",
 									"            \"name\": \"Test action number one\"",
@@ -646,16 +879,17 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
+									"var expected = pm.response.json();",
+									"",
 									"var expected = ",
 									"    {",
-									"        \"id\" : 3,",
+									"        \"id\" : 2,",
 									"        \"name\": \"Test action modified\",",
 									"        \"description\": \"Test action modified\",",
 									"        \"topic\": \"/lock/modified\",",
-									"        \"min_activation_time\": 15,",
-									"        \"activation_value\": \"on\",",
-									"        \"cancellation_value\": \"off\",",
-									"       ",
+									"        \"min_activation_time\": expected.min_activation_time,",
+									"        \"activation_value\": expected.activation_value,",
+									"        \"cancellation_value\": expected.cancellation_value",
 									"    }",
 									"",
 									"",
@@ -679,7 +913,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":3,\n    \"name\": \"Test action modified\",\n    \"description\": \"Test action modified\",\n    \"topic\": \"/lock/modified\"\n}",
+							"raw": "{\n    \"id\":2,\n    \"name\": \"Test action modified\",\n    \"description\": \"Test action modified\",\n    \"topic\": \"/lock/modified\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -687,14 +921,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{api_rule_base_url}}/api/actions/",
+							"raw": "{{api_rule_base_url}}/api/actions/2",
 							"host": [
 								"{{api_rule_base_url}}"
 							],
 							"path": [
 								"api",
 								"actions",
-								""
+								"2"
 							]
 						}
 					},
@@ -722,16 +956,19 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = {",
-									"        \"id\": 3,",
+									"        \"id\": 2,",
 									"        \"name\": \"Modified\",",
 									"        \"description\": \"Modified\",",
 									"        \"topic\": \"/modified\",",
-									"        \"duration\": 5,",
-									"        \"is_active\": true,",
+									"        \"duration\": response.duration,",
+									"        \"is_enabled\": response.is_enabled,",
+									"        \"activation_value\": response.activation_value,",
 									"        \"action\": {",
-									"            \"id\":1,",
-									"            \"name\":\"Test action number one\"",
+									"            \"id\":response.action.id,",
+									"            \"name\":response.action.name",
 									"        }",
 									"",
 									"    }",
@@ -756,7 +993,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\":3,\n    \"name\": \"Modified\",\n    \"description\": \"Modified\",\n    \"topic\": \"/modified\"\n}",
+							"raw": "{\n    \"id\":2,\n    \"name\": \"Modified\",\n    \"description\": \"Modified\",\n    \"topic\": \"/modified\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -764,14 +1001,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{api_rule_base_url}}/api/rules/",
+							"raw": "{{api_rule_base_url}}/api/rules/2",
 							"host": [
 								"{{api_rule_base_url}}"
 							],
 							"path": [
 								"api",
 								"rules",
-								""
+								"2"
 							]
 						}
 					},
@@ -797,20 +1034,6 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
-									"pm.environment.set(\"variable_key\", \"variable_value\");",
-									"});",
-									"",
-									"var expected = ",
-									"    {",
-									"        \"message\": \"Action deleted\"",
-									"",
-									"    }",
-									"",
-									"",
-									"",
-									"",
-									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
 									"});",
 									""
 								],
@@ -861,22 +1084,7 @@
 								"exec": [
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
-									"pm.environment.set(\"variable_key\", \"variable_value\");",
-									"});",
-									"",
-									"var expected = ",
-									"    {",
-									"        \"message\": \"Rule deleted\"",
-									"",
-									"    }",
-									"",
-									"",
-									"",
-									"",
-									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
-									"});",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -1074,26 +1282,22 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = ",
 									"    {",
-									"        \"id\" : \"\",",
+									"        \"id\" : response.id,",
 									"        \"name\": \"Test action created\",",
 									"        \"description\": \"Test action created\",",
 									"        \"topic\": \"/lock\",",
 									"        \"min_activation_time\": 60,",
 									"        \"activation_value\": \"open\",",
 									"        \"cancellation_value\": \"close\",",
-									"        \"updatedAt\": \"\",",
-									"        \"createdAt\": \"\"",
 									"    }",
 									"",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    var got = pm.response.json();",
-									"    got.id = \"\";",
-									"    got.updatedAt = \"\";",
-									"    got.createdAt = \"\";",
-									"    pm.expect(got).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -1155,13 +1359,16 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = ",
 									"    {",
-									"        \"id\" : \"\",",
+									"        \"id\" : response.id,",
 									"        \"name\": \"New Rule\",",
 									"        \"topic\": \"/lock\",        ",
 									"        \"description\": \"New Rule\",",
-									"        \"is_active\": true,",
+									"        \"is_enabled\": true,",
+									"        \"activation_value\": \"xx\",",
 									"        \"duration\": 30,",
 									"        \"action\": {",
 									"            \"id\":1,",
@@ -1172,9 +1379,7 @@
 									"",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    var got = pm.response.json();",
-									"    got.id = \"\";",
-									"    pm.expect(got).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -1193,7 +1398,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"New Rule\",\n    \"description\": \"New Rule\",\n    \"topic\": \"/lock\",\n    \"duration\": 30,\n    \"is_active\": true,\n    \"actionId\": 1\n}",
+							"raw": "{\n    \"name\": \"New Rule\",\n    \"description\": \"New Rule\",\n    \"topic\": \"/lock\",\n    \"duration\": 30,\n    \"is_enabled\": true,\n    \"activation_value\": \"xx\",\n    \"actionId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1235,8 +1440,10 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
+									"var response = pm.response.json();",
+									"",
 									"var expected = {",
-									"        \"id\": pm.response.json().id,",
+									"        \"id\": response.id,",
 									"        \"createdAt\": pm.response.json().createdAt,",
 									"        \"action\": {",
 									"            \"id\": 1,",
@@ -1461,7 +1668,7 @@
 	],
 	"variable": [
 		{
-			"id": "2354d6c4-98ac-41ef-8fcc-06f66436a6ab",
+			"id": "4ac9b9ff-9217-483b-9633-0194f88480bc",
 			"key": "base_url",
 			"value": "http://localhost/8082"
 		}

@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, checks } = require("../middleware");
 const controller = require("../controllers/action.controller");
 
 module.exports = function(app) {
@@ -50,9 +50,10 @@ module.exports = function(app) {
   );
 
   app.patch(
-    "/api/actions/",
+    "/api/actions/:actionId",
     [
-      authJwt.verifyToken
+      authJwt.verifyToken,
+      checks.checkActionId
 
     ],
     controller.update

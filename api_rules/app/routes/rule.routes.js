@@ -1,5 +1,7 @@
-const { authJwt } = require("../middleware");
+const { authJwt, checks } = require("../middleware");
 const controller = require("../controllers/rule.controller");
+
+
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -49,9 +51,10 @@ module.exports = function(app) {
   );
 
   app.patch(
-    "/api/rules/",
+    "/api/rules/:ruleId",
     [
-      authJwt.verifyToken
+      authJwt.verifyToken,
+      checks.checkRuleId
 
     ],
     controller.update

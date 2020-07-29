@@ -47,7 +47,7 @@ exports.delete = (req, res) => {
 exports.create = (req, res) => {
   Action.create(req.body)
     .then(action => {
-      res.status(201).send(action);
+      return findTheOne(action.id,res,201);
     })
     .catch(err => {
       res.status(500).send({ message: err.message });

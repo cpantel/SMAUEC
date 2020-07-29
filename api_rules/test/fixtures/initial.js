@@ -39,7 +39,8 @@ exports.initial = (action, rule, activity) => {
     description: "Rule number one",
     topic: "/sensor",
     duration: 30,
-    is_active: true,
+    is_enabled: true,
+    activation_value: "xx",
   }).then(rule => {
           rule.setAction(1)
   });
@@ -48,7 +49,8 @@ exports.initial = (action, rule, activity) => {
     description: "Rule number two",
     topic: "/switch",
     duration: 5,
-    is_active: true,
+    is_enabled: true,
+    activation_value: "xx",
   }).then(rule => {
           rule.setAction(2)
   });
@@ -58,7 +60,8 @@ exports.initial = (action, rule, activity) => {
     description: "Modifiable rule",
     topic: "/switch",
     duration: 5,
-    is_active: true,
+    is_enabled: true,
+    activation_value: "xx",
   }).then(rule => {
           rule.setAction(1)
   });
@@ -68,7 +71,8 @@ exports.initial = (action, rule, activity) => {
     description: "Erasable rule",
     topic: "/switch",
     duration: 5,
-    is_active: true,
+    is_enabled: true,
+    activation_value: "xx",
   }).then(rule => {
           rule.setAction(1)
   });

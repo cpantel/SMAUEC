@@ -9,8 +9,11 @@ module.exports = (sequelize, Sequelize) => {
     description: {
       type: Sequelize.STRING
     },
-    is_active: {
+    is_enabled: {
       type: Sequelize.BOOLEAN
+    },
+    activation_value: {
+      type: Sequelize.STRING
     },
     duration: {
       type: Sequelize.INTEGER
