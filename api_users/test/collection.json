@@ -254,7 +254,7 @@
 									"    pm.response.to.have.status(403);",
 									"});",
 									"",
-									"pm.environment.set(\"access_token\",undefined);",
+									" ",
 									""
 								],
 								"type": "text/javascript"
@@ -277,14 +277,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_user_base_url}}/api/users/{{user_id}}",
+							"raw": "{{api_user_base_url}}/api/users/3",
 							"host": [
 								"{{api_user_base_url}}"
 							],
 							"path": [
 								"api",
 								"users",
-								"{{user_id}}"
+								"3"
 							]
 						}
 					},
@@ -312,7 +312,7 @@
 									"    pm.response.to.have.status(403);",
 									"});",
 									"",
-									"pm.environment.set(\"access_token\",undefined);"
+									" "
 								],
 								"type": "text/javascript"
 							}
@@ -389,7 +389,7 @@
 						"id": "14bcb343-d1fb-4650-8ed2-5feb3650194d",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"pm.environment.set(\"access_token\",undefined ); "
 						]
 					}
 				}
@@ -400,7 +400,7 @@
 			"name": "Authenticated as Admin",
 			"item": [
 				{
-					"name": "Get User Admin",
+					"name": "Get User",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -527,7 +527,7 @@
 									"    pm.expect(got).to.eql(expected);",
 									"});",
 									"",
-									"pm.environment.set(\"access_token\",undefined);",
+									" ",
 									""
 								],
 								"type": "text/javascript"
@@ -588,7 +588,7 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"pm.environment.set(\"access_token\",undefined);",
+									" ",
 									""
 								],
 								"type": "text/javascript"
@@ -657,7 +657,7 @@
 									"    ",
 									"}",
 									"",
-									"pm.environment.set(\"access_token\",undefined);",
+									" ",
 									""
 								],
 								"type": "text/javascript"
@@ -755,7 +755,7 @@
 									"",
 									"",
 									"",
-									"pm.environment.set(\"access_token\",undefined);",
+									" ",
 									""
 								],
 								"type": "text/javascript"
@@ -834,7 +834,7 @@
 									"    pm.expect(pm.response.json()).to.eql(expected);",
 									"});",
 									"",
-									"pm.environment.set(\"access_token\",undefined);"
+									" "
 								],
 								"type": "text/javascript"
 							}
@@ -931,14 +931,14 @@
 				"id": "8ed7f079-93b6-4350-9bc8-de007e0ca4ef",
 				"type": "text/javascript",
 				"exec": [
-					""
+					"pm.environment.set(\"access_token\",undefined ); "
 				]
 			}
 		}
 	],
 	"variable": [
 		{
-			"id": "6468939d-ee8f-44bc-9aa3-ea72e28fc0ad",
+			"id": "244fa185-7b5e-4335-bd42-3eb0392f25a3",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
