@@ -24,7 +24,14 @@ var findTheOne = (id, res, status) => {
     if (null == user) {
       return res.status(403).send("User not found");
     } else {
-      return res.status(status).send(user)
+console.log("XXXXXXXXXXXfind the one XXXXXXXXXXXX");
+      return res.status(status).send(
+        { 
+          status: status,
+          message: "login ok",
+          result: user  
+        }
+      )
     }
   }).catch(err => {
     return res.status(500).send("User not found");
@@ -56,9 +63,9 @@ exports.delete = (req, res) => {
     {where: {id: req.params.userId}}
   ).then( num=> {
      if (1 == num) {
-        res.status(201).send({message:"User deleted"})
+        res.status(200).send({message:"User deleted"})
      } else { 
-      res.status(401).send({message:"User not found"})
+      res.status(404).send({message:"User not found"})
      }}
   );
 }

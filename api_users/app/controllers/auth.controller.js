@@ -17,7 +17,11 @@ exports.signin = (req, res) => {
   })
     .then(user => {
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(401).send({
+          status: 401,
+          message: "login fail 1",
+          result: {}
+        });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -26,14 +30,15 @@ exports.signin = (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(401).send({
-          accessToken: null,
-          message: "Invalid Password!"
+        return res.status(200).send({
+          status: 401,
+          message: "login fail 2",
+          result: {}
         });
       }
 
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400 // 24 hours
+        expiresIn: 86400 // 24 hours TODO: fix this
       });
 
       var authorities = [];
@@ -42,11 +47,15 @@ exports.signin = (req, res) => {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
-          id: user.id,
-          username: user.username,
-          email: user.email,
-          roles: authorities,
-          accessToken: token
+          status: 200,
+          message: "login ok",
+          result: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            roles: authorities,
+            accessToken: token
+          }
         });
       });
     })

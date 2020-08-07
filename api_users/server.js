@@ -5,7 +5,7 @@ const config = require("./app/config/user.config." + process.env.NODE_ENV + ".js
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:4200"
 };
 
 app.use(cors(corsOptions));
@@ -47,6 +47,6 @@ require('./app/routes/user.routes')(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`######### Auth and User Server is running on port ${PORT} #########`);
 });
 
