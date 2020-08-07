@@ -22,7 +22,11 @@ var findTheOne = (id, res, status) => {
     }
   ).then(user => {
     if (null == user) {
-      return res.status(403).send("User not found");
+      return res.status(403).send({
+        status: 403,
+        message: "User not found",
+        result: {}
+      });
     } else {
 console.log("XXXXXXXXXXXfind the one XXXXXXXXXXXX");
       return res.status(status).send(
@@ -34,7 +38,11 @@ console.log("XXXXXXXXXXXfind the one XXXXXXXXXXXX");
       )
     }
   }).catch(err => {
-    return res.status(500).send("User not found");
+    return res.status(500).send({
+          status: 500,
+          message: "User not found",
+          result: {}
+    });
   }
 )};
 
@@ -54,7 +62,11 @@ exports.findAll = (req, res) => {
       }
     }]
   }).then(users => {
-    res.status(200).send(users);
+    res.status(200).send({
+      status:200,
+      message: "users list",
+      result: users
+    });
   })}
 
 exports.delete = (req, res) => {
@@ -63,9 +75,17 @@ exports.delete = (req, res) => {
     {where: {id: req.params.userId}}
   ).then( num=> {
      if (1 == num) {
-        res.status(200).send({message:"User deleted"})
+        res.status(200).send({
+          status: 200,
+          message: "User deleted",
+          result: {}
+        })
      } else { 
-      res.status(404).send({message:"User not found"})
+      res.status(404).send({
+          status: 404,
+          message: "User not found",
+          result: {}
+      })
      }}
   );
 }
@@ -88,19 +108,31 @@ exports.create = (req, res) => {
         }).then(roles => {
           user.setRoles(roles).then(() => {
             return findTheOne(user.id,res,201);
-            res.status(201).send({ message: "User registered successfully!", id:user.id });
+            res.status(201).send({ 
+              status: 201,
+              message: "User created",
+              result: user
+            });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
           return findTheOne(user.id,res,201);
-          res.status(201).send({ message: "User registered successfully!", id:user.id });
+          res.status(201).send({ 
+              status: 201,
+              message: "User created",
+              result: user
+          });
         });
       }
     })
     .catch(err => {
-      res.status(500).send({ message: err.message });
+      res.status(500).send({ 
+        status: 500,
+        message: err.message,
+        result: {}
+      });
     });
 };
 

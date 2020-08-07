@@ -82,8 +82,6 @@
 									"pm.test(\"Status code is 401\", function () {",
 									"    pm.response.to.have.status(401);",
 									"});",
-									"",
-									"pm.environment.set(\"access_token\",pm.response.json()[\"accessToken\"] );",
 									""
 								],
 								"type": "text/javascript"
@@ -441,6 +439,8 @@
 									"    pm.expect(pm.response.json().result).to.eql(expected);",
 									"});",
 									"",
+									"",
+									"",
 									""
 								],
 								"type": "text/javascript"
@@ -695,7 +695,7 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"var response = pm.response.json().slice(0,2);",
+									"var response = pm.response.json().result.slice(0,2);",
 									"",
 									"var expected = [",
 									"    {",
@@ -919,14 +919,23 @@
 				"id": "8ed7f079-93b6-4350-9bc8-de007e0ca4ef",
 				"type": "text/javascript",
 				"exec": [
-					"pm.environment.set(\"access_token\",undefined ); "
+					"pm.environment.set(\"access_token\",undefined ); ",
+					"",
+					"var expected = pm.response.json();",
+					"",
+					"pm.test(\"API object\", function () {",
+					"    pm.expect(expected).to.have.property(\"status\");",
+					"    pm.expect(expected).to.have.property(\"message\");",
+					"    pm.expect(expected).to.have.property(\"result\");",
+					"});",
+					""
 				]
 			}
 		}
 	],
 	"variable": [
 		{
-			"id": "aff5e151-66e3-4606-a6d3-257dde6ea8f6",
+			"id": "beb6a322-8d66-4d73-ade5-99d5d46aeecb",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
