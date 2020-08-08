@@ -19,15 +19,9 @@ db.sequelize = sequelize;
 
 db.action = require("../models/action.model.js")(sequelize, Sequelize);
 db.rule = require("../models/rule.model.js")(sequelize, Sequelize);
-db.activity = require("../models/activity.model.js")(sequelize, Sequelize);
 
 db.action.hasMany(db.rule);
 db.rule.belongsTo(db.action);
-
-db.activity.belongsTo(db.action);
-db.activity.belongsTo(db.rule);
-
-
 
 
 module.exports = db;
