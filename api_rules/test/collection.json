@@ -34,7 +34,7 @@
 											"});",
 											"",
 											"pm.test(\"sanitezed XSS\", function() {",
-											"    pm.expect( pm.response.json().description == ",
+											"    pm.expect( pm.response.json().result.description == ",
 											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
 											"    );",
 											"});",
@@ -99,7 +99,7 @@
 											"});",
 											"",
 											"pm.test(\"sanitezed XSS\", function() {",
-											"    pm.expect( pm.response.json().description == ",
+											"    pm.expect( pm.response.json().result.description == ",
 											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
 											"    );",
 											"});",
@@ -166,7 +166,7 @@
 											"});",
 											"",
 											"pm.test(\"sanitezed XSS\", function() {",
-											"    pm.expect( pm.response.json().description == ",
+											"    pm.expect( pm.response.json().result.description == ",
 											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
 											"    );",
 											"});",
@@ -230,7 +230,7 @@
 											"});",
 											"",
 											"pm.test(\"sanitezed XSS\", function() {",
-											"    pm.expect( pm.response.json().description == ",
+											"    pm.expect( pm.response.json().result.description == ",
 											"      \"&lt;script&gt;alert('xss');&lt;/script&gt;\"",
 											"    );",
 											"});",
@@ -416,7 +416,7 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = [",
 									"    {",
@@ -442,7 +442,7 @@
 									"",
 									"",
 									"pm.test(\"Content is two actions\", function () {",
-									"    pm.expect(pm.response.json().slice(0,2)).to.eql(expected);",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
 									"});",
 									""
 								],
@@ -494,7 +494,7 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = [",
 									"    {",
@@ -529,7 +529,7 @@
 									"",
 									"",
 									"pm.test(\"Content is two rules\", function () {",
-									"    pm.expect(pm.response.json().slice(0,2)).to.eql(expected);",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
 									"});",
 									""
 								],
@@ -560,90 +560,6 @@
 					"response": []
 				},
 				{
-					"name": "List Activities",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "42fe7861-6d10-460f-9db3-fcaca29748a5",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "659bff9a-74a1-41b3-9a27-43223e736db7",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"var response = pm.response.json();",
-									"",
-									"var expected = [",
-									"    {",
-									"        \"id\": response[0].id,",
-									"        \"createdAt\": response[0].createdAt,",
-									"        \"action\": {",
-									"            \"id\": response[0].action.id,",
-									"            \"name\": response[0].action.name",
-									"        },",
-									"        \"rule\": {",
-									"            \"id\": response[0].rule.id,",
-									"            \"name\": response[0].rule.name",
-									"        }",
-									"    },",
-									"    {",
-									"        \"id\": response[1].id,",
-									"        \"createdAt\": response[1].createdAt,",
-									"        \"action\": {",
-									"            \"id\": response[1].action.id,",
-									"            \"name\": response[1].action.name",
-									"        },",
-									"        \"rule\": {",
-									"            \"id\": response[1].rule.id,",
-									"            \"name\": response[1].rule.name",
-									"        }",
-									"    }",
-									"]",
-									"",
-									"",
-									"",
-									"pm.test(\"Content is two rules\", function () {",
-									"    pm.expect(pm.response.json().slice(0,2)).to.eql(expected);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"type": "text",
-								"value": "{{access_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{api_rule_base_url}}/api/activities",
-							"host": [
-								"{{api_rule_base_url}}"
-							],
-							"path": [
-								"api",
-								"activities"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get one Action",
 					"event": [
 						{
@@ -665,7 +581,7 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = ",
 									"    {",
@@ -683,7 +599,7 @@
 									"",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -735,7 +651,7 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = {",
 									"        \"id\": 1,",
@@ -756,7 +672,7 @@
 									"",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -788,76 +704,6 @@
 					"response": []
 				},
 				{
-					"name": "Get one Activity",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "c266365f-f56c-43a7-a1e0-c564986ffb53",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "fd528f5f-8cb0-4be1-a7f1-8e1eae6d10c7",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"var response = pm.response.json();",
-									"",
-									"// TODO",
-									"var expected = {",
-									"        \"id\": 1,",
-									"        \"createdAt\": response.createdAt,",
-									"        \"action\": {",
-									"            \"id\": 1,",
-									"            \"name\": \"Test action number one\"",
-									"        },",
-									"        \"rule\": {",
-									"            \"id\": 1,",
-									"            \"name\": \"Rule number one\"",
-									"        }",
-									"    }",
-									"",
-									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"type": "text",
-								"value": "{{access_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{api_rule_base_url}}/api/activities/1",
-							"host": [
-								"{{api_rule_base_url}}"
-							],
-							"path": [
-								"api",
-								"activities",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Modify an Action",
 					"event": [
 						{
@@ -879,7 +725,7 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"var expected = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = ",
 									"    {",
@@ -887,14 +733,14 @@
 									"        \"name\": \"Test action modified\",",
 									"        \"description\": \"Test action modified\",",
 									"        \"topic\": \"/lock/modified\",",
-									"        \"min_activation_time\": expected.min_activation_time,",
-									"        \"activation_value\": expected.activation_value,",
-									"        \"cancellation_value\": expected.cancellation_value",
+									"        \"min_activation_time\": response.min_activation_time,",
+									"        \"activation_value\": response.activation_value,",
+									"        \"cancellation_value\": response.cancellation_value",
 									"    }",
 									"",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -956,7 +802,7 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = {",
 									"        \"id\": 2,",
@@ -974,7 +820,7 @@
 									"    }",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -1212,55 +1058,6 @@
 					"response": []
 				},
 				{
-					"name": "Get Inexistent Activity",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "dea158ba-04e6-448f-a560-5802c56e3ff9",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "9150fbe6-f726-4e11-829c-445327d9eaeb",
-								"exec": [
-									"pm.test(\"Status code is 403\", function () {",
-									"    pm.response.to.have.status(403);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-access-token",
-								"type": "text",
-								"value": "{{access_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{api_rule_base_url}}/api/activities/342323",
-							"host": [
-								"{{api_rule_base_url}}"
-							],
-							"path": [
-								"api",
-								"activities",
-								"342323"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Create an Action",
 					"event": [
 						{
@@ -1282,7 +1079,7 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = ",
 									"    {",
@@ -1359,7 +1156,7 @@
 									"    pm.response.to.have.status(201);",
 									"});",
 									"",
-									"var response = pm.response.json();",
+									"var response = pm.response.json().result;",
 									"",
 									"var expected = ",
 									"    {",
@@ -1417,84 +1214,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Create an Activity",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "7b7830c0-f3b2-4825-a301-d267103225ed",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "785908e7-3946-4c95-aa13-5cd08dde600b",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"var response = pm.response.json();",
-									"",
-									"var expected = {",
-									"        \"id\": response.id,",
-									"        \"createdAt\": pm.response.json().createdAt,",
-									"        \"action\": {",
-									"            \"id\": 1,",
-									"            \"name\": \"Test action number one\"",
-									"        },",
-									"        \"rule\": {",
-									"            \"id\": 1,",
-									"            \"name\": \"Rule number one\"",
-									"        }",
-									"    }",
-									"",
-									"",
-									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json()).to.eql(expected);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "x-access-token",
-								"type": "text",
-								"value": "{{access_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"actionId\": 1,\n    \"ruleId\":1\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{api_rule_base_url}}/api/activities",
-							"host": [
-								"{{api_rule_base_url}}"
-							],
-							"path": [
-								"api",
-								"activities"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"event": [
@@ -1519,7 +1238,7 @@
 							"    }},",
 							"     ",
 							"    function (err, response) {",
-							"        pm.environment.set(\"access_token\",response.json()[\"accessToken\"] );",
+							"        pm.environment.set(\"access_token\",response.json()[\"result\"][\"accessToken\"] );",
 							"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
 							"    }",
 							");"
@@ -1587,50 +1306,6 @@
 					"response": []
 				},
 				{
-					"name": "Activity unauthenticated access",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f2069c01-6471-4f12-b419-2e44b60c8a44",
-								"exec": [
-									"pm.test(\"Status code is 403\", function () {",
-									"    pm.response.to.have.status(403);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{api_rule_base_url}}/api/activities",
-							"host": [
-								"{{api_rule_base_url}}"
-							],
-							"path": [
-								"api",
-								"activities"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Rule unauthenticated access",
 					"event": [
 						{
@@ -1666,9 +1341,43 @@
 			"protocolProfileBehavior": {}
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5e1a2b09-697f-481a-a218-1acca29e159d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8e3a3362-e7cc-4c43-b5cd-0de9e6db1af5",
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.set(\"access_token\",undefined ); ",
+					"",
+					"var expected = pm.response.json();",
+					"",
+					"pm.test(\"API object\", function () {",
+					"    pm.expect(expected).to.have.property(\"status\");",
+					"    pm.expect(expected).to.have.property(\"message\");",
+					"    pm.expect(expected).to.have.property(\"result\");",
+					"});",
+					"",
+					"pm.test(\"Status code is coherent\", function () {",
+					"    pm.response.to.have.status(expected.status);",
+					"});"
+				]
+			}
+		}
+	],
 	"variable": [
 		{
-			"id": "4ac9b9ff-9217-483b-9633-0194f88480bc",
+			"id": "e45613fe-7b40-403e-bb86-8bd468bf4a07",
 			"key": "base_url",
 			"value": "http://localhost/8082"
 		}
