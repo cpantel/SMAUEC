@@ -1,0 +1,36 @@
+que pasa con topic/# ?
+
+https://github.com/taoyuan/mors
+
+  rule 
+    id
+    name
+    topic
+    duration
+    activation_value
+    activated_at
+    action_id
+
+
+  action
+    id 
+    name
+    topic
+    min_activation_time
+    activation_value
+    cancellation_value
+
+
+
+  cuando una regla coincide con topic / activation_value
+     activated_at = now()
+     ante cada tick evaluar si se ha cumplido duration
+         le pide a la action que publique en topic / activation_value
+         agenda publicar en topic/ cancellation_value dentro en now + min_activation_time
+
+
+
+reset
+   tiene que pedirle a todas sus actions que publiquen topic/cancellation_value
+   unset 
+   api/rules/list

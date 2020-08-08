@@ -1,0 +1,10 @@
+docker pull ....
+
+docker image create ...
+
+docker build -t smauec/....:0.0.1 .
+
+docker compose up
+
+
+

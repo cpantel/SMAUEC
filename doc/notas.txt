@@ -1,0 +1,16 @@
+
+
+
+http://esp8266.net/
+
+
+
+https://naylampmechatronics.com/blog/56_usando-esp8266-con-el-ide-de-arduino.html
+    additional url:
+        http://arduino.esp8266.com/stable/package_esp8266com_index.json
+    search:
+        esp8266 by ESP8266 Community
+
+
+
+https://github.com/espressif/ESP8266_RTOS_SDK

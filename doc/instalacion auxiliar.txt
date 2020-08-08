@@ -1,0 +1,27 @@
+sudo apt install
+  vim
+  nmap
+  libgnome2-bin
+  dirdiff
+  kdiff3-qt
+  wireshark
+
+
+DbVisualizer (download from...)
+code (download from...)
+Postman (download from...)
+Newman (sudo npm install -g newman)
+
+#   sudo npm install -g snyk ; no usado
+
+
+npm install -g @angular/cli
+
+
+Tips y diagnóstico
+==================
+
+no usar miniterm a la vez que se está flasheando
+
+
+curl -X POST -H "Content-Type: text/plain" --data '{"username":"user","password":"pass","roles":["user"]}' http://localhost:8081

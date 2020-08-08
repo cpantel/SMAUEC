@@ -1,0 +1,24 @@
+mqtt client
+
+docker pull eclipse-mosquitto:1.6.10
+
+sudo apt install mosquitto-clients
+
+mosquitto_sub -h localhost -p 1883 -t /prueba
+
+
+docker pull eclipse-mosquitto:1.6.10
+
+docker run  --publish 1883:1883 eclipse-mosquitto
+
+docker run  --publish 192.168.1.106:1883:1883 eclipse-mosquitto
+
+
+mqtt server
+
+security: shutdown ipv6
+
+https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/api-guides/build-system.html#embedding-binary-data
+
+
+docker build -t smauec/broker:0.0.1 .

@@ -1,0 +1,34 @@
+Node
+
+Pasos seguidos a partir de:
+
+
+https://github.com/nodesource/distributions/blob/master/README.md
+
+
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+crear
+  package.json
+  app.js
+  *html
+  *css
+  *js
+
+
+
+npm install
+
+He utilizado este ejemplo para sentar las bases del backend con autenticación y conexión a base postgres
+https://bezkoder.com/node-js-jwt-authentication-mysql/
+
+
+
+usar este tutorial reemplazando mongo por postgres
+
+
+
+
+https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8
+

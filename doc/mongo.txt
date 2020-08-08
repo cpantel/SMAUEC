@@ -1,0 +1,10 @@
+docker pull mongo:4.2.8-bionic
+
+docker build -t smauec/mongo:0.0.1 .
+
+docker volume create mongo
+
+
+
+
+https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8

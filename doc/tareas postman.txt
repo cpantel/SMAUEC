@@ -1,0 +1,2 @@
+TODO: pasar los pre-request a la collection
+TODO: mover variables a sus lugares

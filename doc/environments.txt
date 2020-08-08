@@ -1,0 +1,40 @@
+environment:
+   secrect_key
+
+   HOST: "172.22.0.1",
+   USER: "postgres",
+   PASSWORD: "12345602",
+   DB: "smauec",
+
+   db:smauec_auth(_test)
+      user
+      role
+
+   db:smauec_rules(_test)
+      action
+      rule
+      activity
+ 
+   db:smauec_events(_test)
+      events
+
+
+
+test:
+   npm dev
+   npm test
+   config taken from config folder
+   fixture:
+      create roles
+      create admin user with password taken from environment
+      create a few users
+      create a few rules
+             
+
+prod:
+   npm start / npm prod
+   config taken from exported environment variables
+   fixture:
+      create roles
+      create admin user with password taken from environment
+

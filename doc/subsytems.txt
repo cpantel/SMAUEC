@@ -1,0 +1,10 @@
+
+
++-----------+------+----------+----------+--------------+
+| subsystem | port | engine   | database | user         |
++-----------+------+----------+----------+--------------+
+| frontend  | 8080 |    --    |
+| users     | 8081 | postgres | smauec   | smauec_user
+| rules     | 8082 | postgres | smauec   | smauec_rules
+| events    | 8083 | mongodb  |          | 
++-----------+------+----------+----------+--------------+

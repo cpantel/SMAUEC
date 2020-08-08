@@ -1,0 +1,95 @@
+pgadmin
+
+docker pull dpage/pgadmin4:4.23
+
+https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+
+docker run -p 80:80 \
+    -e 'PGADMIN_DEFAULT_EMAIL=admin' \
+    -e 'PGADMIN_DEFAULT_PASSWORD=xxxxxxxx' \
+    -d dpage/pgadmin4:4.23
+
+docker volume create pgadmin
+
+
+postgres
+
+docker pull postgres:12.3
+
+
+docker build -t smauec/postgres:0.0.1 .
+
+
+docker run --name some-postgres -e POSTGRES_PASSWORD=xxxxxxxx -d postgres:12.3
+# default user postgres
+
+
+select rules.id, rules.name, actions.id, actions.name from rules inner join actions on "rules"."actionId" = actions.id order by rules.id;
+
+select username, roles.name from users inner join user_roles on users.id = user_roles."userId" inner join roles on user_roles."roleId" = roles.id;
+
+docker exec -it repo_postgres_1 psql -U postgres
+
+CREATE ROLE smauec_admin WITH
+	LOGIN
+	NOSUPERUSER
+	NOCREATEDB
+	NOCREATEROLE
+	INHERIT
+	NOREPLICATION
+	CONNECTION LIMIT -1
+	PASSWORD 'xxxxxxxx';
+
+
+CREATE DATABASE smauec
+    WITH 
+    OWNER = smauec_admin
+    ENCODING = 'UTF8'
+    CONNECTION LIMIT = -1;
+
+docker exec -it repo_postgres_1 psql -U smauec
+
+
+
+------------------------------------------------
+
+CREATE TABLE public."user"
+(
+    id_user serial NOT NULL,
+    name character(64) NOT NULL,
+    password character(64) NOT NULL,
+    salt character(64) NOT NULL,
+    is_admin boolean NOT NULL,
+    PRIMARY KEY (id_user)
+);
+
+ALTER TABLE public."user"
+    OWNER to smauec;
+
+CREATE TABLE rule (
+   id_rule,
+   name,
+   description,
+   topic,
+   value,
+   duration,
+   id_action,
+   is_active?
+);
+
+CREATE TABLE action (
+  id_action,
+  name,
+  description,
+   topic,
+   activation_value,
+   cancellation_value,
+   min_activation_time
+);
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+
+clone
+
+https://github.com/Fonger/ESP8266-RTOS-DHT.git
+
+en components, con nombre dht
+
+
+/home/ceiot/Desktop/ESP8266_RTOS_SDK/projects/tcp/
+
+
+#include "dht/dht.h"
+
+make clean; make
+
+https://github.com/Fonger/ESP8266-RTOS-DHT?files=1
+
+
+
+
+https://www.freertos.org/Embedded-RTOS-Queues.html
+
+

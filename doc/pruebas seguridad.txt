@@ -1,0 +1,61 @@
+pruebas de seguridad
+
+db
+   qué sólo se pueda conectar desde la aplicación
+
+https://expressjs.com/en/advanced/best-practice-security.html
+    https://www.npmjs.com/package/helmet
+
+/*
+// var traverse = function(o, o2, fn) {  # you need the parent object
+var traverse = function(o, fn) {
+  for (var i in o) {
+    fn.apply(this,[i,o[i]]);  
+    if (o[i] !== null && typeof(o[i])=="object") {
+      traverse(o[i], fn);
+//      traverse(o[i], o, fn);
+    }
+  }
+}
+
+Usage:
+    traverse(req.body, function(key,value) {
+        if (typeof value == "string") {
+          req.body[key]=value.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        } 
+    });
+*/
+
+
+https://medium.com/@nodepractices/were-under-attack-23-node-js-security-best-practices-e33c146cb87d
+
+frontend / backend
+
+   que aplique JWT
+
+firmware
+
+    en esp8266 sdk menuconfig
+
+
+    compiler options
+     Stack smashing protection mode
+       (X) None                                    ELEGIR ALGUNA
+       ( ) Normal
+       ( ) Strong
+       ( ) Overall
+    componente config
+      mbedtls
+        [*] Support TLS renegotiation              DESHABILITAR 
+        [ ] Legacy SSL 3.0 support
+        [*] Support TLS 1.0 protocol               DESHABILITAR
+        [*] Support TLS 1.1 protocol               DESHABILITAR
+        [*] Support TLS 1.2 protocol
+
+
+
+      esp-mqtt
+        [*] Enable MQTT protocol 3.1.1
+        [*] Enable MQTT over SSL
+        [*] Enable MQTT over Websocket             DESHABILITAR
+        [*]   Enable MQTT over Websocket Secure    DESHABILITAR
