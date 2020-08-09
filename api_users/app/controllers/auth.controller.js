@@ -30,7 +30,7 @@ exports.signin = (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(200).send({
+        return res.status(401).send({
           status: 401,
           message: "login fail 2",
           result: {}
