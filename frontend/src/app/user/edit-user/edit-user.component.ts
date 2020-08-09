@@ -1,9 +1,11 @@
-import { Component, OnInit , Inject} from '@angular/core';
-import {Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {first} from "rxjs/operators";
-import {User} from "../../model/user.model";
-import {ApiService} from "../../service/api.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ApiService } from "../../service/api.service";
+
+import { first } from "rxjs/operators";
+import { User } from "../../model/user.model";
+
 
 @Component({
   selector: 'app-edit-user',
@@ -14,7 +16,8 @@ export class EditUserComponent implements OnInit {
 
   user: User;
   editForm: FormGroup;
-  constructor(private formBuilder: FormBuilder,private router: Router, private apiService: ApiService) { }
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
     let userId = window.localStorage.getItem("editUserId");

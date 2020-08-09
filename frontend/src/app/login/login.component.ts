@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
-import {ApiService} from "../service/api.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { ApiService } from "../service/api.service";
+
 
 @Component({
   selector: 'app-login',
@@ -9,9 +10,9 @@ import {ApiService} from "../service/api.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
   invalidLogin: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
 
   onSubmit() {
@@ -43,7 +44,5 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     });
   }
-
-
 
 }

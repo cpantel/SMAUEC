@@ -1,13 +1,15 @@
-import { Component, OnInit , Inject} from '@angular/core';
-import {Router} from "@angular/router";
-import {User} from "../../model/user.model";
-import {ApiService} from "../../service/api.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { User} from "../../model/user.model";
+import { ApiService} from "../../service/api.service";
+
 
 @Component({
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
   styleUrls: ['./list-user.component.css']
 })
+
 export class ListUserComponent implements OnInit {
 
   users: User[];
