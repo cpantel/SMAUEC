@@ -928,14 +928,17 @@
 					"    pm.expect(expected).to.have.property(\"message\");",
 					"    pm.expect(expected).to.have.property(\"result\");",
 					"});",
-					""
+					"",
+					"pm.test(\"Status code is coherent\", function () {",
+					"    pm.response.to.have.status(expected.status);",
+					"});"
 				]
 			}
 		}
 	],
 	"variable": [
 		{
-			"id": "beb6a322-8d66-4d73-ade5-99d5d46aeecb",
+			"id": "76bc16fd-d901-41d7-ab71-ee7a2aedbed6",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
