@@ -1,0 +1,32 @@
+services:
+  static:
+    image: testbench/static:0.0.1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - type: bind
+        source: ./sites/conf 
+        target: /etc/nginx/conf.d
+      - type: bind
+        source: ./sites/html
+        target: /usr/share/nginx/html
+      - type: bind
+        source: ./sites/certs
+        target: /usr/share/nginx/certs
+
+services:
+  static:
+    image: smauec/proxy:0.0.1
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ./proxy     
+        target: /etc/nginx/conf.d
+
+
+
+docker pull nginx:1.18.0
+
+docker build -t smauec/proxy:0.0.1 .

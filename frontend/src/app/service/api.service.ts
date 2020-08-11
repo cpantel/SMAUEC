@@ -8,10 +8,10 @@ import {ApiResponse} from "../model/api.response";
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  //baseUrl: string = 'http://localhost:8080/users/';
-  authBaseUrl: string = 'http://localhost:8081/api/auth/';
-  userBaseUrl: string = 'http://localhost:8081/api/users/';
-  ruleBaseUrl: string = 'http://localhost:8082';
+
+  authBaseUrl: string = 'http://api-users.smauec.net/api/auth/';
+  userBaseUrl: string = 'http://api-users.smauec.net/api/users/';
+  ruleBaseUrl: string = 'http://api-rules.smauec.net/api/rules/';
 
   login(loginPayload) : Observable<ApiResponse> {
         //  return this.http.post<ApiResponse>('http://localhost:8081/api/auth/signin', loginPayload);

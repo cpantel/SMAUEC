@@ -5,7 +5,7 @@ const config = require("./app/config/user.config." + process.env.NODE_ENV + ".js
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+	origin:"http://www.smauec.net"
 };
 
 app.use(cors(corsOptions));
