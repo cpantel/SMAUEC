@@ -1,0 +1,53 @@
+version: "3.3"
+
+volumes:
+  pgadmin:
+  mongo:
+  postgres:
+
+services:
+
+
+  pgadmin:
+
+services:
+  proxy:
+    image: smauec/proxy:0.0.1
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ./proxy
+        target: /etc/nginx/conf.d
+
+  pgadmin:
+    image: "smauec/pgadmin:0.0.1"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_PASSWORD=12345601
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    
+
+  postgres:
+    image: "smauec/postgres:0.0.1"
+    environment:
+      - POSTGRES_PASSWORD=12345602
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  broker:
+    image: "smauec/broker:0.0.1"
+    ports:
+      - "1883:1883"
+
+  mongo:
+    image: "smauec/mongo:0.0.1"
+    ports:
+     - "27017:27017" 
+    volumes:
+     - mongo:/data/db
