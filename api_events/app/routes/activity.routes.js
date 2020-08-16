@@ -22,5 +22,13 @@ module.exports = function(app) {
     ],
     controller.findAll
   );
+  app.post(
+    "/api/activities",
+    [
+      authJwt.verifyToken,
+    ],
+    controller.create
+  );
+
 
 };

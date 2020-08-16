@@ -6,13 +6,8 @@ volumes:
   postgres:
 
 services:
-
-
-  pgadmin:
-
-services:
   proxy:
-    image: smauec/proxy:0.0.1
+    image: "smauec/proxy:0.0.1"
     ports:
       - "80:80"
     volumes:
