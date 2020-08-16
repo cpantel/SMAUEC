@@ -45,7 +45,11 @@ if ("prod" == process.env.NODE_ENV) {
 
   const eventSchema = new mongoose.Schema(eventModel,eventConf);
   const Event = mongoose.model('Event', eventSchema );
-  Event.deleteMany({});
+  Event.deleteMany({},function(err) {
+    console.log(" Event.deleteMany");
+    console.log(err);
+  }
+  );
 
 	
   const activityConf = {
@@ -57,7 +61,11 @@ if ("prod" == process.env.NODE_ENV) {
 
   const activitySchema = new mongoose.Schema(activityModel,activityConf);
   const Activity = mongoose.model('Activity', activitySchema);
-  Activity.deleteMany({});
+  Activity.deleteMany({},function(err) {
+    console.log(" Activity.deleteMany");
+    console.log(err);
+  }
+);
 
   fixture.initial(Event, Activity);
 }
