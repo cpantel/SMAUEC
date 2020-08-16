@@ -1,6 +1,6 @@
 {
-  "name": "engine",
-  "version": "1.0.0",
+  "name": "smauec_odata",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "start:prod": "NODE_ENV=prod node server.js",
     "test": "newman run test/collection.json -e test/environment.json -g test/globals.json"
   },
-  "author": "",
+  "author": "Carlos Pantelides <carlos.pantelides@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "node-odata": "0.7.16",
