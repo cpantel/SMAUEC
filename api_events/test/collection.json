@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "ea1c3299-a751-4038-ba27-cebb3d498dd2",
+		"name": "API Events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Not Authenticated",
+			"item": [
+				{
+					"name": "List Events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9569da18-2793-4e90-9a82-380cf41bee2c",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/events",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Activities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fef5a9d6-361f-4372-9d20-059ba762103f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic,",
+									"        \"value\": response[0].value,",
+									"        \"id\": response[0].id",
+									"    },",
+									"    {",
+									"        \"topic\": response[1].topic,",
+									"        \"value\": response[1].value,",
+									"        \"id\": response[1].id",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is two events\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/activities",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b8da1e7a-e0ee-41ea-804b-e82416193e22",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "cad0bcb4-1941-4fc2-a4af-2ffdc2420f8e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authenticated",
+			"item": [
+				{
+					"name": "List Events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed8d7e9a-4c81-497b-b43d-d329530fdf12",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/events",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Events with select",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "76bba3bf-732c-4642-a270-8c8e16149a50",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().result;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic",
+									"    },",
+									"    {",
+									"        \"topic\": response[1].topic",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is only selected field\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/events?$select=topic",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "$select",
+									"value": "topic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Events with condition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "409ffe9e-bde2-42ec-bdf8-33c43dcfc164",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().result;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic,",
+									"        \"value\": \"on\",",
+									"        \"id\": response[0].id",
+									"    },",
+									"    {",
+									"        \"topic\": response[1].topic,",
+									"        \"value\": \"on\",",
+									"        \"id\": response[1].id",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is the result of a filteris two events\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/events?$filter=value eq 'on'",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "$filter",
+									"value": "value eq 'on'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b62382ac-6b67-4f2d-8ca2-ae136064c923",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var response = pm.response.json().result;",
+									"",
+									"var expected =  {",
+									"        \"topic\": \"/onetopic/\",",
+									"        \"value\": \"on\",",
+									"        \"timestamp\": response.timestamp,",
+									"        \"id\": response.id",
+									"}",
+									"",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is new Event\", function () {",
+									"    pm.expect(response).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-access-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topic\": \"/onetopic/\",\n    \"value\": \"on\"\n}"
+						},
+						"url": {
+							"raw": "{{api_events_base_url}}/api/events",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e50b2ac6-0ffa-4300-b86f-ab5d49c62e73",
+						"type": "text/javascript",
+						"exec": [
+							"var url = pm.globals.get(\"api_user_base_url\");",
+							"",
+							"pm.sendRequest({",
+							"    url: url + \"/api/auth/signin\" ,",
+							"    method: 'POST',",
+							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    body:{",
+							"        mode: \"raw\",",
+							"        raw: JSON.stringify({",
+							"            username:\"admin\",",
+							"            password:\"admin\"",
+							"        })",
+							"    }},",
+							"     ",
+							"    function (err, response) {",
+							"        pm.environment.set(\"access_token\",response.json()[\"result\"][\"accessToken\"] );",
+							"        pm.environment.set(\"user_id\",response.json()[\"id\"]);",
+							"    }",
+							");"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3670d72c-6a4d-4c8e-9eee-49240499201a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "11a57ae4-d430-483a-bf69-dbbe073a042c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "02c43e17-f489-4535-91c7-b3b8659646c5",
+				"type": "text/javascript",
+				"exec": [
+					"pm.environment.set(\"access_token\",undefined ); ",
+					"",
+					"var expected = pm.response.json();",
+					"",
+					"pm.test(\"API object\", function () {",
+					"    pm.expect(expected).to.have.property(\"status\");",
+					"    pm.expect(expected).to.have.property(\"message\");",
+					"    pm.expect(expected).to.have.property(\"result\");",
+					"});",
+					"",
+					"pm.test(\"Status code is coherent\", function () {",
+					"    pm.response.to.have.status(expected.status);",
+					"});"
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
