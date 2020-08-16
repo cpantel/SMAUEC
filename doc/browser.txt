@@ -1,0 +1,7 @@
+      obtenerClientes() {
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://services.odata.org/V4/Northwind/Northwind.svc/Customers', false);
+        request.setRequestHeader('Accept', 'application/json');
+        request.send();
+        this.clientes = JSON.parse(request.responseText).value;
+        cons

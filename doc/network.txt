@@ -1,0 +1,6 @@
+[/etc/hosts]
+127.0.0.1       api-users.smauec.net
+127.0.0.1       api-rules.smauec.net
+127.0.0.1       api-events.smauec.net
+127.0.0.1       www.smauec.net
+
