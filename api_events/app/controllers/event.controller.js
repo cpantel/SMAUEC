@@ -9,13 +9,21 @@ exports.findAll = (req, res) => {
   var params = "?" + querystring.stringify(req.query);
   axios.get("http://localhost:8084/events" + params)
     .then(function(response) {
-    console.log(response.config.url);
+      console.log(response.config.url);
+
+      if ( ! params.match(/select/ ) ) {
+        response.data.value = response.data.value.map( elem => {
+          if (undefined == elem.timestamp) elem.timestamp = null;
+          return elem;
+        });	    
+      }
       res.status(200).send(
         {
           status:200,
           message: "Event list",
           result: response.data.value
-	});	
+        }
+      );
     })
     .catch(function(error) {
       res.status(500).send(

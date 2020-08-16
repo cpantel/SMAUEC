@@ -9,7 +9,13 @@ exports.findAll = (req, res) => {
   var params = "?" + querystring.stringify(req.query);
   axios.get("http://localhost:8084/activities" + params)
     .then(function(response) {
-    console.log(response.config.url);
+      if ( ! params.match(/select/ ) ) {
+        response.data.value = response.data.value.map( elem => {
+          if (undefined == elem.timestamp) elem.timestamp = null;
+          return elem;
+        });
+      }
+
       res.status(200).send(
         {
           status:200,

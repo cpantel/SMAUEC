@@ -118,11 +118,13 @@
 									"    {",
 									"        \"topic\": response[0].topic,",
 									"        \"value\": response[0].value,",
+									"        \"timestamp\":response[0].timestamp,",
 									"        \"id\": response[0].id",
 									"    },",
 									"    {",
 									"        \"topic\": response[1].topic,",
 									"        \"value\": response[1].value,",
+									"        \"timestamp\":response[1].timestamp,",
 									"        \"id\": response[1].id",
 									"    }",
 									"]",
@@ -183,6 +185,7 @@
 									"      \"is_activation\" : response[0].is_activation,",
 									"      \"event_topic\" : response[0].event_topic,",
 									"      \"event_value\" : response[0].event_value,",
+									"      \"timestamp\":response[0].timestamp,",
 									"      \"id\": response[0].id,",
 									"    },",
 									"    {",
@@ -193,6 +196,7 @@
 									"      \"is_activation\" : response[1].is_activation,",
 									"      \"event_topic\" : response[1].event_topic,",
 									"      \"event_value\" : response[1].event_value,",
+									"      \"timestamp\":response[1].timestamp,",
 									"      \"id\": response[1].id",
 									"    }",
 									"]",
@@ -370,11 +374,13 @@
 									"    {",
 									"        \"topic\": response[0].topic,",
 									"        \"value\": \"on\",",
+									"        \"timestamp\":response[0].timestamp,",
 									"        \"id\": response[0].id",
 									"    },",
 									"    {",
 									"        \"topic\": response[1].topic,",
 									"        \"value\": \"on\",",
+									"        \"timestamp\":response[1].timestamp,",
 									"        \"id\": response[1].id",
 									"    }",
 									"]",
@@ -419,6 +425,68 @@
 					"response": []
 				},
 				{
+					"name": "List Events with no timestamp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a17c88a-1a8a-427e-bef2-455d4599c48e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().result;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic,",
+									"        \"value\": response[0].value,",
+									"        \"id\": response[0].id,",
+									"        \"timestamp\":null        ",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is the result of a filteris two events\", function () {",
+									"    pm.expect(response.slice(0,1)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/events?$filter=timestamp eq null",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"events"
+							],
+							"query": [
+								{
+									"key": "$filter",
+									"value": "timestamp eq null"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "List Activities with condition",
 					"event": [
 						{
@@ -435,12 +503,13 @@
 									"var expected = [",
 									"    {",
 									"      \"rule_id\" : response[0].rule_id,",
-									"      \"rule_name\" : \"Rule 1\",",
+									"      \"rule_name\" : response[0].rule_name,",
 									"      \"action_id\" : response[0].action_id,",
 									"      \"action_name\" : response[0].action_name,",
 									"      \"is_activation\" : response[0].is_activation,",
 									"      \"event_topic\" : response[0].event_topic,",
 									"      \"event_value\" : response[0].event_value,",
+									"      \"timestamp\":response[0].timestamp,",
 									"      \"id\": response[0].id,",
 									"    }",
 									"]",
@@ -478,6 +547,73 @@
 								{
 									"key": "$filter",
 									"value": "rule_name eq 'Rule 1'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Activities with no timestamp",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "799d960b-0ae5-4bf4-b4bf-104ce9bb963a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().result;",
+									"",
+									"var expected = [",
+									"    {",
+									"      \"rule_id\" : response[0].rule_id,",
+									"      \"rule_name\" : response[0].rule_name,",
+									"      \"action_id\" : response[0].action_id,",
+									"      \"action_name\" : response[0].action_name,",
+									"      \"is_activation\" : response[0].is_activation,",
+									"      \"event_topic\" : response[0].event_topic,",
+									"      \"event_value\" : response[0].event_value,",
+									"      \"timestamp\": null,",
+									"      \"id\": response[0].id,",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is the result of a filter\", function () {",
+									"    pm.expect(response.slice(0,1)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"type": "text",
+								"value": "{{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{api_events_base_url}}/api/activities?$filter=timestamp eq null",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"api",
+								"activities"
+							],
+							"query": [
+								{
+									"key": "$filter",
+									"value": "timestamp eq null"
 								}
 							]
 						}
