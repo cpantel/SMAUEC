@@ -1,0 +1,517 @@
+{
+	"info": {
+		"_postman_id": "e016afa9-6f16-4072-ba51-63930ff77642",
+		"name": "ODATA Events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "List Events",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4d6fbc2b-65ff-408c-92c3-78f771389a87",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic,",
+									"        \"value\": response[0].value,",
+									"        \"id\": response[0].id",
+									"    },",
+									"    {",
+									"        \"topic\": response[1].topic,",
+									"        \"value\": response[1].value,",
+									"        \"id\": response[1].id",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is two events\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/events",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Events with select",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e793aaff-bb0a-4dfd-a9a8-839300a20b4f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic",
+									"    },",
+									"    {",
+									"        \"topic\": response[1].topic",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is only selected field\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/events?$select=topic",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "$select",
+									"value": "topic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Events with condition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cbd426a7-48cd-4572-932a-36fca82166dd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"topic\": response[0].topic,",
+									"        \"value\": \"on\",",
+									"        \"id\": response[0].id",
+									"    },",
+									"    {",
+									"        \"topic\": response[1].topic,",
+									"        \"value\": \"on\",",
+									"        \"id\": response[1].id",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is the result of a filteris two events\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/events?$filter=value eq 'on'",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "$filter",
+									"value": "value eq 'on'"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e2718dc0-ab95-48de-b182-2ef77ebf8401",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var response = pm.response.json();",
+									"",
+									"var expected =  {",
+									"        \"topic\": \"/onetopic/\",",
+									"        \"value\": \"on\",",
+									"        \"id\": response.id",
+									"}",
+									"",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is new Event\", function () {",
+									"    pm.expect(response).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topic\": \"/onetopic/\",\n    \"value\": \"on\"\n}"
+						},
+						"url": {
+							"raw": "{{api_events_base_url}}/events",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "List Activities",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e9a1f40-c538-4edb-91a7-ff06dc79b03a",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"rule_id\": response[0].rule_id,",
+									"        \"rule_name\": response[0].rule_name,",
+									"        \"action_id\": response[0].action_id,",
+									"        \"action_name\": response[0].action_name,",
+									"        \"is_activation\": response[0].is_activation,",
+									"        \"event_topic\": response[0].event_topic,",
+									"        \"event_value\": response[0].event_value,",
+									"        \"id\": response[0].id",
+									"    },",
+									"    {",
+									"        \"rule_id\": response[1].rule_id,",
+									"        \"rule_name\": response[1].rule_name,",
+									"        \"action_id\": response[1].action_id,",
+									"        \"action_name\": response[1].action_name,",
+									"        \"is_activation\": response[1].is_activation,",
+									"        \"event_topic\": response[1].event_topic,",
+									"        \"event_value\": response[1].event_value,",
+									"        \"id\": response[1].id",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is two activities\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/activities",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "43d48851-1071-44cb-afcb-0f17c798e15c",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var response = pm.response.json();",
+									"",
+									"var expected =  {",
+									"    \"rule_id\": 5,",
+									"    \"rule_name\": \"Rule 5\",",
+									"    \"action_id\": 5,",
+									"    \"action_name\": \"Action 5\",",
+									"    \"is_activation\": true,",
+									"    \"event_topic\": \"/topic5\",",
+									"    \"event_value\": \"on\",",
+									"    \"id\": response.id",
+									"}",
+									"",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is two events\", function () {",
+									"    pm.expect(response).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rule_id\": 5,\n    \"rule_name\": \"Rule 5\",\n    \"action_id\": 5,\n    \"action_name\": \"Action 5\",\n    \"is_activation\": true,\n    \"event_topic\": \"/topic5\",\n    \"event_value\": \"on\"\n}"
+						},
+						"url": {
+							"raw": "{{api_events_base_url}}/activities",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Activities with select",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "075e6aa3-534d-41a5-b9ba-a836525c8be9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"event_topic\": response[0].event_topic",
+									"    },",
+									"    {",
+									"        \"event_topic\": response[1].event_topic",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is only selected field\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/activities?$select=event_topic",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"activities"
+							],
+							"query": [
+								{
+									"key": "$select",
+									"value": "event_topic"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Activities with condition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81e292f5-ac0d-4621-aa15-9081d4b86cdd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().value;",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"rule_id\": response[0].rule_id,",
+									"        \"rule_name\": response[0].rule_name,",
+									"        \"action_id\": response[0].action_id,",
+									"        \"action_name\": response[0].action_name,",
+									"        \"is_activation\": response[0].is_activation,",
+									"        \"event_topic\": response[0].event_topic,",
+									"        \"event_value\": \"on\",",
+									"        \"id\": response[0].id",
+									"    },",
+									"    {",
+									"        \"rule_id\": response[1].rule_id,",
+									"        \"rule_name\": response[1].rule_name,",
+									"        \"action_id\": response[1].action_id,",
+									"        \"action_name\": response[1].action_name,",
+									"        \"is_activation\": response[1].is_activation,",
+									"        \"event_topic\": response[1].event_topic,",
+									"        \"event_value\": \"on\",",
+									"        \"id\": response[1].id",
+									"    }",
+									"]",
+									"",
+									"",
+									"",
+									"pm.test(\"Content is the result of a filteris two events\", function () {",
+									"    pm.expect(response.slice(0,2)).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_events_base_url}}/activities?$filter=event_value eq 'on'",
+							"host": [
+								"{{api_events_base_url}}"
+							],
+							"path": [
+								"activities"
+							],
+							"query": [
+								{
+									"key": "$filter",
+									"value": "event_value eq 'on'"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e6577f70-d28c-4018-9442-7838dcc53cbe",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "16c0e2e3-0b3c-4c0d-807b-24142a7d2a2d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

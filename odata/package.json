@@ -1,0 +1,18 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:test": "NODE_ENV=test nodemon server.js",
+    "start:prod": "NODE_ENV=prod node server.js",
+    "test": "newman run test/collection.json -e test/environment.json -g test/globals.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-odata": "0.7.16",
+    "nodemon": "2.0.4",
+    "mongoose": "4.9.5"
+  }
+}
