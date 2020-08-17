@@ -4,10 +4,18 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
+var whitelist = ['http://www.smauec.net', 'http://localhost:4200'];
+
 
 var corsOptions = {
-  origin: "http://localhost:8082"
-};
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 app.use(cors(corsOptions));
 
