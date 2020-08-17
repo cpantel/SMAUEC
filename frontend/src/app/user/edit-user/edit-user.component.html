@@ -11,12 +11,16 @@
 
     <div class="form-group">
       <label for="email">Email:</label>
-      <input formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+      <input formControlName="email" placeholder="email" name="email" class="form-control" id="email">
     </div>
 
     <div class="form-group">
       <label for="roles">Roles:</label>
-      <input formControlName="roles" placeholder="Email" name="roles" class="form-control" id="roles">
+      <select multiple formControlName="roles" placeholder="roles" name="roles" class="form-control" id="roles">
+	<option *ngFor="let role of roles">
+	  {{ role.name }}
+	</option>
+      </select>
     </div>
 
     <button class="btn btn-success">Update</button>

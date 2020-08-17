@@ -7,7 +7,7 @@
       <th class="hidden">Id</th>
       <th>Name</th>
       <th>Email</th>
-      <th>IsAdmin</th>
+      <th>Roles</th>
     </tr>
     </thead>
     <tbody>
@@ -15,7 +15,13 @@
       <td class="hidden">{{user.id}}</td>
       <td>{{user.username}}</td>
       <td>{{user.email}}</td>
-      <td>{{user.roles}}</td>
+      
+      <td>
+        <span *ngFor="let role of user.roles">
+          {{role.name}}
+        </span>
+      
+      </td>
       <td><button class="btn btn-success" (click)="deleteUser(user)"> Delete</button>
         <button class="btn btn-success" (click)="editUser(user)" style="margin-left: 20px;"> Edit</button></td>
     </tr>

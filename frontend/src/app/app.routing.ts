@@ -3,12 +3,17 @@ import {LoginComponent} from "./login/login.component";
 import {AddUserComponent} from "./user/add-user/add-user.component";
 import {ListUserComponent} from "./user/list-user/list-user.component";
 import {EditUserComponent} from "./user/edit-user/edit-user.component";
+import {ListEventComponent} from "./event/list-event/list-event.component";
+import {ListActivityComponent} from "./activity/list-activity/list-activity.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'add-user', component: AddUserComponent },
   { path: 'list-user', component: ListUserComponent },
   { path: 'edit-user', component: EditUserComponent },
+  { path: 'list-event', component: ListEventComponent },
+  { path: 'list-activity', component: ListActivityComponent },
+
   { path: '', component : LoginComponent}
 ];
 

@@ -5,6 +5,7 @@ import { ApiService } from "../../service/api.service";
 
 import { first } from "rxjs/operators";
 import { User } from "../../model/user.model";
+import { Role } from "../../model/role.model";
 
 
 @Component({
@@ -15,12 +16,25 @@ import { User } from "../../model/user.model";
 export class EditUserComponent implements OnInit {
 
   user: User;
+  roles: [Role];
   editForm: FormGroup;
+
 
   constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService) { }
 
   ngOnInit() {
     let userId = window.localStorage.getItem("editUserId");
+    /*    this.roles = [
+      {
+        id:1,
+        name:"admin"
+      },
+      {
+        id:2,
+	name:"user"
+      }
+    ];
+    */
     if(!userId) {
       alert("Invalid action.")
       this.router.navigate(['list-user']);
@@ -30,6 +44,7 @@ export class EditUserComponent implements OnInit {
       id: [''],
       username: ['', Validators.required],
       email: ['', Validators.required],
+      roles: [null, Validators.required]
     });
     this.apiService.getUserById(+userId)
       .subscribe( data => {

@@ -1,6 +1,6 @@
 {
-  "name": "smauec-v10",
-  "version": "0.0.0",
+  "name": "smauec_frontend",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

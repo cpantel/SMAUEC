@@ -1,0 +1,33 @@
+<div class="col-md-6 activity-container">
+  <h2 style="margin: auto"> Activity Details</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Rule Id</th>
+      <th>Rule Name</th>
+      <th>Action Id</th>
+      <th>Action Name</th>
+      <th>Is Activation</th>
+      <th>Event Topic</th>
+      <th>Event Value</th>
+      <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let activity of activities">
+      <td class="hidden">{{activity.id}}</td>
+      <td>{{activity.rule_id}}</td>
+      <td>{{activity.rule_name}}</td>
+      <td>{{activity.action_id}}</td>
+      <td>{{activity.action_name}}</td>
+      <td>{{activity.is_activation}}</td>
+      <td>{{activity.event_topic}}</td>
+      <td>{{activity.event_value}}</td>
+      <td>{{activity.timestamp}}</td>
+      
+    </tr>
+    </tbody>
+  </table>
+</div>
+

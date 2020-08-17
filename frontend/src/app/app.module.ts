@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { ListUserComponent } from './user/list-user/list-user.component';
+import { ListEventComponent} from './event/list-event/list-event.component';
+import { ListActivityComponent} from './activity/list-activity/list-activity.component';
 import { LoginComponent } from './login/login.component';
 import { ApiService } from "./service/api.service";
 import {routing} from "./app.routing";
@@ -12,6 +14,7 @@ import {routing} from "./app.routing";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptor } from "./core/interceptor";
+import { EventComponent } from './event/event.component';
 
 
 @NgModule({
@@ -20,7 +23,9 @@ import { TokenInterceptor } from "./core/interceptor";
     AddUserComponent,
     EditUserComponent,
     ListUserComponent,
-    LoginComponent
+    LoginComponent,
+    ListEventComponent,
+    ListActivityComponent
   ],
   imports: [
     BrowserModule,

@@ -11,11 +11,23 @@ export class ApiService {
 
   authBaseUrl: string = 'http://api-users.smauec.net/api/auth/';
   userBaseUrl: string = 'http://api-users.smauec.net/api/users/';
+  eventBaseUrl: string = 'http://api-events.smauec.net/api/events/';
+  activityBaseUrl: string = 'http://api-events.smauec.net/api/activities/';
+
   ruleBaseUrl: string = 'http://api-rules.smauec.net/api/rules/';
+
 
   login(loginPayload) : Observable<ApiResponse> {
         //  return this.http.post<ApiResponse>('http://localhost:8081/api/auth/signin', loginPayload);
     return this.http.post<ApiResponse>(this.authBaseUrl + 'signin' , loginPayload);
+  }
+
+  getActivities() : Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.activityBaseUrl);
+  }
+
+  getEvents() : Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(this.eventBaseUrl);
   }
 
   getUsers() : Observable<ApiResponse> {

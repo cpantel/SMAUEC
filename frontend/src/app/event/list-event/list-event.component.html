@@ -1,0 +1,23 @@
+<div class="col-md-6 event-container">
+  <h2 style="margin: auto"> Event Details</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Topic</th>
+      <th>Value</th>
+      <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let event of events">
+      <td class="hidden">{{event.id}}</td>
+      <td>{{event.topic}}</td>
+      <td>{{event.value}}</td>
+      <td>{{event.timestamp}}</td>
+      
+    </tr>
+    </tbody>
+  </table>
+</div>
+
