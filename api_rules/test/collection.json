@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "0508174c-f916-401a-a220-3a43ee4a931a",
-		"name": "API Rule",
+		"name": "API Rules",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -1377,7 +1377,7 @@
 	],
 	"variable": [
 		{
-			"id": "e45613fe-7b40-403e-bb86-8bd468bf4a07",
+			"id": "461aae89-aabc-4e63-95f1-47503a28b8ea",
 			"key": "base_url",
 			"value": "http://localhost/8082"
 		}

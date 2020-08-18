@@ -8,3 +8,12 @@ docker volume create mongo
 
 
 https://medium.com/quick-code/handling-authentication-and-authorization-with-node-7f9548fedde8
+
+
+
+
+privileges: [
+  { resource: { db: "odata", collection: "events" }, actions: [ "find", "insert" ] },
+  { resource: { db: "odata", collection: "activities" },  actions: [ "find", "insert" ] }
+]
+

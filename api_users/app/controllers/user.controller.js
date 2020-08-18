@@ -28,7 +28,6 @@ var findTheOne = (id, res, status) => {
         result: {}
       });
     } else {
-console.log("XXXXXXXXXXXfind the one XXXXXXXXXXXX");
       return res.status(status).send(
         { 
           status: status,
