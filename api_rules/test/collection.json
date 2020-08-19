@@ -51,6 +51,11 @@
 										"key": "x-access-token",
 										"type": "text",
 										"value": "{{access_token}}"
+									},
+									{
+										"key": "Origin",
+										"value": "{{origin}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -118,6 +123,11 @@
 										"key": "x-access-token",
 										"type": "text",
 										"value": "{{access_token}}"
+									},
+									{
+										"key": "Origin",
+										"value": "{{origin}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -138,6 +148,13 @@
 										"api",
 										"actions",
 										"2"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
 									]
 								}
 							},
@@ -183,6 +200,11 @@
 										"key": "x-access-token",
 										"type": "text",
 										"value": "{{access_token}}"
+									},
+									{
+										"key": "Origin",
+										"value": "{{origin}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -208,7 +230,7 @@
 							"response": []
 						},
 						{
-							"name": "XSS filtering modify Rule Copy",
+							"name": "XSS filtering modify Rule",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -247,6 +269,11 @@
 										"key": "x-access-token",
 										"type": "text",
 										"value": "{{access_token}}"
+									},
+									{
+										"key": "Origin",
+										"type": "text",
+										"value": "{{origin}}"
 									}
 								],
 								"body": {
@@ -306,6 +333,11 @@
 										"key": "x-access-token",
 										"type": "text",
 										"value": "{{access_token}}"
+									},
+									{
+										"key": "Origin",
+										"value": "{{origin}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -365,6 +397,11 @@
 										"key": "x-access-token",
 										"type": "text",
 										"value": "{{access_token}}"
+									},
+									{
+										"key": "origin",
+										"value": "{{origin}}",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -457,6 +494,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -544,6 +586,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -614,6 +661,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -654,16 +706,16 @@
 									"var response = pm.response.json().result;",
 									"",
 									"var expected = {",
-									"        \"id\": 1,",
-									"        \"name\": \"Rule number one\",",
-									"        \"description\": \"Rule number one\",",
-									"        \"topic\": \"/sensor\",",
-									"        \"duration\": 30,",
-									"        \"is_enabled\": true,",
-									"        \"activation_value\": \"xx\",",
+									"        \"id\": response.id,",
+									"        \"name\": response.name,",
+									"        \"description\": response.description,",
+									"        \"topic\": response.topic,",
+									"        \"duration\": response.duration,",
+									"        \"is_enabled\": response.is_enabled,",
+									"        \"activation_value\": response.activation_value,",
 									"        \"action\": {",
-									"            \"id\":1,",
-									"            \"name\":\"Test action number one\"",
+									"            \"id\":response.action.id,",
+									"            \"name\":response.action.name",
 									"        }",
 									"",
 									"    }",
@@ -687,6 +739,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -755,6 +812,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -835,6 +897,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -894,6 +961,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -943,6 +1015,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -992,6 +1069,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1041,6 +1123,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -1109,6 +1196,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1191,6 +1283,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1224,11 +1321,15 @@
 						"type": "text/javascript",
 						"exec": [
 							"var url = pm.globals.get(\"api_user_base_url\");",
+							"var origin = pm.globals.get(\"origin\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
 							"    method: 'POST',",
-							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    header: {",
+							"        \"Content-Type\":\"application/json\",",
+							"        \"Origin\":origin",
+							"        } ,",
 							"    body:{",
 							"        mode: \"raw\",",
 							"        raw: JSON.stringify({",
@@ -1282,7 +1383,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"username\":\"uer\",\n    \"password\":\"usersssss\"\n}",
@@ -1323,7 +1430,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{api_rule_base_url}}/api/rules",
 							"host": [
@@ -1377,7 +1490,7 @@
 	],
 	"variable": [
 		{
-			"id": "461aae89-aabc-4e63-95f1-47503a28b8ea",
+			"id": "b6abe9e5-6f70-4a17-b3bd-723d7fadb3ff",
 			"key": "base_url",
 			"value": "http://localhost/8082"
 		}

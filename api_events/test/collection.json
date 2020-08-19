@@ -26,7 +26,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{api_events_base_url}}/api/events",
 							"host": [
@@ -58,7 +64,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{api_events_base_url}}/api/activities",
 							"host": [
@@ -147,6 +159,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -219,6 +236,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -274,6 +296,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -289,6 +316,11 @@
 								{
 									"key": "$select",
 									"value": "topic"
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}
@@ -335,6 +367,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -350,6 +387,11 @@
 								{
 									"key": "$select",
 									"value": "event_topic"
+								},
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}
@@ -402,6 +444,11 @@
 							{
 								"key": "x-access-token",
 								"value": "{{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
 								"type": "text"
 							}
 						],
@@ -465,6 +512,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -480,6 +532,11 @@
 								{
 									"key": "$filter",
 									"value": "timestamp eq null"
+								},
+								{
+									"key": "origin",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}
@@ -498,26 +555,14 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"var response = pm.response.json().result;",
+									"var response = pm.response.json().result[0].rule_name;",
 									"",
-									"var expected = [",
-									"    {",
-									"      \"rule_id\" : response[0].rule_id,",
-									"      \"rule_name\" : response[0].rule_name,",
-									"      \"action_id\" : response[0].action_id,",
-									"      \"action_name\" : response[0].action_name,",
-									"      \"is_activation\" : response[0].is_activation,",
-									"      \"event_topic\" : response[0].event_topic,",
-									"      \"event_value\" : response[0].event_value,",
-									"      \"timestamp\":response[0].timestamp,",
-									"      \"id\": response[0].id,",
-									"    }",
-									"]",
+									"",
 									"",
 									"",
 									"",
 									"pm.test(\"Content is the result of a filter\", function () {",
-									"    pm.expect(response.slice(0,1)).to.eql(expected);",
+									"    pm.expect(response).to.eql(\"Rule 2\");",
 									"});",
 									""
 								],
@@ -532,10 +577,15 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{api_events_base_url}}/api/activities?$filter=rule_name eq 'Rule 1'",
+							"raw": "{{api_events_base_url}}/api/activities?$filter=rule_name eq 'Rule 2'",
 							"host": [
 								"{{api_events_base_url}}"
 							],
@@ -546,7 +596,7 @@
 							"query": [
 								{
 									"key": "$filter",
-									"value": "rule_name eq 'Rule 1'"
+									"value": "rule_name eq 'Rule 2'"
 								}
 							]
 						}
@@ -599,6 +649,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -665,6 +720,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -679,6 +739,13 @@
 							"path": [
 								"api",
 								"events"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -731,6 +798,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -745,6 +817,13 @@
 							"path": [
 								"api",
 								"activities"
+							],
+							"query": [
+								{
+									"key": "Ori",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -759,11 +838,15 @@
 						"type": "text/javascript",
 						"exec": [
 							"var url = pm.globals.get(\"api_user_base_url\");",
+							"var origin = pm.globals.get(\"origin\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
 							"    method: 'POST',",
-							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    header: {",
+							"        \"Content-Type\":\"application/json\",",
+							"        \"Origin\":origin",
+							"        } ,",
 							"    body:{",
 							"        mode: \"raw\",",
 							"        raw: JSON.stringify({",

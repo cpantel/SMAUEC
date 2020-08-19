@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "dde76bbe-ca01-4a7b-bf34-d61bc18cdd3b",
-		"name": "API User",
+		"name": "API Users",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -41,6 +41,11 @@
 								"key": "Content-Type",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -95,6 +100,70 @@
 								"key": "Content-Type",
 								"type": "text",
 								"value": "application/json"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"no_user\",\n    \"password\":\"no_pass\"\n}"
+						},
+						"url": {
+							"raw": "{{api_user_base_url}}/api/auth/signin",
+							"host": [
+								"{{api_user_base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signin bad password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "96ca642c-87fa-4aac-86ca-6300d1794481",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "bb294ec2-d126-4bfb-912e-f15cff1cd313",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -150,6 +219,11 @@
 								"key": "Content-Type",
 								"value": "application/json",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -203,6 +277,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
 								"type": "text"
 							}
 						],
@@ -272,6 +351,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -328,6 +412,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -357,11 +446,14 @@
 						"type": "text/javascript",
 						"exec": [
 							"var url = pm.globals.get(\"api_user_base_url\");",
-							"",
+							"var origin = pm.globals.get(\"origin\");",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
 							"    method: 'POST',",
-							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    header: {",
+							"        \"Content-Type\":\"application/json\",",
+							"        \"Origin\":origin",
+							"        } ,",
 							"    body:{",
 							"        mode: \"raw\",",
 							"        raw: JSON.stringify({",
@@ -447,19 +539,38 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"type": "text",
-								"value": "application/json",
-								"disabled": true
+								"value": "application/json"
 							},
 							{
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "http://www.smauec.net",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "host",
+								"value": "api-users.smauec.net",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": {
@@ -538,6 +649,11 @@
 								"key": "x-access-token",
 								"value": "{{access_token}}",
 								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -600,6 +716,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -656,6 +777,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -763,6 +889,11 @@
 								"key": "x-access-token",
 								"type": "text",
 								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
 							}
 						],
 						"url": {
@@ -779,84 +910,6 @@
 						"description": "signup "
 					},
 					"response": []
-				},
-				{
-					"name": "Get an User",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "3d069b7b-ee15-4135-baf5-93155dad872d",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "815c4c65-e672-4b10-9adc-e842de4b1abe",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"var expected = {",
-									"    \"id\": 1,",
-									"    \"username\": \"admin\",",
-									"    \"email\": \"admin@samauec.org\",",
-									"    \"roles\": [",
-									"        {",
-									"            \"id\": 0,",
-									"            \"name\": \"admin\"",
-									"        },",
-									"        {",
-									"            \"id\": 1,",
-									"            \"name\": \"user\"",
-									"        }",
-									"    ]",
-									"}",
-									"",
-									"pm.test(\"Content is an user and its roles\", function () {",
-									"    pm.expect(pm.response.json().result).to.eql(expected);",
-									"});",
-									"",
-									" "
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"type": "text",
-								"value": "application/json",
-								"disabled": true
-							},
-							{
-								"key": "x-access-token",
-								"type": "text",
-								"value": "{{access_token}}"
-							}
-						],
-						"url": {
-							"raw": "{{api_user_base_url}}/api/users/1",
-							"host": [
-								"{{api_user_base_url}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"1"
-							]
-						},
-						"description": "signup "
-					},
-					"response": []
 				}
 			],
 			"event": [
@@ -867,11 +920,15 @@
 						"type": "text/javascript",
 						"exec": [
 							"var url = pm.globals.get(\"api_user_base_url\");",
+							"var origin = pm.globals.get(\"origin\");",
 							"",
 							"pm.sendRequest({",
 							"    url: url + \"/api/auth/signin\" ,",
 							"    method: 'POST',",
-							"    header: { \"Content-Type\":\"application/json\"} ,",
+							"    header: {",
+							"        \"Content-Type\":\"application/json\",",
+							"        \"Origin\":origin",
+							"        } ,",
 							"    body:{",
 							"        mode: \"raw\",",
 							"        raw: JSON.stringify({",
@@ -881,9 +938,12 @@
 							"    }},",
 							"     ",
 							"    function (err, response) {",
-							"        pm.environment.set(\"access_token\",response.json()[\"result\"][\"accessToken\"] );",
+							"        pm.environment.set(\"access_token\",response.json()[\"result\"][\"accessToken\"] ); ",
+							"    ",
 							"    }",
 							");",
+							"",
+							"",
 							""
 						]
 					}
@@ -938,7 +998,7 @@
 	],
 	"variable": [
 		{
-			"id": "76bc16fd-d901-41d7-ab71-ee7a2aedbed6",
+			"id": "30f83ede-d680-4a79-b46f-3a9b331835d9",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
