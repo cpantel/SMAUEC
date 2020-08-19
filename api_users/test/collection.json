@@ -589,7 +589,7 @@
 					"response": []
 				},
 				{
-					"name": "Create User as Admin",
+					"name": "Create User",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -675,7 +675,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete User as Admin",
+					"name": "Delete User",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -910,6 +910,95 @@
 						"description": "signup "
 					},
 					"response": []
+				},
+				{
+					"name": "List roles",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0ee6ef7d-009e-466a-9361-84685e34a0bb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e108a69-914b-4b31-9ef6-847cc04fa431",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().result.slice(0,2);",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"id\": response[0].id,",
+									"        \"name\": response[0].name",
+									"    },",
+									"        {",
+									"        \"id\": response[1].id,",
+									"        \"name\": response[1].name",
+									"    }",
+									"];",
+									"",
+									"",
+									"pm.test(\"Content is a list of users\", function () {",
+									"    pm.expect(response).to.eql(expected);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									" ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-access-token",
+								"type": "text",
+								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"type": "text",
+								"value": "{{origin}}"
+							}
+						],
+						"url": {
+							"raw": "{{api_user_base_url}}/api/roles",
+							"host": [
+								"{{api_user_base_url}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": "signup "
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -998,7 +1087,7 @@
 	],
 	"variable": [
 		{
-			"id": "30f83ede-d680-4a79-b46f-3a9b331835d9",
+			"id": "e81a11e6-cfcc-4b64-8070-79cef6953203",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}
