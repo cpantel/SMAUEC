@@ -1,0 +1,35 @@
+<div class="col-md-6 action-container">
+  <h2 class="text-center">Edit Action</h2>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <div class="hidden">
+      <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id"  readonly="true">
+    </div>
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" formControlName="name" placeholder="name" name="name" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" formControlName="description" placeholder="description" name="description" class="form-control" id="description">
+    </div>
+    <div class="form-group">
+      <label for="topic">Topic:</label>
+      <input type="text" formControlName="topic" placeholder="topic" name="topic" class="form-control" id="topic">
+    </div>
+    <div class="form-group">
+      <label for="min_activation_time">Min Activation:</label>
+      <input type="text" formControlName="min_activation_time" placeholder="min_activation_time" name="min_activation_time" class="form-control" id="min_activation_time">
+    </div>
+    <div class="form-group">
+      <label for="activation_value">Activation Value:</label>
+      <input type="text" formControlName="activation_value" placeholder="activation_value" name="activation_value" class="form-control" id="activation_value">
+    </div>
+    <div class="form-group">
+      <label for="cancellation_value">Cancellation Value:</label>
+      <input type="text" formControlName="cancellation_value" placeholder="cancellation_value" name="cancellation_value" class="form-control" id="cancellation_value">
+    </div>
+
+    <button class="btn btn-success">Update</button>
+  </form>
+</div>
+

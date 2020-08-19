@@ -1,0 +1,21 @@
+<div class="col-md-6 role-container">
+  <h2 style="margin: auto"> Role Details</h2>
+  <button class="btn btn-danger" style="width:100px" (click)="addRole()"> Add Role</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let role of roles">
+      <td class="hidden">{{role.id}}</td>
+      <td>{{role.name}}</td>
+      <td><button class="btn btn-success" (click)="deleteRole(role)"> Delete</button>
+        <button class="btn btn-success" (click)="editRole(role)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

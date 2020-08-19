@@ -1,0 +1,33 @@
+<div class="col-md-6 rule-container">
+  <h2 style="margin: auto"> Rule Details</h2>
+  <button class="btn btn-danger" style="width:100px" (click)="addRule()"> Add Rule</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Name</th>
+      <th>Topic</th>
+      <th>Description</th>
+      <th>Enabled</th>
+      <th>Activation</th>
+      <th>Duration</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let rule of rules">
+      <td class="hidden">{{rule.id}}</td>
+        <th>{{rule.name}}</th>
+        <th>{{rule.topic}}</th>
+        <th>{{rule.description}}</th>
+        <th>{{rule.is_enabled}}</th>
+        <th>{{rule.activation}}</th>
+        <th>{{rule.duration}}</th>
+        <th>{{rule.action}}</th>
+      <td><button class="btn btn-success" (click)="deleteRule(rule)"> Delete</button>
+        <button class="btn btn-success" (click)="editRule(rule)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

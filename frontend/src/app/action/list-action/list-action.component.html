@@ -1,0 +1,31 @@
+<div class="col-md-6 action-container">
+  <h2 style="margin: auto"> Action Details</h2>
+  <button class="btn btn-danger" style="width:100px" (click)="addAction()"> Add Action</button>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="hidden">Id</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Topic</th>
+      <th>Min Activation</th>
+      <th>Activation Value</th>
+      <th>Cancellation Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let action of actions">
+      <td class="hidden">{{action.id}}</td>
+        <th>{{action.name}}</th>
+        <th>{{action.description}}</th>
+        <th>{{action.topic}}</th>
+        <th>{{action.min_activation_time}}</th>
+        <th>{{action.activation_value}}</th>
+        <th>{{action.cancellation_value}}</th>
+      <td><button class="btn btn-success" (click)="deleteAction(action)"> Delete</button>
+        <button class="btn btn-success" (click)="editAction(action)" style="margin-left: 20px;"> Edit</button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
