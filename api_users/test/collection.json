@@ -517,11 +517,11 @@
 									"    \"email\": \"admin@samauec.org\",",
 									"    \"roles\": [",
 									"        {",
-									"            \"id\": 0,",
+									"            \"id\": 1,",
 									"            \"name\": \"admin\"",
 									"        },",
 									"        {",
-									"            \"id\": 1,",
+									"            \"id\": 2,",
 									"            \"name\": \"user\"",
 									"        }",
 									"        ]",
@@ -589,14 +589,126 @@
 					"response": []
 				},
 				{
-					"name": "Create User",
+					"name": "List Users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ed198c8f-1f41-4916-8d34-ed7029acfb77",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "51070613-f0dd-402f-921d-8d8d6182b49c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var response = pm.response.json().result.slice(0,2);",
+									"",
+									"var expected = [",
+									"    {",
+									"        \"id\": response[0].id,",
+									"        \"username\": response[0].username,",
+									"        \"email\": response[0].email,",
+									"    },",
+									"        {",
+									"        \"id\": response[1].id,",
+									"        \"username\": response[1].username,",
+									"        \"email\": response[1].email,",
+									"    }",
+									"];",
+									"",
+									"var expectedFirstRoleFirstUser = {",
+									"    \"id\": response[0].roles[0].id,",
+									"    \"name\":response[0].roles[0].name,",
+									"    }",
+									"",
+									"var expectedFirstRoleSecondUser = {",
+									"    \"id\": response[1].roles[0].id,",
+									"    \"name\":response[1].roles[0].name,",
+									"    }",
+									"",
+									"",
+									"pm.test(\"Users have at least one role\", function () {",
+									"",
+									"    pm.expect(response[0].roles[0]).to.eql(expectedFirstRoleFirstUser);",
+									"    pm.expect(response[1].roles[0]).to.eql(expectedFirstRoleSecondUser);",
+									"});",
+									"",
+									"",
+									"delete response[0].roles;",
+									"delete response[1].roles;",
+									"",
+									"pm.test(\"Content is a list of users\", function () {",
+									"    pm.expect(response).to.eql(expected);",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									"",
+									" ",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json",
+								"disabled": true
+							},
+							{
+								"key": "x-access-token",
+								"type": "text",
+								"value": "{{access_token}}"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api_user_base_url}}/api/users/",
+							"host": [
+								"{{api_user_base_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						},
+						"description": "signup "
+					},
+					"response": []
+				},
+				{
+					"name": "Create User Admin",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
 								"id": "b821a1d4-cd81-4eac-aaeb-5558d4b13ea4",
 								"exec": [
-									""
+									"pm.variables.set(\"id\", Math.floor(Math.random() * Math.floor(10000000)));"
 								],
 								"type": "text/javascript"
 							}
@@ -610,26 +722,24 @@
 									"",
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
-									"    pm.environment.set(\"user_id\",pm.response.json()[\"id\"]);",
-									"    ",
 									"});",
 									"",
-									"var response = pm.response.json();",
-									"",
+									"var response = pm.response.json().result;",
+									"var id = pm.variables.get(\"id\");",
 									"var expected = {",
-									"    \"id\": response.result.id,",
-									"    \"username\": \"user\",",
-									"    \"email\": \"user@example.org\",",
+									"    \"id\": response.id,",
+									"    \"username\": \"user\" + id,",
+									"    \"email\": \"user\" + id+ \"@example.org\",",
 									"    \"roles\": [",
 									"        {",
 									"            \"id\": 1,",
-									"            \"name\": \"user\"",
+									"            \"name\": \"admin\"",
 									"        }",
 									"    ]",
 									"}",
 									"",
 									"pm.test(\"Content is an action\", function () {",
-									"    pm.expect(pm.response.json().result).to.eql(expected);",
+									"    pm.expect(response).to.eql(expected);",
 									"});",
 									""
 								],
@@ -658,7 +768,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\":\"user\",\n    \"password\":\"user\",\n    \"email\":\"user@example.org\"\n}"
+							"raw": "{\n    \"username\":\"user{{id}}\",\n    \"password\":\"user\",\n    \"email\":\"user{{id}}@example.org\"\n}"
 						},
 						"url": {
 							"raw": "{{api_user_base_url}}/api/users",
@@ -800,12 +910,12 @@
 					"response": []
 				},
 				{
-					"name": "List Users",
+					"name": "Get Role",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ed198c8f-1f41-4916-8d34-ed7029acfb77",
+								"id": "9137ed63-fccb-4b20-8f09-f02adefdd707",
 								"exec": [
 									""
 								],
@@ -815,75 +925,39 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "51070613-f0dd-402f-921d-8d8d6182b49c",
+								"id": "c86abff8-2e92-41fb-ae3b-e33faf734633",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
+									"var response = pm.response.json().result;",
+									"var expected = {",
+									"    \"id\": response.id,",
+									"    \"name\": response.name",
+									"}",
 									"",
-									"var response = pm.response.json().result.slice(0,2);",
-									"",
-									"var expected = [",
-									"    {",
-									"        \"id\": response[0].id,",
-									"        \"username\": response[0].username,",
-									"        \"email\": response[0].email,",
-									"    },",
-									"        {",
-									"        \"id\": response[1].id,",
-									"        \"username\": response[1].username,",
-									"        \"email\": response[1].email,",
-									"    }",
-									"];",
-									"",
-									"var expectedFirstRoleFirstUser = {",
-									"    \"id\": response[0].roles[0].id,",
-									"    \"name\":response[0].roles[0].name,",
-									"    }",
-									"",
-									"var expectedFirstRoleSecondUser = {",
-									"    \"id\": response[1].roles[0].id,",
-									"    \"name\":response[1].roles[0].name,",
-									"    }",
-									"",
-									"",
-									"pm.test(\"Users have at least one role\", function () {",
-									"",
-									"    pm.expect(response[0].roles[0]).to.eql(expectedFirstRoleFirstUser);",
-									"    pm.expect(response[1].roles[0]).to.eql(expectedFirstRoleSecondUser);",
-									"});",
-									"",
-									"",
-									"delete response[0].roles;",
-									"delete response[1].roles;",
-									"",
-									"pm.test(\"Content is a list of users\", function () {",
+									"pm.test(\"Content is an user and its roles\", function () {",
 									"    pm.expect(response).to.eql(expected);",
 									"});",
 									"",
 									"",
 									"",
-									"",
-									"",
-									"",
-									"",
-									"",
-									"",
-									" ",
 									""
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",
 								"type": "text",
-								"value": "application/json",
-								"disabled": true
+								"value": "application/json"
 							},
 							{
 								"key": "x-access-token",
@@ -894,17 +968,29 @@
 								"key": "Origin",
 								"value": "{{origin}}",
 								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "http://www.smauec.net",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "host",
+								"value": "api-users.smauec.net",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": {
-							"raw": "{{api_user_base_url}}/api/users/",
+							"raw": "{{api_user_base_url}}/api/roles/1",
 							"host": [
 								"{{api_user_base_url}}"
 							],
 							"path": [
 								"api",
-								"users",
-								""
+								"roles",
+								"1"
 							]
 						},
 						"description": "signup "
@@ -986,6 +1072,81 @@
 								"value": "{{origin}}"
 							}
 						],
+						"url": {
+							"raw": "{{api_user_base_url}}/api/roles",
+							"host": [
+								"{{api_user_base_url}}"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						},
+						"description": "signup "
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d490511f-0f53-49f2-980e-d11a76194206",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "79e0d072-c75b-415e-8d56-beaa342240b2",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"var response = pm.response.json().result;",
+									"",
+									"var expected = {",
+									"    \"id\": response.id,",
+									"    \"name\": \"new role\"",
+									"}",
+									"",
+									"pm.test(\"Content is a rule\", function () {",
+									"    pm.expect(response).to.eql(expected);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-access-token",
+								"value": "{{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Origin",
+								"value": "{{origin}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"new role\"\n}"
+						},
 						"url": {
 							"raw": "{{api_user_base_url}}/api/roles",
 							"host": [
@@ -1087,7 +1248,7 @@
 	],
 	"variable": [
 		{
-			"id": "e81a11e6-cfcc-4b64-8070-79cef6953203",
+			"id": "dd67df91-a2d8-4ab2-a431-cedfea65da62",
 			"key": "base_url",
 			"value": "http://localhost:8080"
 		}

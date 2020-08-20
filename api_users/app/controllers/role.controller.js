@@ -71,24 +71,15 @@ exports.delete = (req, res) => {
 }
 
 exports.create = (req, res) => {
-  // Save User to Database
-  Role.create({
-    name: req.body.username
-  })
-    .then(role => {
-      res.status(201).send({ 
-        status: 201,
-        message: "Role created",
-        result: role
-      });
-    })
-    .catch(err => {
-      res.status(500).send({ 
-        status: 500,
-        message: err.message,
-        result: {}
-      });
+      Role.create(req.body).then(rule => {
+    return findTheOne(rule.id,res,201);
+  }).catch(err => {
+    res.status(500).send({
+      status:500,
+      message: err.message,
+      result: {}
     });
+  });
 };
 
 

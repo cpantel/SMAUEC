@@ -562,7 +562,7 @@
 									"",
 									"",
 									"pm.test(\"Content is the result of a filter\", function () {",
-									"    pm.expect(response).to.eql(\"Rule 2\");",
+									"    pm.expect(response).to.eql(\"Rule 1\");",
 									"});",
 									""
 								],
@@ -585,7 +585,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{api_events_base_url}}/api/activities?$filter=rule_name eq 'Rule 2'",
+							"raw": "{{api_events_base_url}}/api/activities?$filter=rule_name eq 'Rule 1'",
 							"host": [
 								"{{api_events_base_url}}"
 							],
@@ -596,7 +596,7 @@
 							"query": [
 								{
 									"key": "$filter",
-									"value": "rule_name eq 'Rule 2'"
+									"value": "rule_name eq 'Rule 1'"
 								}
 							]
 						}
