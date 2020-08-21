@@ -12,3 +12,5 @@ posgtres, que almacene credenciales de la otra manera, no  md5
 
 https://www.first.org/cvss/calculator/3.0#CVSS:3.0/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H/RL:U/RC:C/CR:L/IR:L/AR:L
 
+
+https://hackernoon.com/getting-rid-of-docker-plain-text-credentials-88309e07640d

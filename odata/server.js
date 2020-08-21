@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var odata = require('node-odata');
- 
+
+
+// unhardcode url
 var server = odata('mongodb://localhost/odata');
  
 var eventModel = 

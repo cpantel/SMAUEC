@@ -1,11 +1,11 @@
 find docker/containers/ -iname Dockerfile | while read FILE; do
   targetDir=$(  echo "$FILE" | xargs dirname )
   targetContainer=$( echo "$targetDir" | xargs basename )
-  cd "$targetDir"
+  echo -n  cd "$targetDir  ; "
 
-  echo docker build -t "smauec/$targetContainer:0.0.1" . 
+  echo -n docker build -t "smauec/$targetContainer:0.0.1" . ";"
 
-  cd -
+  echo cd -
 
 done
 
