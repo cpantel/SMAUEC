@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.5"
 
 volumes:
   pgadmin:
@@ -14,6 +14,9 @@ services:
       - type: bind
         source: ./proxy
         target: /etc/nginx/conf.d
+    secrets:
+      - api_auth_secret
+        
 
   pgadmin:
     image: "smauec/pgadmin:0.0.1"
@@ -21,7 +24,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=admin
       - PGADMIN_DEFAULT_PASSWORD=12345601
     ports:
-      - "8080:80"
+      - "8090:80"
     volumes:
       - pgadmin:/var/lib/pgadmin
     
@@ -34,15 +37,21 @@ services:
       - "5432:5432"
     volumes:
       - postgres:/var/lib/postgresql/data
-
+ 
   broker:
     image: "smauec/broker:0.0.1"
     ports:
       - "1883:1883"
-
+ 
   mongo:
     image: "smauec/mongo:0.0.1"
     ports:
      - "27017:27017" 
     volumes:
      - mongo:/data/db
+ 
+secrets:
+  api_auth_secret:
+    file: /home/ceiot/Desktop/workspace/repo/my_secret.txt
+
+

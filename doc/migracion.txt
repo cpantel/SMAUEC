@@ -1,0 +1,111 @@
+Descargar ...
+
+Armar una maquina virtual ...
+
+
+Configurar las extensiones ...
+
+git lola
+
+.ssh para conectar a git
+
+
+# auxiliares sistema
+sudo apt install \
+  vim\
+  nmap\
+  dirdiff\
+  kdiff3-qt\
+  wireshark
+
+# node
+
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+sudo apt-get install  nodejs
+
+# docker
+
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" | sudo tee /etc/apt/sources.list.d/docker.list
+
+sudo apt update
+
+sudo apt install docker-ce docker-ce-cli containerd.io pigz docker-compose
+
+sudo usermod -aG docker ceiot
+
+# postman (DEV)
+
+download from ...
+tar -xzf ...
+
+# Newman 
+
+sudo npm install -g newman
+
+sudo npm install -g @angular/cli
+
+# networking
+
+/etc/hosts para *.smauec.net
+
+
+# docker
+
+for img in mongo:4.2.8-bionic eclipse-mosquitto:1.6.10 dpage/pgadmin4:4.23 postgres:12.3 nginx:1.18.0; do
+   sudo docker pull "$img";
+done
+
+
+docker exec -it repo_postgres_1 psql -U postgres
+
+
+CREATE ROLE smauec_prod WITH
+  LOGIN
+  NOSUPERUSER
+  INHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION;
+
+CREATE ROLE smauec_test WITH
+  LOGIN
+  NOSUPERUSER
+  INHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION
+  ENCRYPTED PASSWORD 'md523d1028eeda62a632fe09998f10cbde4';
+
+
+CREATE DATABASE smauec_prod
+    WITH 
+    OWNER = smauec_prod
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+CREATE DATABASE smauec_test
+    WITH 
+    OWNER = smauec_test
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+
+Actualizar ip de db en app/config/db.config
+
+Actualizar ip en proxy conf
+
