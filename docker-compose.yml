@@ -67,6 +67,9 @@ services:
      - "postgres"
     environment:
      -  NODE_ENV=test
+    secrets:
+     - api_auth_secret_test
+
 
   api-events:
     image: "smauec/api-events:0.0.1"
@@ -76,6 +79,9 @@ services:
      - "postgres"
     environment:
      -  NODE_ENV=test
+    secrets:
+     - api_auth_secret_test
+
 
   broker:
     image: "smauec/broker:0.0.1"
