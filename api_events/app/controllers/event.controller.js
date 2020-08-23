@@ -7,7 +7,7 @@ exports.findOne = (req, res) => {
 
 exports.findAll = (req, res) => {
   var params = "?" + querystring.stringify(req.query);
-  axios.get("http://localhost:8084/events" + params)
+  axios.get("http://repo_odata_1:8084/events" + params)
     .then(function(response) {
       console.log(response.config.url);
 
@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
 exports.create = (req, res) => {
   var event = req.body;
   event.timestamp = Date.now();
-  axios.post("http://localhost:8084/events",
+  axios.post("http://repo_odata_1:8084/events",
     event 
     )
     .then(function(response) {

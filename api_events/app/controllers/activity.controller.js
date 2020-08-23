@@ -7,7 +7,7 @@ exports.findOne = (req, res) => {
 
 exports.findAll = (req, res) => {
   var params = "?" + querystring.stringify(req.query);
-  axios.get("http://localhost:8084/activities" + params)
+  axios.get("http://repo_odata_1:8084/activities" + params)
     .then(function(response) {
       if ( ! params.match(/select/ ) ) {
         response.data.value = response.data.value.map( elem => {
@@ -39,7 +39,7 @@ exports.findAll = (req, res) => {
 exports.create = (req, res) => {
   var activity = req.body;
   activity.timestamp = Date.now();
-  axios.post("http://localhost:8084/activities",
+  axios.post("http://repo_odata_1:8084/activities",
     activity
     )
     .then(function(response) {

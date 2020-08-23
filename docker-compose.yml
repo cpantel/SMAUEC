@@ -68,6 +68,15 @@ services:
     environment:
      -  NODE_ENV=test
 
+  api-events:
+    image: "smauec/api-events:0.0.1"
+    ports:
+     - "8083:8083"
+    depends_on:
+     - "postgres"
+    environment:
+     -  NODE_ENV=test
+
   broker:
     image: "smauec/broker:0.0.1"
     ports:
