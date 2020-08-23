@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const config = require("./app/config/user.config." + process.env.NODE_ENV + ".js");
 const app = express();
 
 var whitelist = ['http://www.smauec.net', 'http://localhost:4200'];
@@ -32,6 +31,7 @@ const User = db.user;
 var bcrypt = require("bcryptjs");
 
 if ("test" == process.env.NODE_ENV) {
+  const config = require("/var/run/secrets/user_admin_secret_" + process.env.NODE_ENV );
   const fixture = require("./test/fixtures/initial.js");
   
 

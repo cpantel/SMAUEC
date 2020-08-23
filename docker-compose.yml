@@ -59,6 +59,7 @@ services:
     secrets:
      - api_auth_secret_test
      - db_user_secret_test
+     - user_admin_secret_test
 
   api-rules:
     image: "smauec/api-rules:0.0.1"
@@ -106,4 +107,6 @@ secrets:
     file: ./secrets/db.user.config.test.js
   db_rule_secret_test:
     file: ./secrets/db.rule.config.test.js
+  user_admin_secret_test:
+    file: ./secrets/user.admin.config.test.js
 
