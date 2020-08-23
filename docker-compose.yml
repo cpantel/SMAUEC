@@ -59,6 +59,15 @@ services:
     secrets:
      - api_auth_secret_test
 
+  api-rules:
+    image: "smauec/api-rules:0.0.1"
+    ports:
+     - "8082:8082"
+    depends_on:
+     - "postgres"
+    environment:
+     -  NODE_ENV=test
+
   broker:
     image: "smauec/broker:0.0.1"
     ports:
