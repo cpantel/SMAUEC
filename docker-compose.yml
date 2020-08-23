@@ -14,9 +14,6 @@ services:
       - type: bind
         source: ./proxy
         target: /etc/nginx/conf.d
-    secrets:
-      - api_auth_secret
-        
 
   pgadmin:
     image: "smauec/pgadmin:0.0.1"
@@ -27,6 +24,8 @@ services:
       - "8090:80"
     volumes:
       - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - "postgres"
     
 
   postgres:
@@ -49,9 +48,16 @@ services:
      - "27017:27017" 
     volumes:
      - mongo:/data/db
- 
+
+  odata:
+    image: "smauec/odata:0.0.1"
+    ports:
+     - "8084:8084"    
+    depends_on:
+     - "mongo"
+
 secrets:
-  api_auth_secret:
-    file: /home/ceiot/Desktop/workspace/repo/my_secret.txt
+  api_auth_secret_test:
+    file: ./secrets/auth.config.test.js 
 
 

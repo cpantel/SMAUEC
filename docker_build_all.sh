@@ -15,3 +15,5 @@ done
 # docker build -t smauec/broker:0.0.1 .
 # docker build -t smauec/mongo:0.0.1 .
 # docker build -t smauec/proxy:0.0.1 .
+# docker build -t smauec/node:0.0.1 .
+# docker build -t smauec/odata:0.0.1 .
