@@ -6,6 +6,23 @@ volumes:
   postgres:
 
 services:
+
+  mongo:
+    image: "smauec/mongo:0.0.1"
+    ports:
+     - "27017:27017" 
+    volumes:
+     - mongo:/data/db
+
+  postgres:
+    image: "smauec/postgres:0.0.1"
+    environment:
+      - POSTGRES_PASSWORD=12345602
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+ 
   proxy:
     image: "smauec/proxy:0.0.1"
     ports:
@@ -14,7 +31,11 @@ services:
       - type: bind
         source: ./proxy
         target: /etc/nginx/conf.d
-
+    depends_on:
+      - "api-users"
+    secrets:
+     - api_auth_secret_test
+ 
   pgadmin:
     image: "smauec/pgadmin:0.0.1"
     environment:
@@ -26,35 +47,32 @@ services:
       - pgadmin:/var/lib/pgadmin
     depends_on:
       - "postgres"
-    
 
-  postgres:
-    image: "smauec/postgres:0.0.1"
-    environment:
-      - POSTGRES_PASSWORD=12345602
+  api-users:
+    image: "smauec/api-users:0.0.1"
     ports:
-      - "5432:5432"
-    volumes:
-      - postgres:/var/lib/postgresql/data
- 
+     - "8081:8081"    
+    depends_on:
+     - "postgres"
+    environment:
+     -  NODE_ENV=test
+    secrets:
+     - api_auth_secret_test
+
   broker:
     image: "smauec/broker:0.0.1"
     ports:
       - "1883:1883"
  
-  mongo:
-    image: "smauec/mongo:0.0.1"
-    ports:
-     - "27017:27017" 
-    volumes:
-     - mongo:/data/db
-
   odata:
     image: "smauec/odata:0.0.1"
     ports:
      - "8084:8084"    
+    environment:
+     -  NODE_ENV=test
     depends_on:
      - "mongo"
+
 
 secrets:
   api_auth_secret_test:

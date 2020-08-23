@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config." + process.env.NODE_ENV + ".js");
+const config = require("/var/run/secrets/api_auth_secret_" + process.env.NODE_ENV );
+
 const db = require("../models");
 const User = db.user;
 
