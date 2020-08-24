@@ -1,16 +1,54 @@
+Sensors
+
+mkdir sites sensors
+cd sensors
+npm init
+   name: server
+   main: html/index.js
+npm install express --save
+
+[Dockerfile]
+# Sensor system
+FROM node:12.7
+WORKDIR /root/express
+COPY package*.json ./
+CMD ["node", "html/index.js"]
+
+Sites
+
+cd sites
+mkdir -p certs conf html/default html/sitio1
+cd ../sslcert
+cp sitio1-cert.pem sitio2-cert.pem sensor-cert.pem \
+    private/sitio1-key.pem private/sitio2-key.pem private/sensor-key.pem \
+    ../sites/certs
+
+https://docs.nginx.com/nginx/admin-guide/security-controls/terminating-ssl-http/
+[Dockerfile]
+# Static content and reverse proxy
+FROM nginx:1.17.2
+RUN rm /etc/nginx/conf.d/* /usr/share/nginx/html/*
 
 
 
-http://esp8266.net/
+cd sites
+docker build -t testbench/static:0.0.1 .
+cd ../sensors
+docker build -t testbench/dynamic:0.0.1  .
+cd ..
+
+docker-compose up
 
 
 
-https://naylampmechatronics.com/blog/56_usando-esp8266-con-el-ide-de-arduino.html
-    additional url:
-        http://arduino.esp8266.com/stable/package_esp8266com_index.json
-    search:
-        esp8266 by ESP8266 Community
 
 
 
-https://github.com/espressif/ESP8266_RTOS_SDK
+
+curl -X POST -H "Origin: http://www.smauec.net" -H "Content-Type: application/json" --data '{"username":"admin","password":"admin"}' http://repo_api-users_1:8081/api/auth/signin
+
+
+docker container ls -q | while read cont; do docker container inspect "$cont" | grep -e '"Name": "/repo' -e '               "IPAddress"'; done
+
+
+docker exec -it repo_api-users_1 /bin/sh

@@ -57,6 +57,10 @@ sudo npm install -g @angular/cli
 /etc/hosts para *.smauec.net
 
 
+# mongo
+
+sudo apt install mongo-clients
+
 # docker
 
 for img in mongo:4.2.8-bionic eclipse-mosquitto:1.6.10 dpage/pgadmin4:4.23 postgres:12.3 nginx:1.18.0; do

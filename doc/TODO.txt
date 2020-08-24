@@ -1,0 +1,21 @@
+docker
+    usar networks para que la db quede detrás de pga y frontend
+
+                                pg_admin -------+
+                   1                |           |
+      outside --------+- frontend --+-- db -----+--- localhost
+                      |    |   +----------------+
+                      |   2|                    |
+                      +-broker------------------+
+    
+    comprender la resolución de nombres
+
+
+node
+    proteger credenciales
+    agregar pepper (auth controller)                  NO
+    que reciba por entorno private key for jwt        NO, por config
+
+    refactorizar para testing
+
+           
