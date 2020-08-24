@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "SMAUEC User and Authentication API",
   "author": "Carlos Pantelides <carlos.pantelides@gmail.com>",
-  "license": "MIT",
+  "license": "GPL-v2.0",
   "main": "server.js",
   "scripts": {
     "start:test": "NODE_ENV=test nodemon server.js",

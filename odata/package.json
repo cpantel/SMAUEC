@@ -1,7 +1,9 @@
 {
   "name": "smauec_odata",
   "version": "0.0.1",
-  "description": "",
+  "description": "SMAUEC Events and Activities ODATA API",
+  "author":"Carlos Pantelides <carlos.pantelides@gmail.com>",
+  "license":"GPL-v2.0",
   "main": "index.js",
   "scripts": {
     "start:test": "NODE_ENV=test nodemon server.js",

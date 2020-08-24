@@ -1,6 +1,9 @@
 {
   "name": "smauec_frontend",
   "version": "0.0.1",
+  "description":"SMAUEC WEB Frontend",
+  "author":"Carlos Pantelides <carlos.pantelides@gmail.com>",
+  "license":"GPL-v2.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

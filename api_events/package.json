@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "smauec: API for odata, forces authentication and adds timestamp information ",
   "author": "Carlos Pantelides <carlos.pantelides@gmail.com>",
-  "license": "MIT",
+  "license": "GPL-2.0",
   "main": "server.js",
   "scripts": {
     "start:test": "NODE_ENV=test nodemon server.js",
