@@ -18,3 +18,5 @@ done
 # docker build -t smauec/node:0.0.1 .
 # docker build -t smauec/odata:0.0.1 .
 # docker build -t smauec/api-users:0.0.1 .
+# docker build -t smauec/api-rules:0.0.1 .
+# docker build -t smauec/api-users:0.0.1 .

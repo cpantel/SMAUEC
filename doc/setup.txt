@@ -109,7 +109,22 @@ CREATE DATABASE smauec_test
     CONNECTION LIMIT = -1;
 
 
-Actualizar ip de db en app/config/db.config
+?? Actualizar ip de db en app/config/db.config
 
-Actualizar ip en proxy conf
+?? Actualizar ip en proxy conf
+
+
+git clone
+
+set .env
+set secrets
+
+build all base images ( ./scripts/docker_build_all.sh )
+
+build all api images ( idem )
+
+docker-compose up
+
+
+
 
