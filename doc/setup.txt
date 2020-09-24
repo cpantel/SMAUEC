@@ -123,8 +123,12 @@ build all base images ( ./scripts/docker_build_all.sh )
 
 build all api images ( idem )
 
-docker-compose up
 
+#docker-compose up
+
+docker swarm init
+
+docker stack deploy -c- repo < docker-compose.yml
 
 
 

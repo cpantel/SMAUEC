@@ -33,8 +33,6 @@ services:
         target: /etc/nginx/conf.d
     depends_on:
       - "api-users"
-    secrets:
-     - api_auth_secret_test
  
   pgadmin:
     image: "smauec/pgadmin:0.0.1"
