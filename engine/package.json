@@ -1,0 +1,31 @@
+{
+  "name": "smauec_engine",
+  "version": "0.0.1",
+  "description": "SMAUEC User and Authentication API",
+  "author": "Carlos Pantelides <carlos.pantelides@gmail.com>",
+  "license": "MIT",
+  "main": "server.js",
+  "scripts": {
+    "start:test": "NODE_ENV=test nodemon server.js",
+    "start:prod": "NODE_ENV=prod node server.js",
+    "test": "newman run test/collection.json -e test/environment.json -g test/globals.json",
+    "cucumber": "./node_modules/.bin/cucumber-js"
+  },
+  "keywords": [
+    "nodejs",
+    "bootstrap",
+    "express"
+  ],
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "body-parser": "1.19.0",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "jsonwebtoken": "8.5.1",
+    "mqtt": "4.1.0",
+    "nodemon": "2.0.4"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^7.0.0-rc.0"
+  }
+}
